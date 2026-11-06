@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: blob:; media-src blob: data:; worker-src blob:; child-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="generator" content="CRONOSALA 3.0">
+<meta name="theme-color" content="#0f1115">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="CRONOSALA — cronometre pentru sală: pauze, HIIT, Tabata, EMOM, AMRAP, circuit, tempo, metronom. Un singur fișier, offline, fără urmărire.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⏱️%3C/text%3E%3C/svg%3E">
+<title>CRONOSALA — cronometre pentru sală</title>
+<style>
+:root{color-scheme:dark;--bg:#0f1115;--card:#1b1f28;--line:#2b303c;--tx:#f1f3f7;--mut:#9aa3b2;--acc:#ffb020;--accx:#1b1200;
+--work:#0e8250;--rest:#2563eb;--prep:#a35f08;--done:#7e3ff2;--danger:#ef4444;--r:16px}
+:root[data-theme=light]{color-scheme:light;--bg:#f4f5f8;--card:#fff;--line:#d9dde5;--tx:#14171d;--mut:#5b6575;--danger:#c62828}
+@media(prefers-color-scheme:light){:root[data-theme=auto]{color-scheme:light;--bg:#f4f5f8;--card:#fff;--line:#d9dde5;--tx:#14171d;--mut:#5b6575;--danger:#c62828}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:env(safe-area-inset-bottom);overflow-wrap:anywhere}
+button{font:inherit;color:inherit;cursor:pointer}
+button,input,select,label{touch-action:manipulation}
+button:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top));background:var(--bg);border-bottom:1px solid var(--line)}
+.top h1{font-size:1.1rem;letter-spacing:.12em;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp{flex:1}
+.ib{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:1.2rem;flex:none}
+main{max-width:760px;margin:0 auto;padding:14px}
+.screen{display:none}.screen.on{display:block}
+.today{color:var(--mut);margin:2px 2px 12px;font-size:.92rem}
+.resume{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;margin-bottom:12px;border-radius:var(--r);border:2px solid var(--acc);background:var(--card)}
+.resume b{display:block}.resume small{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{text-align:left;padding:14px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:3px;min-height:106px}
+.card:active{transform:scale(.97)}
+.card .ico{font-size:1.8rem;line-height:1.1}.card b{font-size:1rem}.card small{color:var(--mut);line-height:1.25}
+.foot{color:var(--mut);font-size:.8rem;text-align:center;margin:22px 0 8px}
+.cfghead{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.cfghead .bigico{font-size:2.4rem}.cfghead h2{margin:0;font-size:1.3rem}.cfghead p{margin:2px 0 0;color:var(--mut);font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;min-height:40px;font-size:.92rem}
+.chip.q{border-style:dashed}
+.chip.sel{background:var(--acc);color:var(--accx);border-color:var(--acc)}
+.chip .x{margin-left:8px;opacity:.7;padding:0 4px}
+.lbl{color:var(--mut);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;margin:12px 0 6px}
+.fields{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:4px 14px}
+.field{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.field:last-child{border-bottom:0}
+.field>label,.field>span{flex:1}
+.step{display:flex;align-items:center;gap:6px}
+.step button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:1.3rem;user-select:none;-webkit-user-select:none}
+.step input{width:74px;height:44px;text-align:center;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--tx);font:inherit;font-weight:700}
+.unit{min-width:46px;color:var(--mut);font-size:.85rem;font-variant-numeric:tabular-nums}
+.txt,.num{height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--tx);font:inherit;padding:0 10px;min-width:0}
+.field .txt{width:55%}
+.tg{appearance:none;-webkit-appearance:none;width:50px;height:30px;border-radius:15px;background:var(--line);position:relative;flex:none;border:0;cursor:pointer}
+.tg::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s}
+.tg:checked{background:var(--acc)}.tg:checked::after{left:23px}
+.list{padding:10px 0}.list h3{margin:0 0 6px;font-size:.95rem}
+.lhead,.lrow{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.lhead{color:var(--mut);font-size:.75rem}.lhead span{padding-left:4px}
+.lrow .del{width:40px;height:44px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.lrow .num{text-align:center;width:0}
+@media(max-width:430px){.lhead{display:none}.lrow{flex-wrap:wrap}.lrow .txt:first-child{flex:1 1 calc(100% - 46px)!important}.lrow .num,.lrow .txt:not(:first-child){flex:1 1 60px!important;width:auto}}
+.sum{margin:14px 2px 6px;font-size:1.05rem}
+.tl{display:flex;gap:1px;height:12px;border-radius:6px;overflow:hidden;background:var(--line)}
+.tl i{min-width:2px}.tl .work{background:var(--work)}.tl .rest{background:var(--rest)}.tl .prep{background:var(--prep)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{min-height:46px;padding:0 18px;border-radius:14px;border:1px solid var(--line);background:var(--card)}
+.btn.big{flex:1 1 100%;min-height:58px;font-size:1.2rem;font-weight:800;background:var(--acc);color:var(--accx);border-color:var(--acc)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--danger)}
+/* run overlay */
+#run{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;color:#fff;background-color:var(--ph);background-image:linear-gradient(transparent 50%,rgba(0,0,0,.4));padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom);--ph:var(--work);user-select:none;-webkit-user-select:none}
+#run[data-t=rest]{--ph:var(--rest)}#run[data-t=prep]{--ph:var(--prep)}#run[data-t=done]{--ph:var(--done)}
+#run :focus-visible{outline-color:#fff}
+.rtop{display:flex;align-items:center;gap:8px;padding:10px 0}
+.rtop div{flex:1;text-align:center;font-weight:700;letter-spacing:.06em;opacity:.9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rb{width:46px;height:46px;border-radius:14px;border:0;background:rgba(255,255,255,.18);font-size:1.2rem;color:#fff;flex:none}
+.rmain{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;min-height:0;max-width:100%}
+.rphase{font-size:clamp(1.6rem,7vw,3rem);font-weight:800;text-transform:uppercase;letter-spacing:.04em;line-height:1.1;max-width:100%;overflow-wrap:anywhere}
+.rtime{font-size:clamp(4.5rem,min(27vw,32vh),13rem);font-weight:800;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em;white-space:nowrap;max-width:100%}
+.rtime.long{font-size:clamp(3rem,min(17vw,24vh),9rem)}
+#run.paused .rtime{opacity:.55}
+.rstate{font-size:.85rem;background:rgba(0,0,0,.28);padding:4px 12px;border-radius:999px;min-height:26px}
+.pbar,.obar{width:min(560px,100%);height:10px;border-radius:5px;background:rgba(255,255,255,.2);overflow:hidden}
+.pbar i,.obar i{display:block;height:100%;background:#fff;width:0}
+.rinfo{font-size:1.1rem;opacity:.95;min-height:1.4em;max-width:100%;overflow-wrap:anywhere}
+.rnext{opacity:.85;font-size:1rem;max-width:100%;overflow-wrap:anywhere}
+.rcnt{display:flex;align-items:center;gap:16px}
+.rcnt button{height:64px;min-width:64px;border-radius:18px;border:0;background:rgba(255,255,255,.22);color:#fff;font-size:1.5rem;font-weight:800;padding:0 18px}
+.rcnt div{min-width:90px}.rcnt b{font-size:3rem;display:block;line-height:1}.rcnt small{opacity:.85}
+.bigdone{width:min(420px,100%);min-height:76px;border-radius:22px;border:0;background:#fff;color:#111;font-size:1.7rem;font-weight:900}
+.rbot{padding:6px 0 12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.ostat{display:flex;justify-content:space-between;width:min(560px,100%);font-size:.85rem;opacity:.9;font-variant-numeric:tabular-nums}
+.ctrl{display:flex;gap:14px;align-items:center}
+.ctrl button{width:64px;height:64px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:1.5rem}
+.ctrl .play{width:86px;height:86px;background:#fff;color:#111;font-size:2.2rem}
+.ctrl2{display:flex;gap:8px}
+.ctrl2 button{height:44px;padding:0 16px;border-radius:12px;border:0;background:rgba(255,255,255,.16);color:#fff}
+@media(max-height:520px){.rmain{gap:4px}.ctrl button{width:50px;height:50px}.ctrl .play{width:62px;height:62px}.rphase{font-size:1.4rem}}
+/* dialog */
+#dlg{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px}
+.dbox{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:var(--r);padding:18px;width:min(420px,100%)}
+.dbox h2{margin:0 0 6px;font-size:1.15rem}.dbox p{margin:0 0 12px;color:var(--mut)}
+.dbox .txt{width:100%;margin-bottom:12px}
+.dbtn{display:flex;gap:8px;justify-content:flex-end}
+.dbtn .btn.pri{background:var(--acc);color:var(--accx);border-color:var(--acc);font-weight:700}
+.dbtn .btn.danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+/* stopwatch */
+.swt{font-size:clamp(3rem,15vw,5.5rem);font-weight:800;text-align:center;font-variant-numeric:tabular-nums;margin:18px 0;white-space:nowrap}
+.swb{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.swb .btn{min-width:110px;min-height:60px;font-weight:700}
+.laps{margin-top:18px;display:flex;flex-direction:column;gap:6px}
+.lap{display:flex;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.lap.best{border-color:var(--work);border-width:2px}.lap.worst{border-color:var(--danger);border-width:2px}
+.lap em{font-style:normal;color:var(--mut)}
+/* metronome */
+.mbox{text-align:center;margin:16px 0 4px}.mbpm{font-size:clamp(4rem,22vw,7rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.mdots{display:flex;gap:10px;justify-content:center;margin:12px 0;min-height:28px;flex-wrap:wrap}
+.mdots i{width:26px;height:26px;border-radius:50%;background:var(--line)}
+.mdots i.on{background:var(--acc);transform:scale(1.2)}.mdots i.acc.on{background:var(--danger)}
+#mRange{width:100%;margin:8px 0;accent-color:var(--acc);height:36px}
+.mrow{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;justify-content:center;align-items:center}
+.mrow button{min-width:62px;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.mrow button.sel{background:var(--acc);color:var(--accx);border-color:var(--acc)}
+/* history / settings / catalog */
+.hrow{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:6px}
+.hrow small{color:var(--mut);display:block}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px}.stat b{font-size:1.4rem;display:block}.stat small{color:var(--mut)}
+select{height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--tx);font:inherit;padding:0 10px}
+input[type=range]{accent-color:var(--acc)}
+.crow{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:6px}
+.crow b{display:block;font-size:.95rem}.crow small{color:var(--mut)}
+.cbtns{display:flex;gap:6px;flex:none}
+.sm{min-height:44px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:.85rem}
+#cSearch{width:100%;margin-bottom:8px}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:90;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%;text-align:center}
+#toast.show{opacity:1}
+.clubbox{padding:12px 14px;margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.card:active{transform:none}.mdots i.on{transform:none}}
+
+.rhint{font-size:.95rem;background:rgba(0,0,0,.28);padding:6px 12px;border-radius:12px;max-width:100%}
+.rtip{font-size:.85rem;opacity:.9;max-width:100%}
+.rlog{display:flex;gap:12px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.rlog label{display:flex;flex-direction:column;font-size:.8rem;gap:2px;align-items:center}
+.rlog input{width:104px;height:52px;border-radius:12px;border:0;text-align:center;font:inherit;font-weight:800;font-size:1.3rem;color:#111;background:#fff}
+#run.haslog .rtime{font-size:clamp(3rem,min(18vw,15vh),7rem)}
+.rmain{overflow-y:auto}
+#dlgX{white-space:pre-line}
+.dopts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.dopts .btn{text-align:left;min-height:48px}
+.qrbox{display:flex;justify-content:center;margin-bottom:12px}
+.qrbox svg{width:min(260px,100%);height:auto;border-radius:8px}
+#scan{position:fixed;inset:0;z-index:70;background:#000;color:#fff;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom)}
+#scan video{flex:1;min-height:0;width:100%;object-fit:cover;border-radius:12px;background:#111}
+.scbar{display:flex;gap:8px;padding:10px 0;flex-wrap:wrap}
+.scbar .txt{flex:1 1 160px}
+#scMsg{margin:0 0 10px;font-size:.9rem;opacity:.9;min-height:1.2em}
+.labels{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.lab{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--card);break-inside:avoid}
+.lab svg{width:100%;max-width:140px;height:auto}.lab b{font-size:.8rem}.lab small{color:var(--mut)}
+.vbar{display:grid;grid-template-columns:92px 1fr 34px;gap:8px;align-items:center;margin-bottom:6px;font-size:.9rem}
+.vbar div{height:12px;border-radius:6px;background:var(--line);overflow:hidden}.vbar i{display:block;height:100%;background:var(--acc)}
+.vbar b{text-align:right}
+@media print{.top,.actions,#labelsIntro,#toast,#run,#dlg,#scan{display:none!important}body{background:#fff;color:#000}.lab{border:1px solid #000;background:#fff;color:#000}.lab small{color:#333}}
+
+:root{--mw:760px}
+main{max-width:var(--mw)}
+.top{padding-left:max(14px,calc((100% - var(--mw))/2 + 14px));padding-right:max(14px,calc((100% - var(--mw))/2 + 14px))}
+html{scroll-padding-top:80px}
+#run,#scan{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+.rstate:empty{display:none}
+.rmain{justify-content:flex-start}.rmain>:first-child{margin-top:auto}.rmain>:last-child{margin-bottom:auto}
+.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.kbdhint{display:none;font-size:.78rem;opacity:.7;text-align:center}
+.pweek{display:block}
+#settings{max-width:720px;margin-inline:auto}
+@media(hover:hover){.card:hover{border-color:var(--acc)}.chip:hover,.btn:hover,.ib:hover,.sm:hover{border-color:var(--acc)}}
+@media(pointer:coarse){.chip{min-height:44px}.btn{min-height:48px}}
+@media(min-width:700px) and (min-height:700px){
+ .ctrl button{width:76px;height:76px}.ctrl .play{width:104px;height:104px;font-size:2.8rem}
+ .ctrl2 button{height:52px;font-size:1.05rem}.rphase{font-size:clamp(2rem,5vw,3.6rem)}.rinfo{font-size:1.3rem}
+ .bigdone{min-height:92px;font-size:2rem}.rlog input{width:130px;height:64px;font-size:1.6rem}
+}
+@media(min-width:900px){
+ :root{--mw:1100px}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+ .cfgwrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:24px;align-items:start}
+ .cfgr{position:sticky;top:84px}
+ #cList{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+ #hList{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:0 10px}
+ .pweek{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+ .pweek .crow{flex-direction:column;align-items:flex-start;margin:0}
+ .pweek .crow .cbtns{width:100%}.pweek .crow .sm{width:100%}
+}
+@media(hover:hover) and (pointer:fine) and (min-width:900px){.kbdhint{display:block}}
+@media(orientation:landscape) and (max-height:520px){
+ #run{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,330px);grid-template-rows:auto minmax(0,1fr);column-gap:16px}
+ .rtop{grid-column:1/-1;padding:4px 0}
+ .rmain{grid-column:1;grid-row:2}
+ .rbot{grid-column:2;grid-row:2;justify-content:center;padding:0 0 6px}
+ .rphase{font-size:clamp(1.1rem,5.5vh,1.9rem)}
+ .rtime{font-size:clamp(3rem,min(22vw,40vh),9rem)}
+ #run.haslog .rtime{font-size:clamp(2.4rem,min(16vw,28vh),6rem)}
+ .rb{width:40px;height:40px}
+ .ctrl button{width:50px;height:50px}.ctrl .play{width:62px;height:62px}
+ .ctrl2 button{height:40px;padding:0 10px}
+ .bigdone{min-height:52px;font-size:1.3rem}
+ .rlog input{height:42px}.rhint,.rtip{font-size:.8rem}
+ .rcnt button{height:48px;min-width:48px}
+ .rcnt b{font-size:2rem}
+ .rtime.long{font-size:clamp(2.2rem,min(9.5vw,22vh),6rem)}
+}
+#run.haslog .rtime.long{font-size:clamp(2rem,min(9vw,14vh),3.6rem)}
+.sm{min-width:44px}
+#run.haslog .rphase{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-height:620px){#run.haslog .rphase{font-size:1.4rem}#run.haslog .rinfo{font-size:.95rem}}
+#run.haslog:not(.paused) .rstate{display:none}
+@media(max-height:820px){
+ #run.haslog .rtip,#run.haslog .rnext{display:none}
+ #run.haslog .rtime{font-size:clamp(2.4rem,min(15vw,12vh),5rem)}
+ #run.haslog .rmain{gap:6px}
+ #run.haslog .bigdone{min-height:60px;font-size:1.5rem}
+}
+@media(orientation:landscape) and (max-height:520px){
+ #run{grid-template-columns:minmax(0,1fr) minmax(220px,300px)}
+ .rcnt{gap:8px}.rcnt button{padding:0 10px}.rcnt div{min-width:60px}
+ #run.haslog .rhint{display:none}
+ #run.haslog .rtime{font-size:clamp(2.2rem,min(14vw,22vh),4.5rem)}
+ #run.haslog .rmain{gap:3px}
+ #run.haslog .rlog input{height:38px;width:90px}
+ #run.haslog .rlog label{font-size:.7rem}
+ #run.haslog .bigdone{min-height:44px;font-size:1.15rem}
+}
+</style>
+</head>
+<body>
+<noscript><p style="padding:20px">CRONOSALA are nevoie de JavaScript (rulează local, fără rețea).</p></noscript>
+<header class="top">
+  <button class="ib" id="back" hidden aria-label="Înapoi">←</button>
+  <h1 id="ttl">CRONOSALA</h1>
+  <span class="sp"></span>
+  <button class="ib" id="bHist" aria-label="Istoric">📊</button>
+  <button class="ib" id="bSet" aria-label="Setări">⚙️</button>
+</header>
+
+<main>
+  <section class="screen on" id="home">
+    <div id="resume" class="resume" hidden>
+      <div><b>Antrenament întrerupt</b><small id="rsTxt"></small></div>
+      <div class="cbtns"><button type="button" class="btn" id="rsNo">Șterge</button><button type="button" class="btn big" style="flex:none;min-height:46px;font-size:1rem" id="rsGo">▶ Reia</button></div>
+    </div>
+    <div class="today" id="today"></div>
+    <div id="todayPlan" class="resume" hidden></div>
+    <div class="grid" id="grid"></div>
+    <p class="foot">Un singur fișier · funcționează offline · fără conturi, fără urmărire</p>
+  </section>
+
+  <section class="screen" id="config"><div id="cfgBody"></div></section>
+
+  <section class="screen" id="stopwatch">
+    <div class="swt" id="swT" role="timer" aria-label="Cronometru">00:00.00</div>
+    <div class="swb">
+      <button class="btn" id="swReset">Resetare</button>
+      <button class="btn big" id="swGo" style="flex:none;min-width:150px">Start</button>
+      <button class="btn" id="swLap">Tur</button>
+    </div>
+    <div class="laps" id="laps"></div>
+  </section>
+
+  <section class="screen" id="metro">
+    <div class="mbox"><div class="mbpm" id="mBpm">100</div><small>BPM</small></div>
+    <div class="mdots" id="mDots"></div>
+    <input type="range" id="mRange" min="30" max="240" value="100" aria-label="BPM">
+    <div class="mrow"><button data-m="-5" aria-label="Minus 5 BPM">−5</button><button data-m="-1" aria-label="Minus 1 BPM">−1</button><button data-m="1" aria-label="Plus 1 BPM">+1</button><button data-m="5" aria-label="Plus 5 BPM">+5</button></div>
+    <div class="lbl">Timpi pe măsură</div>
+    <div class="mrow" id="mBeats"></div>
+    <div class="lbl">Ritmuri uzuale</div>
+    <div class="mrow" id="mChips"></div>
+    <div class="actions"><button class="btn big" id="mGo">▶ Pornește</button><button class="btn" id="mTap">👆 Tap tempo</button></div>
+  </section>
+
+  <section class="screen" id="catalog">
+    <div class="fields clubbox"><b>World Class Expo Business Park</b><br><small style="color:var(--mut)">Str. Comandor Aviator Popișteanu 54A, Sector 1 · lângă metrou 1 Mai · cardio, forță, funcțional, studio cycling, studio aerobic · Technogym + TRX</small></div>
+    <p class="today">Clubul nu publică lista exactă de aparate, așa că catalogul acoperă gama Technogym, TRX și zona funcțională. Apasă „Bifează aparatele din club”, debifează ce nu există acolo, iar lista rămâne doar cu ce ai la îndemână.</p>
+    <div class="lbl">Antrenamente gata făcute</div>
+    <div class="chips" id="plans"></div>
+    <div class="lbl">Exerciții pe aparate</div>
+    <div class="chips"><button type="button" class="chip" id="invBtn">🛠 Bifează aparatele din club</button><button type="button" class="chip" id="lblBtn">🏷 Etichete QR</button><button type="button" class="chip" id="scanBtn">📷 Scanează</button></div>
+    <input type="search" class="txt" id="cSearch" placeholder="Caută aparat sau grupă…" aria-label="Caută aparat sau grupă" autocomplete="off">
+    <div class="chips" id="cGroups"></div>
+    <div id="cList"></div>
+  </section>
+
+  <section class="screen" id="history">
+    <div class="stats"><div class="stat"><b id="hToday">0</b><small id="hTodayS">sesiuni azi</small></div><div class="stat"><b id="hWeek">0</b><small id="hWeekS">sesiuni în 7 zile</small></div></div>
+    <div id="hStats"></div>
+    <div id="hList"></div>
+    <div class="actions"><button class="btn" id="hExp">⬇ Export JSON</button><button class="btn" id="hCsvW">⬇ CSV greutăți</button><button class="btn" id="hCsvS">⬇ CSV sesiuni</button><button class="btn danger" id="hClr">🗑 Șterge istoricul</button></div>
+  </section>
+
+  <section class="screen" id="settings">
+    <div class="fields">
+      <label class="field sw"><span>Sunete</span><input type="checkbox" class="tg" data-s="sound"></label>
+      <label class="field sw"><span>Bip în ultimele 3 secunde</span><input type="checkbox" class="tg" data-s="tick"></label>
+      <label class="field sw"><span>Voce (anunță fazele)</span><input type="checkbox" class="tg" data-s="voice"></label>
+      <label class="field sw"><span>Vibrații</span><input type="checkbox" class="tg" data-s="vib"></label>
+      <label class="field sw"><span>Ține ecranul aprins în timpul antrenamentului</span><input type="checkbox" class="tg" data-s="wake"></label>
+      <div class="field"><label for="sVol">Volum</label><input type="range" id="sVol" min="0" max="1" step="0.05" style="width:55%"></div>
+      <div class="field"><label for="sTheme">Temă</label><select id="sTheme"><option value="auto">Automată</option><option value="dark">Întunecată</option><option value="light">Luminoasă</option></select></div>
+    </div>
+    <div class="fields" style="margin-top:12px">
+      <label class="field sw"><span>Voce: numără ultimele secunde și anunță „încă 10 secunde”</span><input type="checkbox" class="tg" data-s="count"></label>
+      <label class="field sw"><span>Notificare la schimbarea fazei (când aplicația e în fundal)</span><input type="checkbox" class="tg" data-s="notif"></label>
+      <div class="field"><label for="sSnd">Temă sunete</label><select id="sSnd"><option value="normal">Clasic</option><option value="box">Clopoțel (box)</option><option value="sport">Fluier sport</option><option value="soft">Blând</option><option value="voce">Doar voce</option></select></div>
+      <div class="field"><label for="sOut">Ieșire audio</label><select id="sOut"><option value="difuzor">Difuzor</option><option value="casca">Căști (volum redus)</option></select></div>
+    </div>
+    <div class="actions"><button class="btn" id="sExp">⬇ Export toate datele</button><button class="btn" id="sImp">⬆ Import date</button><button class="btn" id="sCode">🔗 Importă timer / cod</button></div>
+    <input type="file" id="sFile" accept=".json,application/json" hidden aria-label="Fișier de import">
+    <details class="fields" style="margin-top:12px;padding:10px 14px"><summary>Instalare ca aplicație (ecran complet)</summary><p>Deschide fișierul în Chrome (Android) sau Safari (iPhone), apoi alege „Adaugă pe ecranul principal”. Notificările și sunetul cu ecranul blocat depind de browser; pentru siguranță ține ecranul aprins în timpul antrenamentului.</p></details>
+    <div class="actions"><button class="btn" id="sTest">🔊 Testează sunetul</button><button class="btn danger" id="sWipe">🗑 Șterge toate datele</button></div>
+    <p class="foot">CRONOSALA v3.0 · <a href="https://github.com/chiuta/cronosala" target="_blank" rel="noopener noreferrer" style="color:inherit">cod sursă (MIT)</a></p>
+  </section>
+  <section class="screen" id="program"><div id="progBody"></div></section>
+
+  <section class="screen" id="labels">
+    <p class="today" id="labelsIntro">Printează etichetele și lipește-le pe aparate. Apoi scanează-le cu aplicația (butonul „Scanează”) ca să deschizi direct exercițiul, cu ultima greutate folosită. Codul scris sub etichetă (ex. E12) se poate introduce și manual.</p>
+    <div class="actions"><button class="btn" id="lblPrint">🖨 Printează</button><button class="btn" id="lblScan">📷 Scanează</button></div>
+    <div class="labels" id="labelsPrint"></div>
+  </section>
+</main>
+
+<datalist id="exlist"></datalist>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div id="dlg" hidden role="alertdialog" aria-modal="true" aria-labelledby="dlgT" aria-describedby="dlgX">
+  <div class="dbox">
+    <h2 id="dlgT"></h2><p id="dlgX"></p>
+    <div id="dlgQr" class="qrbox" hidden></div>
+    <div id="dlgOpts" class="dopts" hidden></div>
+    <input id="dlgIn" class="txt" hidden aria-label="Valoare" autocomplete="off">
+    <div class="dbtn"><button type="button" class="btn" id="dlgNo">Anulează</button><button type="button" class="btn pri" id="dlgOk">OK</button></div>
+  </div>
+</div>
+
+<div id="scan" hidden role="dialog" aria-modal="true" aria-label="Scanare cod">
+  <video id="scVideo" playsinline muted></video>
+  <div class="scbar"><input id="scIn" class="txt" placeholder="Cod (ex. E12) sau link" aria-label="Cod introdus manual" autocomplete="off"><button type="button" class="btn" id="scGo">Deschide</button><button type="button" class="btn" id="scX">Închide</button></div>
+  <p id="scMsg" aria-live="polite"></p>
+</div>
+
+<div id="run" hidden data-t="work" role="dialog" aria-modal="true" aria-label="Antrenament în desfășurare">
+  <div class="rtop"><button class="rb" id="rClose" aria-label="Închide antrenamentul">✕</button><div id="rTitle"></div><button class="rb" id="rSnd" aria-label="Sunet pornit/oprit">🔊</button></div>
+  <div class="rmain">
+    <div class="rphase" id="rPhase" aria-live="polite" aria-atomic="true"></div>
+    <div class="rtime" id="rTime" role="timer" aria-live="off">00:00</div>
+    <div class="pbar" aria-hidden="true"><i id="rBar"></i></div>
+    <div class="rstate" id="rState"></div>
+    <div class="rinfo" id="rInfo"></div>
+    <div class="rhint" id="rHint" hidden></div>
+    <div class="rtip" id="rTip"></div>
+    <div class="rcnt" id="rCnt" hidden><button id="cMinus" aria-label="Scade o rundă">−</button><div><b id="cVal">0</b><small>runde</small></div><button id="cPlus" aria-label="Adaugă o rundă">+1</button></div>
+    <div class="rlog" id="rLog" hidden><label>kg<input id="lgKg" type="number" inputmode="decimal" step="0.5" min="0" max="999" aria-label="Kilograme"></label><label>repetări<input id="lgRp" type="number" inputmode="numeric" min="0" max="999" aria-label="Repetări"></label></div>
+    <button class="bigdone" id="rDone" hidden>GATA ✓</button>
+    <div class="rnext" id="rNext"></div>
+  </div>
+  <div class="rbot">
+    <div class="obar" aria-hidden="true"><i id="rObar"></i></div>
+    <div class="ostat"><span id="rEl"></span><span id="rLeft"></span></div>
+    <div class="ctrl"><button id="bPrev" aria-label="Faza anterioară">⏮</button><button class="play" id="bPlay" aria-label="Start">▶</button><button id="bNext" aria-label="Faza următoare">⏭</button></div>
+    <div class="ctrl2"><button id="bMinus">−15 s</button><button id="bPlus">+15 s</button><button id="bBusy" hidden>🚫 Aparat ocupat</button><button id="bReset">↺ De la capăt</button></div>
+    <div class="kbdhint" id="kbd">Spațiu pauză · ← → faze · Enter „Gata” · +/− 15 s · Esc închide</div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const LS={
+  get(k,d){try{const v=localStorage.getItem('cronosala.'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('cronosala.'+k,JSON.stringify(v))}catch(e){}},
+  del(k){try{localStorage.removeItem('cronosala.'+k)}catch(e){}}
+};
+const LSarr=(k)=>{const v=LS.get(k,[]);return Array.isArray(v)?v:[]};
+const pad=(n,l=2)=>String(n).padStart(l,'0');
+const fmt=s=>{s=Math.max(0,Math.floor(Number(s)||0));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h?`${h}:${pad(m)}:${pad(x)}`:`${pad(m)}:${pad(x)}`};
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const norm=s=>String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const pl=(n,one,many)=>n===1?`1 ${one}`:`${n} ${(n===0||(n%100>0&&n%100<20))?'':'de '}${many}`;
+const MAXROWS=40;
+
+/* ---------- setări ---------- */
+const S=Object.assign({sound:true,tick:true,voice:false,vib:true,wake:true,vol:.8,theme:'auto',snd:'normal',out:'difuzor',count:false,notif:false},(()=>{const v=LS.get('settings',{});return v&&typeof v==='object'?v:{}})());
+S.vol=clamp(Number(S.vol)||0,0,1);if(!['auto','dark','light'].includes(S.theme))S.theme='auto';
+if(!['normal','box','sport','soft','voce'].includes(S.snd))S.snd='normal';
+if(!['difuzor','casca'].includes(S.out))S.out='difuzor';
+S.count=!!S.count;S.notif=!!S.notif;
+const saveS=()=>LS.set('settings',S);
+const applyTheme=()=>{document.documentElement.dataset.theme=S.theme};
+applyTheme();
+
+/* ---------- audio ---------- */
+let AC=null,master=null;
+function audio(){
+  if(!AC){
+    const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+    try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+    AC=new C();master=AC.createGain();master.connect(AC.destination);
+  }
+  if(AC.state==='suspended'||AC.state==='interrupted'){try{AC.resume()}catch(e){}}
+  master.gain.value=outGain();return AC;
+}
+function tone(f,d,o={}){
+  if(!S.sound&&!o.force)return;const a=audio();if(!a)return;
+  const t0=o.abs!=null?o.abs:a.currentTime+(o.at||0);
+  const os=a.createOscillator(),g=a.createGain();os.type=o.type||'sine';os.frequency.value=f;
+  g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(o.v||.5,t0+.01);g.gain.exponentialRampToValueAtTime(.0001,t0+d);
+  os.connect(g);g.connect(master);os.start(t0);os.stop(t0+d+.05);
+}
+const SND={
+  tick:(a=0)=>tone(880,.09,{type:'square',v:.22,at:a}),
+  go:(a=0)=>{tone(1046,.14,{type:'triangle',at:a});tone(1568,.22,{type:'triangle',at:a+.14})},
+  rest:(a=0)=>{tone(587,.16,{type:'triangle',at:a});tone(392,.3,{type:'triangle',at:a+.16})},
+  prep:(a=0)=>tone(740,.18,{type:'triangle',at:a}),
+  bell:(a=0)=>[[523,.4],[1047,.25],[1570,.15],[2093,.08]].forEach(([f,v])=>tone(f,1.4,{v,at:a})),
+  warn:(a=0)=>[0,.18,.36].forEach(d=>tone(1320,.1,{type:'square',v:.22,at:a+d})),
+  down:(a=0)=>tone(330,.14,{type:'triangle',at:a}),
+  up:(a=0)=>tone(660,.14,{type:'triangle',at:a}),
+  end:(a=0)=>[523,659,784,1047].forEach((f,i)=>tone(f,.35,{type:'triangle',at:a+i*.15}))
+};
+const vib=p=>{if(S.vib&&navigator.vibrate){try{navigator.vibrate(p)}catch(e){}}};
+
+/* sesiune audio „playback” (trece peste butonul silent pe iOS, menține pagina activă) */
+let KA=null;const KEEP=new Set();
+function silentWav(){const sr=8000,n=sr/2,b=new ArrayBuffer(44+n),v=new DataView(b),w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};
+  w(0,'RIFF');v.setUint32(4,36+n,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sr,true);v.setUint32(28,sr,true);v.setUint16(32,1,true);v.setUint16(34,8,true);w(36,'data');v.setUint32(40,n,true);new Uint8Array(b,44).fill(128);return new Blob([b],{type:'audio/wav'})}
+function keep(id,on){
+  on?KEEP.add(id):KEEP.delete(id);
+  try{
+    if(KEEP.size){if(!KA){KA=new Audio();KA.loop=true;KA.src=URL.createObjectURL(silentWav())}const p=KA.play();if(p&&p.catch)p.catch(()=>{})}
+    else if(KA)KA.pause();
+  }catch(e){}
+}
+
+/* ---------- voce ---------- */
+let VOICE=null;
+function pickVoice(){try{const v=speechSynthesis.getVoices();VOICE=v.find(x=>/^ro/i.test(x.lang))||null}catch(e){}}
+if('speechSynthesis' in window){pickVoice();try{speechSynthesis.addEventListener('voiceschanged',pickVoice)}catch(e){}}
+function unlockSpeech(){if(!S.voice||!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}}
+function say(t){
+  if(!S.voice||!('speechSynthesis' in window))return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ro-RO';if(VOICE)u.voice=VOICE;u.rate=1.05;u.volume=S.vol;speechSynthesis.speak(u)}catch(e){}
+}
+
+/* ---------- ecran aprins ---------- */
+let WL=null;const WAKE=new Set();
+async function wakeSync(){
+  if(S.wake&&WAKE.size&&'wakeLock' in navigator&&!WL){try{WL=await navigator.wakeLock.request('screen');WL.addEventListener('release',()=>{WL=null})}catch(e){WL=null}}
+  else if((!WAKE.size||!S.wake)&&WL){try{WL.release()}catch(e){}WL=null}
+}
+const wake=id=>{WAKE.add(id);wakeSync()},unwake=id=>{WAKE.delete(id);wakeSync()};
+
+/* ---------- ceas în worker (nu e încetinit în fundal) ---------- */
+function startTicker(fn,ms){
+  let w=null,iv=null;
+  const fallback=()=>{if(!iv)iv=setInterval(fn,ms)};
+  try{
+    const u=URL.createObjectURL(new Blob(['setInterval(function(){postMessage(1)},'+ms+')'],{type:'text/javascript'}));
+    w=new Worker(u);setTimeout(()=>URL.revokeObjectURL(u),3000);
+    w.onmessage=()=>fn();w.onerror=()=>{try{w.terminate()}catch(e){}w=null;fallback()};
+  }catch(e){fallback()}
+  const stop=()=>{if(w){try{w.terminate()}catch(e){}w=null}if(iv){clearInterval(iv);iv=null}};
+  stop.kind=()=>w?'worker':'interval';
+  return stop;
+}
+
+/* ---------- dialog propriu (nu blochează cronometrul) ---------- */
+let dlgRes=null,dlgPrev=null;
+function syncInert(){
+  const dlg=!$('#dlg').hidden,run=!$('#run').hidden,sc=!$('#scan').hidden;
+  $('header.top').inert=dlg||run||sc;$('main').inert=dlg||run||sc;$('#run').inert=dlg||sc;$('#scan').inert=dlg;
+}
+function ask({title,text='',ok='OK',no='Anulează',input=null,danger=false,qr=null,choices=null}){
+  return new Promise(res=>{
+    if(dlgRes){const r=dlgRes;dlgRes=null;r(input==null?false:null)}
+    dlgPrev=document.activeElement;
+    $('#dlgT').textContent=title;$('#dlgX').textContent=text;$('#dlgX').hidden=!text;
+    const inp=$('#dlgIn');inp.hidden=input==null;if(input!=null)inp.value=input;
+    const q=$('#dlgQr');q.innerHTML=qr||'';q.hidden=!qr;
+    const ch=$('#dlgOpts');ch.innerHTML=choices?choices.map((c,i)=>`<button type="button" class="btn" data-ch="${i}">${esc(c)}</button>`).join(''):'';ch.hidden=!choices;
+    const okb=$('#dlgOk');okb.hidden=!!choices;okb.textContent=ok;okb.classList.toggle('danger',danger);$('#dlgNo').textContent=no;
+    dlgRes=v=>res(v);$('#dlg').hidden=false;syncInert();
+    (choices?ch.querySelector('button'):(input!=null?inp:okb)).focus();
+    if(input!=null)try{inp.select()}catch(e){}
+  });
+}
+function dlgDone(val){
+  if(!dlgRes)return;const r=dlgRes;dlgRes=null;
+  $('#dlg').hidden=true;syncInert();try{dlgPrev&&dlgPrev.focus&&dlgPrev.focus()}catch(e){}
+  r(val);
+}
+function dlgClose(ok){const isIn=!$('#dlgIn').hidden;dlgDone(isIn?(ok?$('#dlgIn').value:null):!!ok)}
+$('#dlgOk').onclick=()=>dlgClose(true);$('#dlgNo').onclick=()=>dlgClose(false);
+$('#dlgOpts').addEventListener('click',e=>{const b=e.target.closest('[data-ch]');if(b)dlgDone(+b.dataset.ch)});
+$('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')dlgClose(false)});
+
+/* ---------- tipuri de cronometre ---------- */
+const P=(t,name,dur,info='',o={})=>Object.assign({t,name:String(name==null?'':name).trim()||'Faza',dur:dur==null?null:Math.max(1,Math.round(dur)),info},o);
+const F={
+  t:(k,l,d,min=0,max=3600,step=5)=>({k,l,d,min,max,step,kind:'time'}),
+  n:(k,l,d,min=0,max=99,step=1,u='')=>({k,l,d,min,max,step,u,kind:'int'}),
+  b:(k,l,d)=>({k,l,d,kind:'bool'}),
+  s:(k,l,d)=>({k,l,d,kind:'text'}),
+  L:(k,l,d,cols,rowDef)=>({k,l,d,cols,rowDef,kind:'list'})
+};
+const prepPh=(c,info='Fii gata')=>c.prep?[P('prep','Pregătire',c.prep,info)]:[];
+function hiit(c){
+  const a=prepPh(c);
+  for(let s=1;s<=c.sets;s++){
+    for(let r=1;r<=c.rounds;r++){
+      const inf=`Runda ${r}/${c.rounds}`+(c.sets>1?` · Setul ${s}/${c.sets}`:'');
+      a.push(P('work','Lucru',c.work,inf));
+      if(r<c.rounds&&c.rest)a.push(P('rest','Pauză',c.rest,inf));
+    }
+    if(s<c.sets&&c.setRest)a.push(P('rest','Pauză între seturi',c.setRest,`Urmează setul ${s+1}/${c.sets}`));
+  }
+  return a;
+}
+const hiitFields=(w,r,n)=>[F.t('prep','Pregătire',10,0,120,5),F.t('work','Lucru',w,1,3600,5),F.t('rest','Pauză',r,0,3600,5),F.n('rounds','Runde',n,1,99),F.n('sets','Seturi',1,1,20),F.t('setRest','Pauză între seturi',60,0,3600,15)];
+
+const TYPES=[
+{id:'rest',ico:'😮‍💨',name:'Pauză între seturi',desc:'Pornești cu o atingere',d2:'Alege durata și pornește imediat.',
+  fields:[F.t('sec','Durată pauză',90,5,3600,5)],
+  quick:[30,45,60,90,120,180,240,300].map(s=>({n:fmt(s).replace(/^0/,''),c:{sec:s},go:1})),
+  build:c=>[P('rest','Pauză',c.sec,'Respiră, hidratează-te')]},
+{id:'stopwatch',ico:'⏱️',name:'Cronometru',desc:'Cu ture (laps)',screen:'stopwatch'},
+{id:'cd',ico:'⏳',name:'Numărătoare inversă',desc:'Un timp, de la X la zero',d2:'Cronometru simplu descendent.',
+  fields:[F.t('total','Durată',300,1,86400,15),F.t('prep','Pregătire',5,0,120,5)],
+  quick:[60,180,300,600,900,1200,1800].map(s=>({n:fmt(s).replace(/^0/,''),c:{total:s}})).concat([{n:'Cardio zona 2 · 45 min',c:{total:2700}}]),
+  build:c=>[...prepPh(c),P('work','Timp',c.total,'Hai!')]},
+{id:'hiit',ico:'🔥',name:'Interval / HIIT',desc:'Lucru–pauză, runde, seturi',d2:'Intervale lucru/pauză cu runde și seturi.',
+  fields:hiitFields(30,15,8),
+  quick:[{n:'30/30 ×10',c:{work:30,rest:30,rounds:10,sets:1}},{n:'40/20 ×10',c:{work:40,rest:20,rounds:10,sets:1}},{n:'45/15 ×8',c:{work:45,rest:15,rounds:8,sets:1}},{n:'20/40 ×8 sprint',c:{work:20,rest:40,rounds:8,sets:1}},{n:'60/30 ×6',c:{work:60,rest:30,rounds:6,sets:1}}],
+  build:hiit},
+{id:'tabata',ico:'💥',name:'Tabata',desc:'20 s lucru / 10 s pauză',d2:'Protocolul clasic Tabata: 8 runde de 20/10.',
+  fields:hiitFields(20,10,8),
+  quick:[{n:'Clasic 4 min',c:{prep:10,work:20,rest:10,rounds:8,sets:1}},{n:'×4 seturi (20 min)',c:{prep:10,work:20,rest:10,rounds:8,sets:4,setRest:60}},{n:'30/15 ×8',c:{work:30,rest:15,rounds:8,sets:1}}],
+  build:hiit},
+{id:'box',ico:'🥊',name:'Box / MMA',desc:'Runde cu clopoțel',d2:'Runde lungi cu pauză și clopoțel; avertisment înainte de final.',
+  fields:[F.t('prep','Pregătire',10,0,120,5),F.t('work','Durata rundei',180,10,1800,15),F.t('rest','Pauză între runde',60,0,600,5),F.n('rounds','Runde',12,1,30),F.t('warn','Avertisment înainte de final',10,0,120,5)],
+  quick:[{n:'Box 3×3',c:{work:180,rest:60,rounds:3,warn:10}},{n:'Box 12×3',c:{work:180,rest:60,rounds:12,warn:10}},{n:'Kickbox 2 min ×6',c:{work:120,rest:60,rounds:6,warn:10}},{n:'MMA 5×5',c:{work:300,rest:60,rounds:5,warn:10}}],
+  build:c=>{const a=prepPh(c,'Pune mănușile');for(let r=1;r<=c.rounds;r++){a.push(P('work','Runda '+r,c.work,`Runda ${r}/${c.rounds}`,{bell:1,warn:c.warn&&c.warn<c.work?c.warn:0}));if(r<c.rounds&&c.rest)a.push(P('rest','Pauză',c.rest,`Urmează runda ${r+1}`,{bell:1}))}return a}},
+{id:'emom',ico:'⏰',name:'EMOM',desc:'La începutul fiecărui minut',d2:'Every Minute On the Minute: faci exercițiul și te odihnești cât rămâne.',
+  fields:[F.t('prep','Pregătire',10,0,120,5),F.n('n','Număr de intervale',10,1,99),F.t('len','Durata unui interval',60,10,600,5),F.s('A','Exercițiu A','Lucrează'),F.s('B','Exercițiu B (alternează, opțional)','')],
+  quick:[{n:'EMOM 10',c:{n:10,len:60}},{n:'EMOM 20',c:{n:20,len:60}},{n:'E2MOM ×8',c:{n:8,len:120}},{n:'E30S ×20',c:{n:20,len:30}}],
+  build:c=>{const a=prepPh(c);for(let i=1;i<=c.n;i++){const nm=(c.B&&i%2===0)?c.B:(c.A||'Lucrează');a.push(P('work',nm,c.len,`Intervalul ${i}/${c.n}`))}return a}},
+{id:'amrap',ico:'♾️',name:'AMRAP',desc:'Cât mai multe runde în timp',d2:'As Many Rounds As Possible — contor de runde pe ecran.',
+  fields:[F.t('prep','Pregătire',10,0,120,5),F.t('dur','Durată',600,30,7200,30)],
+  quick:[300,600,900,1200,1800].map(s=>({n:fmt(s).replace(/^0/,'')+' min',c:{dur:s}})),
+  build:c=>[...prepPh(c),P('work','AMRAP',c.dur,'Cât mai multe runde',{counter:1})]},
+{id:'circuit',ico:'🔁',name:'Circuit (stații)',desc:'Lista ta de exerciții pe timp',d2:'Stații cu nume și durată proprie, runde repetate.',
+  fields:[F.t('prep','Pregătire',10,0,120,5),F.t('rest','Pauză între stații',15,0,600,5),F.n('rounds','Runde',3,1,30),F.t('roundRest','Pauză între runde',60,0,900,15),
+    F.L('list','Stații',[{n:'Genoflexiuni',s:40},{n:'Flotări',s:40},{n:'Fandări',s:40},{n:'Plank',s:40},{n:'Burpees',s:40}],[{k:'n',l:'Exercițiu',kind:'text',w:3},{k:'s',l:'Secunde',kind:'num',min:1,max:3600,w:1}],{n:'',s:40})],
+  build:c=>{const a=[],L=c.list.map((r,i)=>({n:String(r.n||'').trim()||'Stația '+(i+1),s:Math.max(1,+r.s||30)}));if(!L.length)return a;
+    a.push(...prepPh(c,'Du-te la prima stație'));
+    for(let r=1;r<=c.rounds;r++){L.forEach((x,i)=>{a.push(P('work',x.n,x.s,`Stația ${i+1}/${L.length} · Runda ${r}/${c.rounds}`));if(i<L.length-1&&c.rest)a.push(P('rest','Pauză',c.rest,'Schimbă stația'))});
+      if(r<c.rounds&&c.roundRest)a.push(P('rest','Pauză între runde',c.roundRest,`Urmează runda ${r+1}/${c.rounds}`))}
+    return a}},
+{id:'sets',ico:'🏋️',name:'Serii pe exerciții',desc:'Jurnal kg×rep, pauză adaptivă, aparat ocupat',d2:'La fiecare serie notezi kg și repetări și apeși „Gata”; pauza pornește singură și se adaptează (învață din ajustările tale).',
+  fields:[F.t('prep','Pregătire',5,0,120,5),
+    F.b('warm','Încălzire ghidată (cardio 5 min + mobilitate)',false),F.b('cool','Răcire cu întinderi la final',false),
+    F.b('auto','Pauză adaptivă (învață din ajustările tale)',true),F.b('deload','Săptămână de descărcare (max. 2 serii)',false),
+    F.L('list','Exerciții',[{n:'Împins la piept',sets:4,r:'8-10',rest:90},{n:'Ramat cu haltera',sets:4,r:'10',rest:90},{n:'Fandări',sets:3,r:'12',rest:60}],
+      [{k:'n',l:'Exercițiu',kind:'text',w:3},{k:'sets',l:'Serii',kind:'num',min:1,max:20,w:1},{k:'r',l:'Rep.',kind:'text',w:1},{k:'rest',l:'Pauză s',kind:'num',min:0,max:900,w:1}],{n:'',sets:3,r:'10',rest:90})],
+  build:c=>{const a=[],L=c.list.map((r,i)=>({n:String(r.n||'').trim()||'Exercițiul '+(i+1),sets:Math.max(1,+r.sets||1),r:String(r.r||'').trim(),rest:Math.max(0,+r.rest||0)}));if(!L.length)return a;
+    if(c.warm)WARM.forEach(w=>a.push(P('prep',w[0],w[1],w[2],{tip:w[3]})));
+    if(c.prep)a.push(P('prep','Pregătire',c.prep,'Primul exercițiu: '+L[0].n));
+    L.forEach((x,i)=>{const ns=c.deload?Math.min(x.sets,2):x.sets;for(let s=1;s<=ns;s++){
+      a.push(P('work',x.n,null,`Seria ${s}/${ns}`+(x.r?` · ${x.r} rep.`:'')+` · Exercițiul ${i+1}/${L.length}`,{log:1,ex:x.n,rr:x.r,set:s,blk:i,dl:c.deload?1:0}));
+      const last=i===L.length-1&&s===ns;
+      if(!last&&x.rest)a.push(P('rest','Pauză',c.auto?restFor(x.n,x.rest,x.r):x.rest,'Urmează: '+(s<ns?`${x.n} · seria ${s+1}`:L[i+1].n),{ex:x.n,blk:i,auto:c.auto?1:0}));
+    }});
+    if(c.cool)COOL.forEach(w=>a.push(P('rest',w[0],w[1],w[2],{tip:w[3]})));
+    return a}},
+{id:'duo',ico:'👥',name:'Antrenament în doi',desc:'Alternați seriile, pauză comună',d2:'Doi parteneri la același aparat: pe rând fiecare își face seria, apoi pauza e comună. Vocea anunță cine e la rând.',
+  fields:[F.t('prep','Pregătire',5,0,120,5),F.s('A','Numele tău','Eu'),F.s('B','Numele partenerului','Partener'),F.t('rest','Pauză comună',90,0,900,5),
+    F.L('list','Exerciții',[{n:'Presă picioare',sets:3,r:'10'},{n:'Împins la piept',sets:3,r:'10'},{n:'Ramat',sets:3,r:'10'}],
+      [{k:'n',l:'Exercițiu',kind:'text',w:3},{k:'sets',l:'Serii',kind:'num',min:1,max:20,w:1},{k:'r',l:'Rep.',kind:'text',w:1}],{n:'',sets:3,r:'10'})],
+  build:c=>{const a=[],A=String(c.A||'').trim()||'Eu',B=String(c.B||'').trim()||'Partener',L=c.list.map((r,i)=>({n:String(r.n||'').trim()||'Exercițiul '+(i+1),sets:Math.max(1,+r.sets||1),r:String(r.r||'').trim()}));if(!L.length)return a;
+    if(c.prep)a.push(P('prep','Pregătire',c.prep,'Începe '+A+': '+L[0].n));
+    L.forEach((x,i)=>{for(let s=1;s<=x.sets;s++){
+      const inf=`Seria ${s}/${x.sets}`+(x.r?` · ${x.r} rep.`:'')+` · Exercițiul ${i+1}/${L.length}`;
+      a.push(P('work',A+' · '+x.n,null,inf,{say:A+', '+x.n}));
+      a.push(P('work',B+' · '+x.n,null,inf,{say:B+', '+x.n}));
+      const last=i===L.length-1&&s===x.sets;
+      if(!last&&c.rest)a.push(P('rest','Pauză comună',c.rest,'Urmează: '+A+' · '+(s<x.sets?x.n:L[i+1].n)));
+    }});return a}},
+{id:'catalog',ico:'🏢',name:'Aparate World Class',desc:'Expo Business Park (1 Mai): catalog + antrenamente gata făcute',screen:'catalog'},
+{id:'tempo',ico:'🐢',name:'Tempo repetări',desc:'Ex. 3-1-1-0 pe fiecare repetare',d2:'Ghidează fiecare repetare: coborâre – pauză jos – urcare – pauză sus.',
+  fields:[F.t('prep','Pregătire',5,0,120,5),F.n('down','Coborâre (excentric)',3,0,20,1,'s'),F.n('bot','Pauză jos',1,0,20,1,'s'),F.n('up','Urcare (concentric)',1,0,20,1,'s'),F.n('top','Pauză sus',0,0,20,1,'s'),F.n('reps','Repetări',8,1,50),F.n('sets','Serii',3,1,20),F.t('rest','Pauză între serii',90,0,900,5)],
+  quick:[{n:'3-1-1-0',c:{down:3,bot:1,up:1,top:0}},{n:'4-0-1-0',c:{down:4,bot:0,up:1,top:0}},{n:'3-1-2-1',c:{down:3,bot:1,up:2,top:1}},{n:'5-2-1-0 (lent)',c:{down:5,bot:2,up:1,top:0}}],
+  build:c=>{const a=prepPh(c,'Poziționează-te');
+    for(let s=1;s<=c.sets;s++){for(let r=1;r<=c.reps;r++){const inf=`Repetarea ${r}/${c.reps} · Seria ${s}/${c.sets}`;
+      if(c.down)a.push(P('work','Coboară',c.down,inf,{cue:'down',say:String(r)}));
+      if(c.bot)a.push(P('work','Jos · ține',c.bot,inf,{cue:'down'}));
+      if(c.up)a.push(P('work','Urcă',c.up,inf,{cue:'up'}));
+      if(c.top)a.push(P('work','Sus · ține',c.top,inf,{cue:'up'}));}
+      if(s<c.sets&&c.rest)a.push(P('rest','Pauză între serii',c.rest,`Urmează seria ${s+1}/${c.sets}`))}
+    return a}},
+{id:'iso',ico:'🧱',name:'Izometric / Plank',desc:'Menținere, serii, schimbare parte',d2:'Poziții menținute (plank, perete, agățat) cu serii și, opțional, schimbare de parte la jumătate.',
+  fields:[F.t('prep','Pregătire',5,0,120,5),F.t('hold','Menținere',45,3,1800,5),F.n('sets','Serii',3,1,30),F.t('rest','Pauză între serii',30,0,600,5),F.b('split','Schimbă partea la jumătate (stânga / dreapta)',false)],
+  quick:[{n:'Plank 30 s ×3',c:{hold:30,sets:3,rest:30,split:false}},{n:'Plank 60 s ×3',c:{hold:60,sets:3,rest:45,split:false}},{n:'Plank lateral 40 s ×3',c:{hold:40,sets:3,rest:30,split:true}}],
+  build:c=>{const a=prepPh(c,'Intră în poziție');
+    for(let s=1;s<=c.sets;s++){const inf=`Seria ${s}/${c.sets}`;
+      if(c.split){const h=Math.max(1,Math.round(c.hold/2));a.push(P('work','Stânga',h,inf));a.push(P('work','Dreapta',h,inf))}
+      else a.push(P('work','Menține',c.hold,inf));
+      if(s<c.sets&&c.rest)a.push(P('rest','Pauză',c.rest,`Urmează seria ${s+1}/${c.sets}`))}
+    return a}},
+{id:'pyr',ico:'🔺',name:'Piramidă / Scară',desc:'Lucru crescător (și descrescător)',d2:'Durate de lucru care cresc cu un pas până la vârf, apoi (opțional) coboară.',
+  fields:[F.t('prep','Pregătire',5,0,120,5),F.t('start','Început',10,1,600,5),F.t('step','Pas',10,1,300,5),F.t('peak','Vârf',60,1,1200,5),F.t('rest','Pauză între trepte',20,0,600,5),F.b('down','Coboară și înapoi (piramidă completă)',true)],
+  quick:[{n:'10→60 ↔',c:{start:10,step:10,peak:60,down:true}},{n:'15→45 ↔',c:{start:15,step:15,peak:45,down:true}},{n:'20→120 scară',c:{start:20,step:20,peak:120,down:false}}],
+  build:c=>{const d=[],st=Math.max(1,c.step),pk=Math.max(c.peak,c.start);for(let x=c.start;x<=pk&&d.length<100;x+=st)d.push(x);
+    if(c.down){const top=d[d.length-1];for(let x=top-st;x>=c.start&&d.length<200;x-=st)d.push(x)}
+    const a=prepPh(c);d.forEach((x,i)=>{a.push(P('work','Lucru '+x+' s',x,`Treapta ${i+1}/${d.length}`));if(i<d.length-1&&c.rest)a.push(P('rest','Pauză',c.rest,`Urmează ${d[i+1]} s`))});return a}},
+{id:'metro',ico:'🥁',name:'Metronom',desc:'Cadență pentru repetări / cardio',screen:'metro'},
+{id:'program',ico:'📅',name:'Program lunar',desc:'Ciclu de 4 săptămâni cu descărcare',screen:'program'},
+{id:'labels',ico:'🏷️',name:'Etichete QR aparate',desc:'Printează și scanează',screen:'labels'},
+{id:'scan',ico:'📷',name:'Scanează cod',desc:'Aparat sau timer partajat',act:'scan'}
+];
+
+/* curățarea configurației: nicio valoare din stocare/presetări nu poate bloca aplicația */
+function num(v,d,min,max){let n=(v==null||(typeof v==='string'&&v.trim()===''))?NaN:Number(v);if(!Number.isFinite(n))n=d;return clamp(Math.round(n),min,max)}
+function sanitize(T,c){
+  c=(c&&typeof c==='object'&&!Array.isArray(c))?c:{};const o={};
+  for(const f of T.fields){const v=c[f.k];
+    if(f.kind==='int'||f.kind==='time')o[f.k]=num(v,f.d,f.min,f.max);
+    else if(f.kind==='bool')o[f.k]=v===undefined?f.d:v===true;
+    else if(f.kind==='text')o[f.k]=v==null?f.d:String(v).slice(0,40);
+    else if(f.kind==='list'){
+      const src=Array.isArray(v)?v:f.d;
+      o[f.k]=src.slice(0,MAXROWS).filter(r=>r&&typeof r==='object').map(r=>{const q={};for(const col of f.cols)q[col.k]=col.kind==='num'?num(r[col.k],f.rowDef[col.k],col.min,col.max):String(r[col.k]==null?'':r[col.k]).slice(0,40);return q});
+    }
+  }
+  return o;
+}
+TYPES.forEach(T=>{if(T.build){const raw=T.build;T.build=c=>{const s=raw(sanitize(T,c));return s.some(p=>p.t!=='prep')?s:[]}}});
+const defOf=T=>{const o={};T.fields.forEach(f=>o[f.k]=f.kind==='list'?JSON.parse(JSON.stringify(f.d)):f.d);return o};
+const savedCfg=id=>{const v=LS.get('cfg.'+id,{});return v&&typeof v==='object'&&!Array.isArray(v)?v:{}};
+
+/* ---------- navigare ---------- */
+const SCREENS=['home','config','stopwatch','metro','catalog','history','settings','program','labels'];
+let CUR=null,CFG=null;
+function show(id){
+  if(id==='config'&&!CUR)id='home';
+  $$('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
+  $('#back').hidden=id==='home';
+  $('#ttl').textContent=id==='home'?'CRONOSALA':({config:CUR&&CUR.name,stopwatch:'Cronometru',metro:'Metronom',catalog:'World Class',history:'Istoric',settings:'Setări',program:'Program lunar',labels:'Etichete QR'})[id];
+  if(id!=='metro')mStop();
+  if(id==='history')renderHist();
+  if(id==='catalog')renderCat();
+  if(id==='program')renderProg();
+  if(id==='labels')renderLabels();
+  if(id==='home'){renderToday();renderResume()}
+  if(id==='settings')syncSettings();
+  if(id==='stopwatch')swKick();
+  window.scrollTo(0,0);
+}
+function go(id){try{history.pushState({s:1},'','#/'+id)}catch(e){}show(id)}
+$('#back').onclick=()=>{if(history.state&&history.state.s)history.back();else show('home')};
+addEventListener('popstate',()=>{
+  if(E.skipPop){E.skipPop=false;return}
+  if(!$('#run').hidden){
+    try{history.pushState({s:1,run:1},'','#/run')}catch(e){}
+    closeRun();return;
+  }
+  const id=(location.hash||'').replace(/^#\/?/,'');show(SCREENS.includes(id)?id:'home');
+});
+const BOOT=location.hash;try{history.scrollRestoration='manual'}catch(e){}try{history.replaceState(null,'','#/home')}catch(e){}window.scrollTo(0,0);
+$('#bHist').onclick=()=>go('history');
+$('#bSet').onclick=()=>go('settings');
+
+/* ---------- acasă ---------- */
+$('#grid').innerHTML=TYPES.map(t=>`<button class="card" data-id="${t.id}"><span class="ico" aria-hidden="true">${t.ico}</span><b>${t.name}</b><small>${t.desc}</small></button>`).join('');
+$('#grid').onclick=e=>{const b=e.target.closest('.card');if(b)openType(b.dataset.id)};
+function renderToday(){
+  const h=LSarr('hist'),d0=new Date();d0.setHours(0,0,0,0);
+  const td=h.filter(x=>x&&x.t>=d0.getTime()),sec=td.reduce((a,x)=>a+(+x.sec||0),0);
+  $('#today').textContent=td.length?`Azi: ${pl(td.length,'sesiune','sesiuni')} · ${Math.round(sec/60)} min`:'Alege un cronometru și hai la treabă.';
+  renderTodayPlan();
+}
+function validRun(r){
+  if(!r||typeof r!=='object'||!Array.isArray(r.seq)||!r.seq.length||r.seq.length>6000)return false;
+  if(!(Date.now()-(+r.ts||0)<6*3600e3))return false;
+  return r.seq.every(p=>p&&['work','rest','prep'].includes(p.t)&&typeof p.name==='string'&&(p.dur===null||(Number.isFinite(p.dur)&&p.dur>0)));
+}
+function loadRun(){const m=LS.get('run',null);if(!m)return null;const seq=LS.get('run.seq',null);const r=Object.assign({},m,{seq});return validRun(r)?r:null}
+function renderResume(){
+  const r=loadRun(),box=$('#resume');
+  if(!r||!$('#run').hidden){box.hidden=true;if(!r&&(LS.get('run',null)||LS.get('run.seq',null))){LS.del('run');LS.del('run.seq')}return}
+  $('#rsTxt').textContent=`${r.title} · faza ${(r.i|0)+1}/${r.seq.length} · ${fmt((+r.tot||0)/1000)}`;box.hidden=false;
+}
+$('#rsGo').onclick=()=>{const r=loadRun();if(!r){renderResume();return}openRun(r.title,r.seq,r.typeName,{i:r.i,carry:r.carry,tot:r.tot,cnt:r.cnt,plan:r.plan})};
+$('#rsNo').onclick=async()=>{if(await ask({title:'Ștergi antrenamentul întrerupt?',ok:'Șterge',danger:true})){clearRunSave();renderResume()}};
+
+/* ---------- configurare ---------- */
+const fld=k=>CUR.fields.find(f=>f.k===k);
+function openType(id){
+  const T=TYPES.find(t=>t.id===id);if(!T)return;
+  if(T.act==='scan'){startScan();return}
+  if(T.screen){go(T.screen);return}
+  CUR=T;CFG=sanitize(T,Object.assign(defOf(T),savedCfg(id)));
+  renderCfg();go('config');
+}
+function fieldHTML(f){
+  const v=CFG[f.k],id='f_'+f.k;
+  if(f.kind==='bool')return `<label class="field sw"><span>${f.l}</span><input type="checkbox" class="tg" data-k="${f.k}" ${v?'checked':''}></label>`;
+  if(f.kind==='text')return `<div class="field"><label for="${id}">${f.l}</label><input type="text" class="txt" id="${id}" maxlength="40" autocomplete="off" spellcheck="false" data-k="${f.k}" value="${esc(v)}"></div>`;
+  if(f.kind==='list'){
+    const w=c=>`flex:${c.w||1}`;
+    return `<div class="list"><h3>${f.l}</h3><div class="lhead">${f.cols.map(c=>`<span style="${w(c)}">${c.l}</span>`).join('')}<span style="width:40px"></span></div>`+
+      CFG[f.k].map((r,i)=>`<div class="lrow">${f.cols.map(c=>`<input class="${c.kind==='num'?'num':'txt'}" style="${w(c)}" type="${c.kind==='num'?'number':'text'}" ${c.kind==='num'?`inputmode="numeric" min="${c.min}" max="${c.max}"`:'maxlength="40" autocomplete="off" spellcheck="false"'+(c.k==='n'?' list="exlist"':'')} placeholder="${c.l}" aria-label="${c.l} ${i+1}" data-li="${f.k}" data-ri="${i}" data-c="${c.k}" value="${esc(r[c.k])}">`).join('')}<button type="button" class="del" data-lk="${f.k}" data-ri="${i}" aria-label="Șterge rândul ${i+1}">✕</button></div>`).join('')+
+      `<button type="button" class="btn" data-add="${f.k}" ${CFG[f.k].length>=MAXROWS?'disabled':''}>＋ Adaugă</button></div>`;
+  }
+  const u=f.kind==='time'?fmt(v):(f.u||'');
+  return `<div class="field"><label for="${id}">${f.l}${f.kind==='time'?' (s)':''}</label><div class="step"><button type="button" data-d="-1" aria-label="Scade: ${esc(f.l)}">−</button><input type="number" inputmode="numeric" id="${id}" data-k="${f.k}" value="${v}" min="${f.min}" max="${f.max}"><button type="button" data-d="1" aria-label="Crește: ${esc(f.l)}">+</button><span class="unit">${u}</span></div></div>`;
+}
+function renderCfg(){
+  const T=CUR,saved=LSarr('presets.'+T.id).filter(p=>p&&typeof p.name==='string');
+  let h=`<div class="cfgwrap"><div class="cfgl"><div class="cfghead"><span class="bigico" aria-hidden="true">${T.ico}</span><div><h2>${T.name}</h2><p>${T.d2}</p></div></div>`;
+  if(T.quick)h+=`<div class="chips">${T.quick.map((q,i)=>`<button type="button" class="chip q" data-q="${i}">${esc(q.n)}</button>`).join('')}</div>`;
+  if(saved.length)h+=`<div class="lbl">Presetările mele</div><div class="chips">${saved.map((p,i)=>`<button type="button" class="chip" data-p="${i}">${esc(p.name)}<span class="x" role="button" aria-label="Șterge presetarea ${esc(p.name)}" data-px="${i}">✕</span></button>`).join('')}</div>`;
+  h+=`<div class="fields">${T.fields.map(fieldHTML).join('')}</div></div><div class="cfgr"><div class="sum" id="sum"></div><div class="tl" id="tl" aria-hidden="true"></div>`;
+  h+=`<div class="actions"><button type="button" class="btn big" id="goBtn">▶ Start</button><button type="button" class="btn" id="saveP">💾 Salvează preset</button><button type="button" class="btn" id="shareBtn">🔗 Partajează</button><button type="button" class="btn ghost" id="resetCfg">↺ Valori implicite</button></div>`;
+  $('#cfgBody').innerHTML=h+'</div></div>';updateSum();
+}
+function updateSum(){
+  LS.set('cfg.'+CUR.id,CFG);
+  let seq=[];try{seq=CUR.build(CFG)}catch(e){seq=[]}
+  const tot=seq.reduce((a,p)=>a+(p.dur||0),0),man=seq.some(p=>p.dur==null);
+  $('#sum').innerHTML=seq.length?`<b>${man?'≈ ':''}${fmt(tot)}</b> · ${pl(seq.length,'fază','faze')}${man?' · seriile le închei tu cu „Gata”':''}`:'Configurație goală — adaugă ceva.';
+  $('#tl').innerHTML=seq.slice(0,600).map(p=>`<i class="${p.t}" style="flex:${p.dur||30}"></i>`).join('');
+  $('#goBtn').disabled=!seq.length;
+}
+function setVal(f,inp,v){
+  v=clamp(Math.round(v),f.min,f.max);inp.value=v;CFG[f.k]=v;
+  const u=inp.parentElement.querySelector('.unit');if(u&&f.kind==='time')u.textContent=fmt(v);
+  updateSum();
+}
+const cb=$('#cfgBody');
+/* apăsare lungă pe +/− = repetare accelerată */
+let HOLD=null;
+function holdStop(){if(HOLD){clearTimeout(HOLD.t1);clearInterval(HOLD.t2);HOLD=null}}
+cb.addEventListener('pointerdown',e=>{
+  const b=e.target.closest('.step button');if(!b||e.button>0)return;
+  const inp=b.parentElement.querySelector('input'),f=fld(inp.dataset.k),d=+b.dataset.d;let n=0;
+  const once=()=>{n++;setVal(f,inp,(parseInt(inp.value)||0)+d*f.step*(n>18?5:1))};
+  holdStop();once();HOLD={t1:setTimeout(()=>{HOLD.t2=setInterval(once,90)},450)};
+});
+['pointerup','pointercancel','blur'].forEach(ev=>addEventListener(ev,holdStop));
+cb.addEventListener('contextmenu',e=>{if(e.target.closest('.step button'))e.preventDefault()});
+cb.addEventListener('click',e=>{
+  const t=e.target;
+  const px=t.closest('[data-px]');
+  if(px){e.stopPropagation();const arr=LSarr('presets.'+CUR.id),i=+px.dataset.px;
+    ask({title:'Ștergi presetarea?',text:arr[i]?arr[i].name:'',ok:'Șterge',danger:true}).then(ok=>{if(ok){arr.splice(i,1);LS.set('presets.'+CUR.id,arr);renderCfg()}});return}
+  const b=t.closest('button');if(!b)return;
+  if(b.closest('.step')){if(e.detail!==0)return;const inp=b.parentElement.querySelector('input'),f=fld(inp.dataset.k);setVal(f,inp,(parseInt(inp.value)||0)+(+b.dataset.d)*f.step);return}
+  if(b.dataset.q!=null){const q=CUR.quick[+b.dataset.q];CFG=sanitize(CUR,Object.assign(CFG,q.c));renderCfg();if(q.go)startRun();return}
+  if(b.dataset.p!=null){const p=LSarr('presets.'+CUR.id)[+b.dataset.p];if(p){CFG=sanitize(CUR,Object.assign(defOf(CUR),p.cfg));renderCfg()}return}
+  if(b.dataset.lk){CFG[b.dataset.lk].splice(+b.dataset.ri,1);renderCfg();return}
+  if(b.dataset.add){const f=fld(b.dataset.add);if(CFG[f.k].length>=MAXROWS)return;CFG[f.k].push(JSON.parse(JSON.stringify(f.rowDef)));renderCfg();const rows=$$('#cfgBody .lrow');const last=rows[rows.length-1];if(last){const i=last.querySelector('input');if(i){i.focus();i.select&&i.select()}}return}
+  if(b.id==='goBtn'){startRun();return}
+  if(b.id==='saveP'){
+    ask({title:'Salvează presetarea',text:'Numele presetării:',input:'',ok:'Salvează'}).then(n=>{
+      n=(n||'').trim().slice(0,30);if(!n)return;
+      const arr=LSarr('presets.'+CUR.id).filter(p=>p&&p.name!==n);arr.push({name:n,cfg:JSON.parse(JSON.stringify(CFG))});LS.set('presets.'+CUR.id,arr.slice(-30));renderCfg();toast('Presetare salvată');
+    });return}
+  if(b.id==='shareBtn'){shareCfg();return}
+  if(b.id==='resetCfg'){CFG=defOf(CUR);renderCfg()}
+});
+cb.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.li){const f=fld(t.dataset.li),c=f.cols.find(c=>c.k===t.dataset.c);CFG[f.k][+t.dataset.ri][c.k]=c.kind==='num'?(t.value===''?'':clamp(parseInt(t.value)||0,c.min,c.max)):t.value;updateSum();return}
+  if(!t.dataset.k)return;const f=fld(t.dataset.k);
+  if(f.kind==='text'){CFG[f.k]=t.value;updateSum()}
+  else if(f.kind==='int'||f.kind==='time'){const v=parseInt(t.value);if(!isNaN(v)){CFG[f.k]=clamp(v,f.min,f.max);const u=t.parentElement.querySelector('.unit');if(u&&f.kind==='time')u.textContent=fmt(CFG[f.k]);updateSum()}}
+});
+cb.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.dataset.li){const f=fld(t.dataset.li),c=f.cols.find(c=>c.k===t.dataset.c);if(c.kind==='num'){const v=clamp(parseInt(t.value)||c.min,c.min,c.max);t.value=v;CFG[f.k][+t.dataset.ri][c.k]=v;updateSum()}return}
+  if(!t.dataset.k)return;const f=fld(t.dataset.k);
+  if(f.kind==='bool'){CFG[f.k]=t.checked;updateSum()}
+  else if(f.kind==='int'||f.kind==='time')setVal(f,t,parseInt(t.value)||f.min);
+});
+function startRun(){
+  if(!$('#run').hidden)return;
+  let seq=[];try{seq=CUR.build(CFG)}catch(e){}
+  if(!seq.length)return;
+  LS.set('cfg.'+CUR.id,CFG);
+  openRun(CUR.name,seq,CUR.name);begin();
+}
+
+/* ---------- motorul de rulare ---------- */
+const E={seq:[],i:0,carry:0,last:0,tot:0,running:false,started:false,fin:false,logged:false,stop:null,cnt:0,tk:{},warned:false,pre:-1,preEnd:false,title:'',typeName:'',cum:[],total:0,man:false,ctr:false,saved:0,seqDirty:true,hist:false,skipPop:false,pf:-1,plan:null};
+const cur=()=>E.seq[E.i];
+const LA=180; // fereastra de programare anticipată a sunetelor (ms)
+function calc(){let s=0;E.cum=E.seq.map(p=>{const c=s;s+=p.dur||0;return c});E.total=s;E.man=E.seq.some(p=>p.dur==null);E.ctr=E.seq.some(p=>p.counter)}
+function resetState(){
+  if(E.stop){E.stop();E.stop=null}
+  E.seq.forEach(p=>{if(p.d0!==undefined)p.dur=p.d0});
+  Object.assign(E,{i:0,carry:0,tot:0,cnt:0,running:false,started:false,fin:false,logged:false,tk:{},warned:false,pre:-1,preEnd:false,saved:0,seqDirty:true,pf:-1});
+}
+function openRun(title,seq,typeName,rs){
+  E.title=title;E.typeName=typeName;seq.forEach(p=>{if(p.d0===undefined)p.d0=p.dur});E.seq=seq;resetState();calc();E.plan=(rs&&rs.plan)||NEXTPLAN||null;NEXTPLAN=null;
+  if(rs){E.i=clamp(rs.i|0,0,seq.length-1);E.carry=Math.max(0,+rs.carry||0);E.tot=Math.max(0,+rs.tot||0);E.cnt=Math.max(0,rs.cnt|0);E.started=true}
+  $('#run').hidden=false;document.body.style.overflow='hidden';syncInert();
+  if(!E.hist){try{history.pushState({s:1,run:1},'','#/run');E.hist=true}catch(e){}}
+  wake('run');setMedia();render();
+  try{$('#bPlay').focus({preventScroll:true})}catch(e){}
+}
+function begin(){
+  audio();unlockSpeech();
+  if(E.fin){resetState();calc()}
+  E.running=true;E.last=Date.now();keep('run',true);wake('run');
+  if(!E.started){E.started=true;enter(cur(),false)}
+  if(E.stop)E.stop();E.stop=startTicker(tick,100);setMedia();render();
+}
+function pause(){
+  E.running=false;if(E.stop){E.stop();E.stop=null}keep('run',false);
+  try{if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}
+  if(E.started&&!E.fin)saveRun(true);setMedia();render();
+}
+function enter(ph,quiet){
+  E.tk={};E.warned=false;
+  if(quiet){E.pre=-1;return}
+  if(E.pre!==E.i)soundFor(ph)();
+  E.pre=-1;vib(ph.t==='rest'?[120]:[60,40,60]);
+  {const nx=E.seq[E.i+1];say(ph.say||(ph.t==='rest'&&nx?ph.name+'. Urmează '+nx.name:ph.name))}
+  notify(ph);setMedia();
+}
+function tick(){
+  if(!E.running)return;
+  const now=Date.now();let dt=now-E.last;if(!(dt>0))dt=0;
+  E.last=now;E.tot+=dt;E.carry+=dt;
+  let ph=cur(),g=0;
+  while(ph.dur!=null&&E.carry>=ph.dur*1000&&g++<8000){
+    E.carry-=ph.dur*1000;
+    if(E.i>=E.seq.length-1){finish();return}
+    E.i++;ph=cur();enter(ph,E.carry>1200);
+  }
+  if(ph.dur!=null){
+    const left=ph.dur*1000-E.carry;
+    /* sunetele se programează pe ceasul audio, cu precizie sub milisecundă, independent de jitterul timerului */
+    if(left<=LA&&E.pre!==E.i+1){
+      E.pre=E.i+1;const at=Math.max(0,left)/1000,nx=E.seq[E.i+1];
+      if(nx)soundFor(nx)(at);else{SND.end(at);E.preEnd=true}
+    }
+    if(S.tick&&ph.dur>=8)for(let k=3;k>=1;k--){const tb=left-k*1000;if(tb<=LA&&tb>-120&&!E.tk[k]){E.tk[k]=1;if(S.snd!=='voce')SND.tick(Math.max(0,tb)/1000);if(S.voice&&S.count)setTimeout(()=>{if(E.running)say(String(k))},Math.max(0,tb))}}
+    if(ph.warn&&!E.warned){const tb=left-ph.warn*1000;if(tb<=LA&&tb>-120){E.warned=true;SND.warn(Math.max(0,tb)/1000);vib(80)}}
+  }
+  if(ph.dur!=null&&S.voice&&S.count&&ph.dur>=25&&!E.tk.v10){const l10=ph.dur*1000-E.carry;if(l10<=10000&&l10>4000){E.tk.v10=1;say('Încă zece secunde')}}
+  if(now-E.saved>2000){E.saved=now;saveRun()}
+  render();
+}
+function finish(){
+  E.running=false;if(E.stop){E.stop();E.stop=null}E.fin=true;keep('run',false);
+  if(!E.preEnd)SND.end();E.preEnd=false;
+  vib([200,80,200,80,300]);say('Gata');logHist(true);clearRunSave();setMedia();render();
+}
+function next(){
+  if(E.fin)return;
+  if(E.i>=E.seq.length-1){finish();return}
+  E.i++;E.carry=0;E.last=Date.now();E.pre=-1;E.preEnd=false;E.tk={};E.warned=false;
+  if(E.started)enter(cur(),false);
+  saveRun(true);render();
+}
+function prev(){
+  if(E.fin)return;
+  if(E.carry>2500||E.i===0)E.carry=0;else{E.i--;E.carry=0}
+  E.last=Date.now();E.pre=-1;E.preEnd=false;enter(cur(),true);saveRun(true);render();
+}
+function saveRun(force){
+  if(!E.started||E.fin)return;
+  if(E.seqDirty||force&&E.seqDirty){LS.set('run.seq',E.seq.map(p=>Object.assign({},p)));E.seqDirty=false}
+  LS.set('run',{v:3,title:E.title,typeName:E.typeName,i:E.i,carry:E.carry,tot:E.tot,cnt:E.cnt,plan:E.plan,ts:Date.now()});
+}
+function clearRunSave(){LS.del('run');LS.del('run.seq')}
+function logHist(done){
+  if(E.logged)return;if(!done&&E.tot<20000)return;
+  E.logged=true;const h=LSarr('hist');
+  h.unshift({t:Date.now(),type:E.typeName,sec:Math.round(E.tot/1000),done,cnt:E.ctr?E.cnt:null,plan:E.plan||null});
+  LS.set('hist',h.slice(0,300));
+}
+function shutRun(){
+  E.started=false;pause();clearRunSave();
+  $('#run').hidden=true;document.body.style.overflow='';syncInert();unwake('run');
+  document.title='CRONOSALA — cronometre pentru sală';
+  if(E.hist){E.hist=false;try{if(history.state&&history.state.run){E.skipPop=true;history.back()}}catch(e){}}
+  try{if('mediaSession' in navigator){navigator.mediaSession.metadata=null;navigator.mediaSession.playbackState='none'}}catch(e){}
+  renderToday();renderResume();
+}
+async function closeRun(){
+  if(E.started&&!E.fin){
+    const ok=await ask({title:'Oprești antrenamentul?',text:'Sesiunea rămâne în istoric.',ok:'Oprește',no:'Continuă',danger:true});
+    if(!ok)return false;
+    logHist(false);
+  }
+  shutRun();return true;
+}
+function setMedia(){
+  if(!('mediaSession' in navigator)||$('#run').hidden)return;
+  try{
+    const ph=E.seq[E.i];
+    navigator.mediaSession.metadata=new MediaMetadata({title:E.fin?'Gata!':(ph?ph.name:'CRONOSALA'),artist:'CRONOSALA · '+E.title});
+    navigator.mediaSession.playbackState=E.running?'playing':'paused';
+  }catch(e){}
+}
+try{if('mediaSession' in navigator){const ms=navigator.mediaSession;
+  ms.setActionHandler('play',()=>{if(!$('#run').hidden)begin()});ms.setActionHandler('pause',()=>{if(!$('#run').hidden)pause()});
+  ms.setActionHandler('nexttrack',()=>{if(!$('#run').hidden)next()});ms.setActionHandler('previoustrack',()=>{if(!$('#run').hidden)prev()});}}catch(e){}
+
+const _c={};
+const put=(id,v)=>{if(_c[id]!==v){_c[id]=v;document.getElementById(id).textContent=v}};
+const wid=(id,pct)=>{const v=pct.toFixed(1)+'%';if(_c['w'+id]!==v){_c['w'+id]=v;document.getElementById(id).style.width=v}};
+function render(){
+  const R=$('#run');if(R.hidden)return;
+  const ph=cur(),n=E.seq.length;
+  const t=E.fin?'done':ph.t;if(R.dataset.t!==t)R.dataset.t=t;
+  R.classList.toggle('paused',!E.running&&E.started&&!E.fin);
+  put('rTitle',E.title);
+  let tm;
+  if(E.fin){
+    put('rPhase','Gata! 🎉');tm=fmt(E.tot/1000);
+    put('rInfo',(E.ctr?pl(E.cnt,'rundă','runde'):pl(n,'fază','faze'))+' · timp total');
+    wid('rBar',100);put('rNext','');put('rState','Antrenament încheiat');
+  }else{
+    put('rPhase',ph.name);
+    if(ph.dur!=null){tm=fmt(Math.ceil((ph.dur*1000-E.carry)/1000));wid('rBar',Math.min(100,E.carry/(ph.dur*10)))}
+    else{tm=fmt(E.carry/1000);wid('rBar',0)}
+    put('rInfo',ph.info||'');
+    const nx=E.seq[E.i+1];
+    put('rNext',nx?`Urmează: ${nx.name}${nx.dur!=null?' · '+fmt(nx.dur):''}`:'Ultima fază');
+    put('rState',!E.started?'Apasă ▶ pentru start':(!E.running?'⏸ În pauză':(ph.dur==null?'Apasă „Gata” când termini seria':'')));
+  }
+  put('rTime',tm);$('#rTime').classList.toggle('long',tm.length>5);
+  const done=E.fin?E.total:(E.cum[E.i]||0)+Math.min(E.carry/1000,ph.dur||0);
+  wid('rObar',E.fin?100:(E.man?(E.i/n):(E.total?done/E.total:0))*100);
+  put('rEl','Timp: '+fmt(E.tot/1000));
+  put('rLeft',E.fin?'':(E.man?`Faza ${E.i+1}/${n}`:`Rămas: ${fmt(Math.max(0,E.total-done))}`));
+  $('#rCnt').hidden=!E.ctr;put('cVal',String(E.cnt));
+  $('#rDone').hidden=E.fin||ph.dur!=null;
+  $('#bPlus').hidden=E.fin||ph.dur==null;$('#bMinus').hidden=$('#bPlus').hidden;
+  const lgOn=!E.fin&&!!ph.log;$('#rLog').hidden=!lgOn;$('#bBusy').hidden=!lgOn;R.classList.toggle('haslog',lgOn);
+  {const pfk=E.fin?-2:E.i;if(E.pf!==pfk){E.pf=pfk;prefill(E.fin?{}:ph)}}
+  put('bPlay',E.running?'⏸':(E.fin?'↻':'▶'));
+  const al=E.running?'Pauză':(E.fin?'Repornește':'Start');if($('#bPlay').getAttribute('aria-label')!==al)$('#bPlay').setAttribute('aria-label',al);
+  put('rSnd',S.sound?'🔊':'🔇');
+  const dt=(E.fin?'Gata':tm)+' · CRONOSALA';if(document.title!==dt)document.title=dt;
+}
+$('#rClose').onclick=()=>closeRun();
+$('#bPlay').onclick=()=>E.running?pause():begin();
+$('#bNext').onclick=next;$('#bPrev').onclick=prev;$('#rDone').onclick=()=>{logSet();next()};
+$('#bReset').onclick=async()=>{
+  if(E.started&&!E.fin&&!(await ask({title:'Reiei de la început?',text:'Timpul și rundele numărate se resetează.',ok:'Reia',danger:true})))return;
+  pause();resetState();calc();clearRunSave();render();
+};
+$('#cPlus').onclick=()=>{E.cnt++;vib(30);render()};
+$('#cMinus').onclick=()=>{E.cnt=Math.max(0,E.cnt-1);render()};
+$('#rSnd').onclick=()=>{S.sound=!S.sound;saveS();render()};
+addEventListener('keydown',e=>{
+  if(!$('#dlg').hidden){
+    if(e.key==='Escape'){e.preventDefault();dlgClose(false)}
+    else if(e.key==='Enter'&&e.target.tagName!=='BUTTON'){e.preventDefault();dlgClose(true)}
+    else if(e.key==='Tab'){const f=$$('#dlg input:not([hidden]),#dlg button');const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}
+    return;
+  }
+  if($('#run').hidden||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  if(e.code==='Space'){if(e.target.tagName==='BUTTON')return;e.preventDefault();E.running?pause():begin()}
+  else if(e.key==='ArrowRight')next();else if(e.key==='ArrowLeft')prev();
+  else if(e.key==='Escape')closeRun();
+});
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){if(E.started&&!E.fin)saveRun(true)}
+  else{wakeSync();if(E.running)tick();if(AC&&AC.state!=='running')audio()}
+});
+addEventListener('pagehide',()=>{if(E.started&&!E.fin)saveRun(true)});
+
+/* ---------- cronometru ---------- */
+const SW={run:false,t0:0,acc:0,laps:[],raf:0};
+const swNow=()=>SW.acc+(SW.run?performance.now()-SW.t0:0);
+function fmtCs(ms){const t=Math.floor(ms/10),cs=t%100,s=Math.floor(t/100)%60,m=Math.floor(t/6000)%60,h=Math.floor(t/360000);return (h?h+':':'')+pad(m)+':'+pad(s)+'.'+pad(cs)}
+function swRender(){
+  put('swT',fmtCs(swNow()));
+  put('swGo',SW.run?'Stop':(SW.acc?'Continuă':'Start'));
+  $('#swLap').disabled=!SW.run;$('#swReset').disabled=SW.run||!SW.acc;
+}
+function swLoop(){SW.raf=0;if(!SW.run||!$('#stopwatch').classList.contains('on'))return;swRender();SW.raf=requestAnimationFrame(swLoop)}
+function swKick(){swRender();if(SW.run&&!SW.raf)SW.raf=requestAnimationFrame(swLoop)}
+function swLaps(){
+  const L=SW.laps;let best=-1,worst=-1;
+  if(L.length>=3){let mn=1e18,mx=-1;L.forEach((l,i)=>{if(l.split<mn){mn=l.split;best=i}if(l.split>mx){mx=l.split;worst=i}})}
+  $('#laps').innerHTML=L.map((l,i)=>`<div class="lap ${i===best?'best':''} ${i===worst?'worst':''}"><span>Tur ${i+1}${i===best?' · cel mai bun':''}${i===worst?' · cel mai slab':''}</span><span>${fmtCs(l.split)}</span><em>${fmtCs(l.total)}</em></div>`).reverse().join('');
+}
+$('#swGo').onclick=()=>{
+  audio();
+  if(SW.run){SW.acc+=performance.now()-SW.t0;SW.run=false;unwake('sw')}
+  else{SW.t0=performance.now();SW.run=true;wake('sw')}
+  swKick();
+};
+$('#swLap').onclick=()=>{const t=swNow(),prevT=SW.laps.length?SW.laps[SW.laps.length-1].total:0;SW.laps.push({total:t,split:t-prevT});vib(30);swLaps()};
+$('#swReset').onclick=()=>{SW.acc=0;SW.laps=[];swRender();swLaps()};
+swRender();
+
+/* ---------- metronom ---------- */
+const M={bpm:100,beats:4,run:false,next:0,beat:0,stop:null,taps:[]};
+const M_CHIPS=[['Lent · 50',50],['Genuflexiuni · 60',60],['Biciclă · 90',90],['Coardă · 120',120],['Pas alert · 140',140],['Alergare · 170',170]];
+function mUI(){
+  put('mBpm',String(M.bpm));$('#mRange').value=M.bpm;
+  $('#mDots').innerHTML=Array.from({length:M.beats},(_,i)=>`<i class="${i===0?'acc':''}"></i>`).join('');
+  $('#mBeats').innerHTML=Array.from({length:8},(_,i)=>`<button class="${i+1===M.beats?'sel':''}" data-b="${i+1}" aria-label="${i+1} timpi pe măsură" aria-pressed="${i+1===M.beats}">${i+1}</button>`).join('');
+  put('mGo',M.run?'⏹ Oprește':'▶ Pornește');
+}
+$('#mChips').innerHTML=M_CHIPS.map(([l,v])=>`<button data-v="${v}">${l}</button>`).join('');
+function mSet(v){M.bpm=clamp(Math.round(v),30,240);LS.set('metro',{bpm:M.bpm,beats:M.beats});mUI()}
+function mSched(){
+  if(!M.run||!AC)return;
+  while(M.next<AC.currentTime+.2){
+    const b=M.beat%M.beats,acc=b===0;
+    tone(acc?1500:1000,.05,{type:'square',v:acc?.45:.28,abs:M.next,force:true});
+    setTimeout(()=>mFlash(b),Math.max(0,(M.next-AC.currentTime)*1000));
+    M.next+=60/M.bpm;M.beat++;
+  }
+}
+function mFlash(b){const d=$$('#mDots i')[b];if(!d)return;d.classList.add('on');setTimeout(()=>d.classList.remove('on'),110)}
+function mStart(){const a=audio();if(!a)return;M.run=true;M.beat=0;M.next=a.currentTime+.06;if(M.stop)M.stop();M.stop=startTicker(mSched,25);keep('metro',true);wake('metro');mUI()}
+function mStop(){if(!M.run)return;M.run=false;if(M.stop){M.stop();M.stop=null}keep('metro',false);unwake('metro');mUI()}
+$('#mGo').onclick=()=>M.run?mStop():mStart();
+$('#mRange').oninput=e=>mSet(+e.target.value);
+$('#metro').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.m)mSet(M.bpm+(+b.dataset.m));
+  else if(b.dataset.b){M.beats=+b.dataset.b;M.beat=0;mSet(M.bpm)}
+  else if(b.dataset.v)mSet(+b.dataset.v);
+});
+$('#mTap').onclick=()=>{
+  const n=performance.now();if(M.taps.length&&n-M.taps[M.taps.length-1]>2000)M.taps=[];
+  M.taps.push(n);if(M.taps.length>6)M.taps.shift();
+  if(M.taps.length>=2){const iv=(M.taps[M.taps.length-1]-M.taps[0])/(M.taps.length-1);mSet(60000/iv)}
+};
+{const m=LS.get('metro',null);if(m&&typeof m==='object'){M.bpm=clamp(Number(m.bpm)||100,30,240);M.beats=clamp(Math.round(Number(m.beats))||4,1,8)}}
+mUI();
+
+/* ---------- istoric ---------- */
+function renderHist(){
+  renderStats();
+  const h=LSarr('hist').filter(x=>x&&typeof x==='object'),d0=new Date();d0.setHours(0,0,0,0);
+  const w0=d0.getTime()-6*864e5,td=h.filter(x=>x.t>=d0.getTime()),wk=h.filter(x=>x.t>=w0);
+  const m=a=>Math.round(a.reduce((s,x)=>s+(+x.sec||0),0)/60);
+  put('hToday',String(td.length));put('hTodayS',`sesiuni azi · ${m(td)} min`);put('hWeek',String(wk.length));put('hWeekS',`sesiuni în 7 zile · ${m(wk)} min`);
+  $('#hList').innerHTML=h.length?h.slice(0,60).map(x=>`<div class="hrow"><div><b>${esc(x.type)}</b>${x.cnt!=null?` · ${pl(x.cnt|0,'rundă','runde')}`:''}<small>${esc(new Date(x.t).toLocaleString('ro-RO',{dateStyle:'medium',timeStyle:'short'}))}</small></div><div style="text-align:right">${fmt(x.sec)}<small>${x.done?'✓ terminat':'⏹ oprit'}</small></div></div>`).join(''):'<p class="today">Nicio sesiune încă.</p>';
+}
+$('#hClr').onclick=async()=>{if(await ask({title:'Ștergi tot istoricul?',text:'Acțiunea nu se poate anula.',ok:'Șterge',danger:true})){LS.set('hist',[]);renderHist()}};
+$('#hExp').onclick=()=>{
+  const b=new Blob([JSON.stringify(LSarr('hist'),null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='cronosala-istoric.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+};
+
+/* ---------- setări ---------- */
+function syncSettings(){
+  $$('[data-s]').forEach(i=>i.checked=!!S[i.dataset.s]);
+  $('#sVol').value=S.vol;$('#sTheme').value=S.theme;$('#sSnd').value=S.snd;$('#sOut').value=S.out;
+}
+$$('[data-s]').forEach(i=>i.onchange=()=>{S[i.dataset.s]=i.checked;saveS();if(i.dataset.s==='wake')wakeSync();if(i.dataset.s==='voice'&&i.checked){unlockSpeech();say('Voce activată')}
+  if(i.dataset.s==='notif'&&i.checked){
+    if(!('Notification' in window)){S.notif=false;i.checked=false;saveS();toast('Notificările nu sunt disponibile în acest browser')}
+    else Notification.requestPermission().then(p=>{if(p!=='granted'){S.notif=false;i.checked=false;saveS();toast('Permisiune refuzată')}}).catch(()=>{});
+  }});
+$('#sVol').oninput=e=>{S.vol=+e.target.value;saveS();if(master)master.gain.value=outGain()};
+$('#sTheme').onchange=e=>{S.theme=e.target.value;saveS();applyTheme()};
+$('#sTest').onclick=()=>{audio();SND.go();say('Test sunet');vib(80)};
+$('#sWipe').onclick=async()=>{
+  if(!(await ask({title:'Ștergi toate datele?',text:'Setări, presetări, istoric și antrenamente întrerupte dispar de pe acest dispozitiv.',ok:'Șterge tot',danger:true})))return;
+  try{Object.keys(localStorage).filter(k=>k.startsWith('cronosala.')).forEach(k=>localStorage.removeItem(k))}catch(e){}
+  location.reload();
+};
+
+/* ---------- catalog aparate World Class (gama Technogym) ---------- */
+const CAT=[
+ ['Piept','Presă piept (Chest Press)','10-12',90],
+ ['Piept','Presă piept înclinată (Incline Press)','10-12',90],
+ ['Piept','Fluturi / Pec Fly (butterfly)','12-15',60],
+ ['Piept','Încrucișări la scripete (Cable Crossover)','12-15',60],
+ ['Piept','Împins la Smith, bancă plană','8-10',120],
+ ['Spate','Tracțiuni la helcometru (Lat Pulldown)','10-12',90],
+ ['Spate','Ramat șezând (Low Row)','10-12',90],
+ ['Spate','Ramat cu piept sprijinit (Row)','10-12',90],
+ ['Spate','Ramat la scripete jos (Cable Row)','10-12',90],
+ ['Spate','Tracțiuni asistate (Assisted Pull-up)','6-10',90],
+ ['Spate','Extensii lombare (Lower Back)','12-15',60],
+ ['Spate','Tracțiuni verticale (Vertical Traction)','10-12',90],
+ ['Spate','Pulover cu brațele întinse la scripete (Straight-arm Pulldown)','12-15',60],
+ ['Umeri','Presă umeri (Shoulder Press)','10-12',90],
+ ['Umeri','Ridicări laterale la aparat (Lateral Raise)','12-15',60],
+ ['Umeri','Fluturi inverși (Rear Delt / Reverse Fly)','12-15',60],
+ ['Umeri','Face pull la scripete','15',45],
+ ['Brațe','Flexii biceps la aparat (Biceps Curl)','10-12',60],
+ ['Brațe','Flexii biceps la scripete','12',60],
+ ['Brațe','Extensii triceps la aparat (Triceps Extension)','10-12',60],
+ ['Brațe','Extensii triceps la scripete (Pushdown)','12',60],
+ ['Brațe','Flotări la paralele asistate (Assisted Dip)','8-10',90],
+ ['Picioare','Presă picioare (Leg Press)','10-12',120],
+ ['Picioare','Extensii cvadriceps (Leg Extension)','12-15',60],
+ ['Picioare','Flexii femurali șezând (Leg Curl)','10-12',60],
+ ['Picioare','Flexii femurali culcat (Lying Leg Curl)','10-12',60],
+ ['Picioare','Genuflexiuni la Smith (Smith Squat)','8-10',120],
+ ['Picioare','Hack squat / presă înclinată','10-12',120],
+ ['Picioare','Gambe (Calf)','15-20',45],
+ ['Picioare','Adductori (Adductor)','12-15',60],
+ ['Picioare','Abductori (Abductor)','12-15',60],
+ ['Picioare','Fandări cu gantere','10 / picior',75],
+ ['Fese','Împins de șold la aparat (Hip Thrust)','10-12',90],
+ ['Fese','Kickback la scripete (Glute)','12-15',60],
+ ['Fese','Presă fesieri (Glute Press)','12-15',60],
+ ['Fese','Extensii de șold la hiperextensie','12',60],
+ ['Fese','Extensie șold în picioare (Multi Hip)','12 / picior',60],
+ ['Fese','Abducție șold la scripete (Kinesis)','12 / picior',60],
+ ['Core','Abdomene la aparat (Abdominal Crunch)','15',45],
+ ['Core','Rotații trunchi (Rotary Torso)','12 / parte',45],
+ ['Core','Ridicări de picioare (Captain’s Chair)','12',45],
+ ['Core','Plank (menținere)','45 s',45],
+ ['Core','Abdomene totale (Total Abdominal)','15',45],
+ ['Core','Tăieturi de lemne la scripete (Wood Chop)','12 / parte',45],
+ ['TRX','TRX Row (ramat)','10-15',60],
+ ['TRX','TRX Chest Press (flotări suspendate)','10-12',60],
+ ['TRX','TRX Y-Fly (umeri)','10-12',45],
+ ['TRX','TRX Face Pull','12-15',45],
+ ['TRX','TRX Biceps Curl','10-12',45],
+ ['TRX','TRX Triceps Extension','10-12',45],
+ ['TRX','TRX Genuflexiuni (Squat)','12-15',60],
+ ['TRX','TRX Fandări (Suspended Lunge)','10 / picior',60],
+ ['TRX','TRX Hamstring Curl','10-12',60],
+ ['TRX','TRX Pike / Mountain Climber (core)','10-12',45],
+ ['Funcțional','Kettlebell swing','15-20',60],
+ ['Funcțional','Genuflexiuni goblet (kettlebell / ganteră)','10-12',75],
+ ['Funcțional','Îndreptări cu ganteră / kettlebell (Deadlift)','8-10',90],
+ ['Funcțional','Împins cu gantere la bancă','8-12',90],
+ ['Funcțional','Ramat cu ganteră la bancă','10 / braț',75],
+ ['Funcțional','Medicine ball slam','12-15',45],
+ ['Funcțional','Sărituri pe cutie (Box Jump)','8-10',60],
+ ['Funcțional','Flotări','10-20',60],
+ ['Funcțional','Tracțiuni la bară','5-10',90],
+ ['Funcțional','Burpees','10-15',60],
+ ['Funcțional','Farmer’s walk','30-40 m',60],
+ ['Funcțional','Rotiță abdomene (Ab Wheel)','8-12',45],
+ ['Funcțional','Bear crawl','20 m',45]
+];
+const CARDIO=[
+ {n:'Bandă de alergat (Run)',d:'sprint 30 s / mers 90 s ×8',cs:300,q:{prep:10,work:30,rest:90,rounds:8,sets:1}},
+ {n:'Bandă fără motor (Skillmill)',d:'20 s / 40 s ×8',cs:240,q:{prep:10,work:20,rest:40,rounds:8,sets:1}},
+ {n:'Bicicletă (Bike)',d:'Tabata 20 s / 10 s ×8',cs:240,q:{prep:10,work:20,rest:10,rounds:8,sets:1}},
+ {n:'Ciclism indoor (studio cycling)',d:'30 s tare / 30 s ușor ×10',cs:300,q:{prep:10,work:30,rest:30,rounds:10,sets:1}},
+ {n:'Eliptică (Cross / Synchro)',d:'2 min ritm / 1 min ușor ×6',cs:300,q:{prep:10,work:120,rest:60,rounds:6,sets:1}},
+ {n:'Vâslit (Row)',d:'1 min puternic / 1 min ușor ×6',cs:240,q:{prep:10,work:60,rest:60,rounds:6,sets:1}},
+ {n:'Stepper / scară (Climb)',d:'3 min / 1 min ×5',cs:300,q:{prep:10,work:180,rest:60,rounds:5,sets:1}},
+ {n:'Bicicletă reclinată (Recline)',d:'1 min / 1 min ×8',cs:480,q:{prep:10,work:60,rest:60,rounds:8,sets:1}},
+ {n:'Bicicletă pentru brațe (Arm / Top)',d:'30 s / 30 s ×8',cs:240,q:{prep:10,work:30,rest:30,rounds:8,sets:1}},
+ {n:'Ski (SkillSki)',d:'30 s / 60 s ×8',cs:300,q:{prep:10,work:30,rest:60,rounds:8,sets:1}},
+ {n:'Cardio constant, zona 2',d:'30 min ritm de conversație',cs:1800,t:'cd',q:{prep:5,total:1800}}
+];
+const PLANS=[
+ {n:'Full body începători',type:'sets',keys:['Chest Press','Lat Pulldown','Leg Press','Shoulder Press','Leg Curl','Abdominal Crunch']},
+ {n:'Împins · piept, umeri, triceps',type:'sets',keys:['Chest Press','Incline Press','Pec Fly','Shoulder Press','Lateral Raise','Triceps Extension','Pushdown']},
+ {n:'Tras · spate, biceps',type:'sets',keys:['Lat Pulldown','Low Row','piept sprijinit','Reverse Fly','Biceps Curl','Face pull','Lower Back']},
+ {n:'Picioare + fese',type:'sets',keys:['Leg Press','Smith Squat','Leg Extension','Leg Curl','Hip Thrust','Adductor','Abductor','Calf']},
+ {n:'Upper body',type:'sets',keys:['Chest Press','Lat Pulldown','Shoulder Press','Low Row','Biceps Curl','Triceps Extension']},
+ {n:'Zi B · picioare, fese, core',type:'sets',keys:['Leg Press','Hip Thrust','Leg Extension','Leg Curl','Adductor','Abductor','Calf','Plank']},
+ {n:'Zi C · tras + împins',type:'sets',keys:['Incline Press','Low Row','Lateral Raise','Vertical Traction','Biceps Curl','Triceps Extension','TRX Row']},
+ {n:'Lower body (program 4 zile)',type:'sets',keys:['Leg Press','Smith Squat','Leg Curl','Hip Thrust','Calf','Abdominal Crunch']},
+ {n:'Circuit full body 45/15',type:'circuit',sec:45,cfg:{rest:15,rounds:3,roundRest:90},keys:['Chest Press','Lat Pulldown','Leg Press','Shoulder Press','Leg Curl','Abdominal Crunch','Low Row','Calf']},
+ {n:'Circuit picioare + fese 40/20',type:'circuit',sec:40,cfg:{rest:20,rounds:3,roundRest:90},keys:['Leg Press','Hip Thrust','Leg Extension','Leg Curl','Adductor','Abductor']}
+];
+$('#exlist').innerHTML=[...CAT.map(x=>x[1]),...CARDIO.map(x=>x.n)].map(n=>`<option value="${esc(n)}">`).join('');
+$('#plans').innerHTML=PLANS.map((p,i)=>`<button type="button" class="chip q" data-pl="${i}">${esc(p.n)}</button>`).join('');
+let cG='Toate',cQ='',toastT=null;
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200)}
+const GO=['Piept','Spate','Umeri','Brațe','Picioare','Fese','Core','TRX','Funcțional'];
+let invMode=false,OFF=new Set(LSarr('inv.off').filter(x=>typeof x==='string'));
+const saveInv=()=>LS.set('inv.off',[...OFF]);
+function renderCat(){
+  $('#cGroups').innerHTML=['Toate',...GO,'Cardio'].map(g=>`<button type="button" class="chip ${g===cG?'sel':''}" data-g="${g}" aria-pressed="${g===cG}">${g}</button>`).join('');
+  $('#invBtn').classList.toggle('sel',invMode);
+  $('#invBtn').textContent=invMode?'✓ Gata cu bifatul':'🛠 Bifează aparatele din club';
+  const q=norm(cQ.trim());
+  const idx=CAT.map((_,i)=>i).sort((a,b)=>GO.indexOf(CAT[a][0])-GO.indexOf(CAT[b][0])||a-b);
+  let h='',hidden=0;
+  if(invMode)h+='<div class="chips"><button type="button" class="chip" data-inv="all">Bifează tot</button><button type="button" class="chip" data-inv="none">Debifează tot</button></div>';
+  const mk=(key,sub,btns)=>{
+    if(!invMode&&OFF.has(key)){hidden++;return ''}
+    if(invMode)return `<label class="crow"><div><b>${esc(key)}</b><small>${esc(sub)}</small></div><input type="checkbox" class="tg" data-ik="${esc(key)}" ${OFF.has(key)?'':'checked'}></label>`;
+    return `<div class="crow"><div><b>${esc(key)}</b><small>${esc(sub)}</small></div><div class="cbtns">${btns}</div></div>`;
+  };
+  idx.forEach(i=>{
+    const x=CAT[i];
+    if((cG==='Toate'||cG===x[0])&&(!q||norm(x[1]).includes(q)||norm(x[0]).includes(q)))
+      h+=mk(x[1],`${x[0]} · ${x[2]} rep. · pauză ${x[3]} s`,`<button type="button" class="sm" data-gd="${i}" aria-label="Ghid: ${esc(x[1])}">ⓘ</button><button type="button" class="sm" data-add="sets" data-i="${i}" aria-label="Adaugă în Serii: ${esc(x[1])}">＋ Serii</button><button type="button" class="sm" data-add="circuit" data-i="${i}" aria-label="Adaugă în Circuit: ${esc(x[1])}">＋ Circuit</button>`);
+  });
+  CARDIO.forEach((x,i)=>{
+    if((cG==='Toate'||cG==='Cardio')&&(!q||norm(x.n).includes(q)||'cardio'.includes(q)))
+      h+=mk(x.n,`Cardio · ${x.d}`,`<button type="button" class="sm" data-int="${i}" aria-label="${x.t==='cd'?'Timp':'Interval'}: ${esc(x.n)}">▶ ${x.t==='cd'?'Timp':'Interval'}</button><button type="button" class="sm" data-add="cardio" data-i="${i}" aria-label="Adaugă în Circuit: ${esc(x.n)}">＋ Circuit</button>`);
+  });
+  if(!invMode&&hidden)h+=`<p class="today">${pl(hidden,'ascuns','ascunse')} (marcate ca lipsă în club).</p>`;
+  $('#cList').innerHTML=h||'<p class="today">Niciun rezultat.</p>';
+}
+function addRow(tid,row){
+  const T=TYPES.find(t=>t.id===tid),c=sanitize(T,Object.assign(defOf(T),savedCfg(tid))),lf=T.fields.find(f=>f.kind==='list');
+  const raw=LS.get('cfg.'+tid,null);
+  if(!raw||!Array.isArray(raw[lf.k])||JSON.stringify(raw[lf.k])===JSON.stringify(lf.d))c[lf.k]=[];
+  if(c[lf.k].length>=MAXROWS){toast(`Lista „${T.name}” e plină (${MAXROWS})`);return}
+  c[lf.k].push(row);LS.set('cfg.'+tid,c);
+  toast(`Adăugat în „${T.name}” · ${c[lf.k].length} în listă`);
+}
+function listCustom(tid){
+  const T=TYPES.find(t=>t.id===tid),lf=T.fields.find(f=>f.kind==='list'),c=LS.get('cfg.'+tid,null);
+  return !!(c&&Array.isArray(c[lf.k])&&c[lf.k].length&&JSON.stringify(c[lf.k])!==JSON.stringify(lf.d));
+}
+async function loadPlan(p,o={}){
+  const rows=p.keys.map(k=>CAT.find(x=>norm(x[1]).includes(norm(k)))).filter(x=>x&&!OFF.has(x[1]));
+  if(!rows.length){toast('Toate aparatele acestui antrenament sunt marcate ca lipsă în club.');return}
+  if(listCustom(p.type)){
+    const T=TYPES.find(t=>t.id===p.type);
+    const ok=o.go||await ask({title:'Înlocuiești lista curentă?',text:`Lista din „${T.name}” va fi înlocuită. O salvez automat ca presetarea „Lista de dinainte”.`,ok:'Înlocuiește'});
+    if(!ok)return;
+    const arr=LSarr('presets.'+p.type).filter(x=>x&&x.name!=='Lista de dinainte');arr.push({name:'Lista de dinainte',cfg:savedCfg(p.type)});LS.set('presets.'+p.type,arr.slice(-30));
+  }
+  const cfg=p.type==='sets'
+    ?{prep:5,warm:!!o.warm,cool:!!o.cool,deload:!!o.deload,auto:true,list:rows.map(x=>({n:x[1],sets:3,r:x[2],rest:x[3]}))}
+    :Object.assign({prep:10,rest:15,rounds:3,roundRest:90},p.cfg||{},{list:rows.map(x=>({n:x[1],s:p.sec||45}))});
+  LS.set('cfg.'+p.type,cfg);openType(p.type);
+  if(o.go)startRun();
+}
+function loadInt(x,go){
+  const tid=x.t||'hiit',T=TYPES.find(t=>t.id===tid);
+  LS.set('cfg.'+tid,Object.assign(defOf(T),x.q));openType(tid);
+  if(go)startRun();
+}
+$('#catalog').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.id==='invBtn'){invMode=!invMode;renderCat();return}
+  if(b.id==='lblBtn'){go('labels');return}
+  if(b.id==='scanBtn'){startScan();return}
+  if(b.dataset.gd!=null){showGuide(+b.dataset.gd);return}
+  if(b.dataset.inv){if(b.dataset.inv==='all')OFF.clear();else OFF=new Set([...CAT.map(x=>x[1]),...CARDIO.map(x=>x.n)]);saveInv();renderCat();return}
+  if(b.dataset.g){cG=b.dataset.g;renderCat();return}
+  if(b.dataset.pl!=null){loadPlan(PLANS[+b.dataset.pl]);return}
+  if(b.dataset.int!=null){loadInt(CARDIO[+b.dataset.int]);return}
+  if(b.dataset.add){
+    const i=+b.dataset.i;
+    if(b.dataset.add==='sets'){const x=CAT[i];addRow('sets',{n:x[1],sets:3,r:x[2],rest:x[3]})}
+    else if(b.dataset.add==='circuit')addRow('circuit',{n:CAT[i][1],s:45});
+    else addRow('circuit',{n:CARDIO[i].n,s:CARDIO[i].cs});
+  }
+});
+$('#cList').addEventListener('change',e=>{const k=e.target.dataset.ik;if(k==null)return;if(e.target.checked)OFF.delete(k);else OFF.add(k);saveInv()});
+$('#cSearch').addEventListener('input',e=>{cQ=e.target.value;renderCat()});
+
+const WARM=[['Încălzire cardio',300,'Ritm ușor, crește treptat pulsul','Respiră pe nas; ar trebui să poți vorbi.'],['Mobilitate umeri',30,'Cercuri mari cu brațele','Fără smucituri, amplitudine completă.'],['Mobilitate șolduri',30,'Cercuri cu șoldul / balans de picior','Ține spatele drept.'],['Genuflexiuni fără greutate',40,'Ușor și controlat','Genunchii urmează direcția degetelor.'],['Pregătire specifică',60,'1–2 serii ușoare la primul exercițiu','Fără epuizare: ~50% din greutatea de lucru.']];
+const COOL=[['Întindere piept și umeri',30,'Respiră lent','Fără durere, doar tensiune ușoară.'],['Întindere spate',30,'Rotunjește ușor coloana','Respirație lungă.'],['Întindere cvadriceps',40,'Câte 20 s pe fiecare picior','Șolduri înainte, genunchii apropiați.'],['Întindere femurali',40,'Câte 20 s pe fiecare picior','Spate drept, fără balans.'],['Respirații lente',60,'Inspiră 4 s, expiră 6 s','Lasă pulsul să scadă.']];
+function notify(ph){
+  try{
+    if(S.notif&&document.hidden&&'Notification' in window&&Notification.permission==='granted')
+      new Notification('CRONOSALA · '+ph.name,{body:ph.info||'',tag:'cronosala-faza',renotify:true});
+  }catch(e){}
+}
+/* =====================================================================
+   v3 — jurnal, adaptiv, program, aparat ocupat, QR, partajare, statistici
+   ===================================================================== */
+let NEXTPLAN=null;
+function outGain(){return S.vol*(S.out==='casca'?.55:1)}
+Object.assign(SND,{
+  whistle:(a=0)=>{tone(2200,.16,{v:.3,at:a});tone(2600,.26,{v:.3,at:a+.17})},
+  low:(a=0)=>tone(520,.35,{type:'triangle',v:.4,at:a}),
+  softUp:(a=0)=>{tone(660,.25,{v:.35,at:a});tone(880,.3,{v:.3,at:a+.15})},
+  softDown:(a=0)=>{tone(550,.25,{v:.35,at:a});tone(415,.35,{v:.3,at:a+.15})}
+});
+function soundFor(ph){
+  if(S.snd==='voce')return ()=>{};
+  if(ph.bell)return SND.bell;
+  if(ph.cue&&SND[ph.cue])return SND[ph.cue];
+  const t=ph.t==='rest'?'rest':ph.t==='prep'?'prep':'work';
+  if(S.snd==='box')return t==='prep'?SND.prep:SND.bell;
+  if(S.snd==='sport')return t==='work'?SND.whistle:t==='rest'?SND.low:SND.prep;
+  if(S.snd==='soft')return t==='work'?SND.softUp:t==='rest'?SND.softDown:SND.prep;
+  return t==='rest'?SND.rest:t==='prep'?SND.prep:SND.go;
+}
+
+/* ---------- utilitare ---------- */
+const DOWN=['Duminică','Luni','Marți','Miercuri','Joi','Vineri','Sâmbătă'];
+const dayStart=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+const dayKey=d=>{const x=dayStart(d);return x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate())};
+function download(name,text,mime){
+  const u=URL.createObjectURL(new Blob([text],{type:mime})),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+}
+const csvEsc=v=>{v=String(v==null?'':v);return /[",\n;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+const b64e=s=>{const b=new TextEncoder().encode(s);let t='';b.forEach(c=>t+=String.fromCharCode(c));return btoa(t).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const b64d=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const t=atob(s),b=new Uint8Array(t.length);for(let i=0;i<t.length;i++)b[i]=t.charCodeAt(i);return new TextDecoder().decode(b)};
+
+/* ---------- jurnal de greutăți ---------- */
+const WLOG=()=>LSarr('wlog').filter(x=>x&&typeof x.ex==='string'&&Number.isFinite(+x.kg)&&Number.isFinite(+x.reps)&&Number.isFinite(+x.t)).map(x=>({t:+x.t,ex:x.ex,kg:+x.kg,reps:+x.reps,set:x.set|0}));
+const lastFor=ex=>{const a=WLOG().filter(x=>x.ex===ex);return a.length?a[a.length-1]:null};
+function rangeNums(rr){
+  if(typeof rr!=='string')return null;
+  if(/\bs\b|\bm\b/i.test(rr.replace(/picior|parte|braț/gi,'')))return null;
+  const m=rr.match(/\d+/g);return m?m.map(Number):null;
+}
+const rangeLo=rr=>{const n=rangeNums(rr);return n?n[0]:null};
+const rangeHi=rr=>{const n=rangeNums(rr);return n?n[n.length-1]:null};
+function suggest(ex,rr){
+  const hi=rangeHi(rr);if(!hi)return '';
+  const by={};
+  WLOG().filter(x=>x.ex===ex).forEach(x=>{const k=dayKey(x.t),o=by[k];if(!o||x.kg>o.kg||(x.kg===o.kg&&x.reps>o.reps))by[k]={kg:x.kg,reps:x.reps}});
+  const ds=Object.keys(by).sort().slice(-3);if(ds.length<3)return '';
+  const L=ds.map(k=>by[k]);
+  if(L[0].kg>0&&L.every(s=>s.kg===L[0].kg&&s.reps>=hi))return `↑ Încearcă ${+(L[0].kg+2.5).toFixed(1)} kg (3 sesiuni la limita de repetări)`;
+  return '';
+}
+function radjMap(){const m=LS.get('radj',{});return m&&typeof m==='object'&&!Array.isArray(m)?m:{}}
+function restFor(n,base,rr){
+  let r=base+(Number(radjMap()[n])||0);
+  const l=lastFor(n),lo=rangeLo(rr);if(l&&lo&&l.reps<lo)r+=30;
+  return clamp(Math.round(r),0,900);
+}
+function logSet(){
+  const ph=cur();if(!ph||!ph.log||E.fin)return;
+  const kg=parseFloat(String($('#lgKg').value).replace(',','.')),reps=parseInt($('#lgRp').value);
+  if(!Number.isFinite(reps)||reps<0||reps>999)return;
+  const k=Number.isFinite(kg)&&kg>=0&&kg<=999?kg:0;
+  const a=LSarr('wlog');a.push({t:Date.now(),ex:ph.ex,kg:k,reps,set:ph.set||0});LS.set('wlog',a.slice(-4000));
+  const nx=E.seq[E.i+1],lo=rangeLo(ph.rr);
+  if(nx&&nx.t==='rest'&&nx.auto&&nx.ex===ph.ex&&lo&&reps<lo){nx.dur=clamp(nx.dur+30,5,900);E.seqDirty=true;calc()}
+}
+function prefill(ph){
+  let hint='';
+  if(ph.log){
+    const l=lastFor(ph.ex);
+    $('#lgKg').value=l?l.kg:'';$('#lgRp').value=l?l.reps:(rangeHi(ph.rr)||'');
+    if(l)hint=`Ultima dată: ${l.kg} kg × ${l.reps}`;
+    const sg=suggest(ph.ex,ph.rr);if(sg)hint+=(hint?' · ':'')+sg;
+    if(ph.dl)hint+=(hint?' · ':'')+'Descărcare: ~90% din greutatea obișnuită';
+  }
+  const h=$('#rHint');h.textContent=hint;h.hidden=!hint;
+  const g=ph.ex?guideFor(ph.ex):null;
+  $('#rTip').textContent=ph.tip?ph.tip:(g?'Atenție: '+g.err:'');
+}
+function adjust(d){
+  const p=cur();if(!p||p.dur==null||E.fin)return;
+  p.dur=Math.max(Math.ceil(E.carry/1000)+1,5,p.dur+d);
+  if(p.t==='rest'&&p.ex){const o=Object.assign({},radjMap());o[p.ex]=clamp((Number(o[p.ex])||0)+d,-120,180);LS.set('radj',o)}
+  E.tk={};E.warned=false;E.pre=-1;E.seqDirty=true;calc();render();
+}
+$('#bPlus').onclick=()=>adjust(15);
+$('#bMinus').onclick=()=>adjust(-15);
+
+/* ---------- aparat ocupat ---------- */
+const EQ=[
+ ['Leg Press','Smith Squat','Hack squat','goblet','Fandări cu gantere'],
+ ['Chest Press','Incline Press','Împins la Smith','Împins cu gantere','TRX Chest Press','Împins la piept'],
+ ['Lat Pulldown','Vertical Traction','Assisted Pull-up','Tracțiuni la bară','TRX Row'],
+ ['Low Row','piept sprijinit','Cable Row','Ramat cu ganteră','TRX Row','Ramat'],
+ ['Shoulder Press','Lateral Raise','TRX Y-Fly','Împins cu gantere'],
+ ['Leg Extension','goblet','TRX Genuflexiuni'],
+ ['Leg Curl','Lying Leg Curl','Hamstring Curl'],
+ ['Hip Thrust','Glute Press','Kickback','Multi Hip'],
+ ['Biceps Curl','TRX Biceps'],
+ ['Triceps Extension','Pushdown','TRX Triceps'],
+ ['Abdominal Crunch','Total Abdominal','Plank','Ridicări de picioare','Rotiță'],
+ ['Adductor','Abductor']
+];
+const catBy=key=>CAT.filter(x=>norm(x[1]).includes(norm(key)));
+function alts(name){
+  const nn=norm(name),out=[];
+  const add=x=>{if(x[1]!==name&&!OFF.has(x[1])&&!out.includes(x[1]))out.push(x[1])};
+  EQ.forEach(g=>{if(g.some(k=>nn.includes(norm(k))))g.forEach(k=>catBy(k).forEach(add))});
+  if(out.length<3){const me=CAT.find(x=>x[1]===name);if(me)CAT.filter(x=>x[0]===me[0]).forEach(add)}
+  return out.slice(0,3);
+}
+function swapEx(blk,nm){
+  E.seq.forEach((p,j)=>{if(j>=E.i&&p.blk===blk){p.ex=nm;if(p.t==='work')p.name=nm}});
+  E.pf=-1;E.seqDirty=true;saveRun(true);render();
+}
+function moveEnd(blk){
+  const s=E.i;let e=s;while(e<E.seq.length&&E.seq[e].blk===blk)e++;
+  const run=E.seq.splice(s,e-s);
+  while(run.length&&run[run.length-1].t==='rest')run.pop();
+  let pos=0;E.seq.forEach((p,j)=>{if(p.blk!=null&&p.blk!==undefined)pos=j+1});
+  const pv=E.seq[pos-1],ins=[];
+  if(pv&&pv.t!=='rest')ins.push(P('rest','Pauză',60,'Urmează: '+(run[0]?run[0].name:''),{ex:pv.ex,blk:pv.blk}));
+  E.seq.splice(pos,0,...ins,...run);
+  E.carry=0;E.last=Date.now();E.pre=-1;E.preEnd=false;E.pf=-1;E.seqDirty=true;calc();
+  if(E.started)enter(cur(),false);
+  saveRun(true);render();
+}
+async function busy(){
+  const ph=cur();if(!ph||!ph.log||E.fin)return;
+  const al=alts(ph.ex),ch=al.map(a=>'Folosesc: '+a);
+  const later=E.seq.some((p,j)=>j>E.i&&p.blk!=null&&p.blk!==ph.blk);
+  if(later)ch.push('Mută exercițiul la sfârșit');
+  if(!ch.length){toast('Nu am alternative pentru acest exercițiu');return}
+  const r=await ask({title:'Aparat ocupat',text:ph.ex,choices:ch,no:'Renunță'});
+  if(typeof r!=='number')return;
+  if(r<al.length){swapEx(ph.blk,al[r]);toast('Înlocuit cu '+al[r])}else{moveEnd(ph.blk);toast('Mutat la sfârșit')}
+}
+$('#bBusy').onclick=busy;
+
+/* ---------- ghid exerciții ---------- */
+const GG={
+ Piept:['Coboară controlat până când coatele sunt la ~45–75° față de trunchi; omoplații retractați și lipiți de spătar; expiră la împingere.','Coate larg deschise la 90°, fesele ridicate, rebound pe piept, amplitudine prea scurtă.'],
+ Spate:['Începe mișcarea cu omoplații (trage-i în jos și spre coloană), apoi cu brațele; trunchi stabil, privirea înainte.','Balans din trunchi, tras doar cu brațele, umeri ridicați la urechi.'],
+ Umeri:['Core strâns, coatele ușor în fața liniei trunchiului; nu arcui lombarul.','Arcuirea spatelui, ridicarea umerilor spre urechi, greutate prea mare la ridicări laterale.'],
+ Brațe:['Coatele fixe lângă corp, coborâre lentă (2–3 s), fără balans.','Balans din șold, coate care se mută, amplitudine parțială.'],
+ Picioare:['Greutatea pe toată talpa, genunchii pe direcția degetelor, spate neutru; coboară controlat.','Genunchii care cad spre interior, călcâie ridicate, blocarea genunchilor la extensie completă.'],
+ Fese:['Strânge fesele sus și ține 1 s; bazin neutru, fără hiperextensie lombară.','Împingere din spate în loc de fese, bazin înclinat, viteză excesivă.'],
+ Core:['Abdomen contractat, respirație continuă; lombar stabil, fără tracțiune de gât.','Ținerea respirației, tras de gât, șolduri lăsate la plank.'],
+ TRX:['Corp rigid ca o scândură, tensiune constantă în curele; cu cât picioarele sunt mai aproape de ancoră, cu atât e mai greu.','Curele slăbite, șolduri lăsate, umerii duși în față.'],
+ 'Funcțional':['Tehnica înaintea vitezei: începe ușor, spate neutru, mișcare din șolduri.','Rotunjirea spatelui, greutate prea mare, aterizări rigide la sărituri.'],
+ Cardio:['Încălzește 3–5 min, apoi intervale; postură dreaptă și respirație ritmică.','Prins de mânere cu forță, pornire fără încălzire.']
+};
+const GX=[
+ ['Leg Press','Picioare la lățimea umerilor pe platformă, coboară până la ~90° la genunchi fără să dezlipești bazinul de spătar.','Blocarea genunchilor sus, bazin care se rotunjește jos, picioare prea jos pe platformă.'],
+ ['Lat Pulldown','Trage bara spre piept cu coatele în jos și spre corp; privirea înainte, trunchi ușor înclinat.','Tras în spatele gâtului, balans din trunchi, umeri la urechi.'],
+ ['Chest Press','Spătar lipit, omoplați retractați, împinge fără să blochezi agresiv coatele.','Umerii duși în față, fesele ridicate, ritm prea rapid.'],
+ ['Shoulder Press','Core strâns, împinge pe verticală, coatele puțin în fața corpului.','Arcuirea lombarului, ridicarea umerilor.'],
+ ['Hip Thrust','Bărbia ușor la piept, împinge prin călcâie, strânge fesele sus 1 s.','Hiperextensia lombarului, genunchi care cad spre interior.'],
+ ['Plank','Corp în linie dreaptă de la cap la călcâie, abdomen și fese strânse, respiră normal.','Șolduri lăsate sau ridicate, ținerea respirației.'],
+ ['Kettlebell swing','Mișcare din șolduri (ca la deadlift), brațele sunt doar cârlige; kettlebell-ul urcă până la nivelul pieptului.','Genuflexiune în loc de balans din șold, rotunjirea spatelui.'],
+ ['Deadlift','Bara/greutatea aproape de corp, spate neutru, împinge podeaua cu picioarele și șoldurile în față.','Rotunjirea spatelui, tras cu brațele, privirea în sus.'],
+ ['Smith Squat','Picioarele puțin în fața barei, coboară controlat cu spatele drept, genunchii spre degete.','Călcâie ridicate, genunchi în interior.'],
+ ['Leg Curl','Șolduri fixe, flexează lent și revino în 2–3 s.','Ridicarea șoldurilor, smucituri.']
+];
+function guideFor(name){
+  const nn=norm(name),me=CAT.find(x=>x[1]===name),cd=CARDIO.find(x=>x.n===name);
+  const sp=GX.find(k=>nn.includes(norm(k[0])));
+  if(sp)return {how:sp[1],err:sp[2]};
+  const g=me?GG[me[0]]:(cd?GG.Cardio:null);
+  return g?{how:g[0],err:g[1]}:null;
+}
+function showGuide(i){
+  const x=CAT[i];if(!x)return;const g=guideFor(x[1]);if(!g)return;
+  return ask({title:x[1],text:`Cum: ${g.how}\n\nGreșeli frecvente: ${g.err}\n\nÎncălzire: 2 serii ușoare (≈50% și ≈70% din greutatea de lucru) înainte de seria grea.\nRăcire: 3–5 min mers ușor + întinderi.\nDacă simți durere ascuțită, oprește exercițiul.`,ok:'Am înțeles',no:'Închide'});
+}
+
+/* ---------- generator de cod QR (offline, nivel L, v1–10, mod octeți) ---------- */
+const QR=(()=>{
+  const T={1:[26,7,1,19,0,0],2:[44,10,1,34,0,0],3:[70,15,1,55,0,0],4:[100,20,1,80,0,0],5:[134,26,1,108,0,0],6:[172,18,2,68,0,0],7:[196,20,2,78,0,0],8:[242,24,2,97,0,0],9:[292,30,2,116,0,0],10:[346,18,2,68,2,69]};
+  const AP={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  const EXP=new Uint8Array(512),LOG=new Uint8Array(256);
+  {let x=1;for(let i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=0x11d}for(let i=255;i<512;i++)EXP[i]=EXP[i-255]}
+  const mul=(a,b)=>a&&b?EXP[LOG[a]+LOG[b]]:0;
+  function rs(data,n){
+    let g=[1];
+    for(let i=0;i<n;i++){const ng=new Array(g.length+1).fill(0);for(let j=0;j<g.length;j++){ng[j]^=g[j];ng[j+1]^=mul(g[j],EXP[i])}g=ng}
+    const r=new Array(n).fill(0);
+    for(const d of data){const f=d^r[0];r.shift();r.push(0);if(f)for(let j=0;j<n;j++)r[j]^=mul(g[j+1],f)}
+    return r;
+  }
+  function encode(str){
+    const bytes=[...new TextEncoder().encode(str)];let v=0;
+    for(let k=1;k<=10;k++){const t=T[k],cap=t[2]*t[3]+t[4]*t[5],lb=k>=10?16:8;if(4+lb+8*bytes.length<=cap*8){v=k;break}}
+    if(!v)return null;
+    const [,ec,b1,d1,b2,d2]=T[v],cap=b1*d1+b2*d2,lb=v>=10?16:8,bits=[];
+    const put=(val,n)=>{for(let i=n-1;i>=0;i--)bits.push((val>>i)&1)};
+    put(4,4);put(bytes.length,lb);bytes.forEach(b=>put(b,8));
+    put(0,Math.min(4,cap*8-bits.length));while(bits.length%8)bits.push(0);
+    const cw=[];for(let i=0;i<bits.length;i+=8){let x=0;for(let j=0;j<8;j++)x=x*2+bits[i+j];cw.push(x)}
+    for(let p=0;cw.length<cap;p++)cw.push(p%2?0x11:0xEC);
+    const blocks=[];let o=0;
+    for(let i=0;i<b1+b2;i++){const n=i<b1?d1:d2;blocks.push(cw.slice(o,o+n));o+=n}
+    const ecs=blocks.map(b=>rs(b,ec)),out=[],maxd=Math.max(d1,d2||0);
+    for(let i=0;i<maxd;i++)blocks.forEach(b=>{if(i<b.length)out.push(b[i])});
+    for(let i=0;i<ec;i++)ecs.forEach(e=>out.push(e[i]));
+    return {v,out};
+  }
+  const MASK=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,(x,y)=>x*y%2+x*y%3===0,(x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+  function build(v,data){
+    const n=17+4*v,m=Array.from({length:n},()=>new Uint8Array(n)),fn=Array.from({length:n},()=>new Uint8Array(n));
+    const set=(x,y,val)=>{m[y][x]=val?1:0;fn[y][x]=1};
+    const finder=(x0,y0)=>{for(let dy=-1;dy<=7;dy++)for(let dx=-1;dx<=7;dx++){const x=x0+dx,y=y0+dy;if(x<0||y<0||x>=n||y>=n)continue;
+      const on=(dy>=0&&dy<=6&&(dx===0||dx===6))||(dx>=0&&dx<=6&&(dy===0||dy===6))||(dy>=2&&dy<=4&&dx>=2&&dx<=4);set(x,y,on)}};
+    finder(0,0);finder(n-7,0);finder(0,n-7);
+    for(let i=8;i<n-8;i++){set(i,6,i%2===0);set(6,i,i%2===0)}
+    const ap=AP[v];
+    for(const cy of ap)for(const cx of ap){
+      if((cx===6&&cy===6)||(cx===6&&cy===ap[ap.length-1])||(cx===ap[ap.length-1]&&cy===6))continue;
+      for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(cx+dx,cy+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1);
+    }
+    for(let i=0;i<9;i++){if(!fn[i][8])set(8,i,0);if(!fn[8][i])set(i,8,0)}
+    for(let i=0;i<8;i++){if(!fn[8][n-1-i])set(n-1-i,8,0);if(!fn[n-1-i][8])set(8,n-1-i,0)}
+    set(8,n-8,1);
+    if(v>=7){
+      let rem=v;for(let i=0;i<12;i++)rem=(rem<<1)^((rem>>11)*0x1F25);
+      const bitsV=(v<<12)|rem;
+      for(let i=0;i<18;i++){const b=(bitsV>>i)&1,a=n-11+i%3,c=Math.floor(i/3);set(a,c,b);set(c,a,b)}
+    }
+    let k=0;
+    for(let right=n-1;right>=1;right-=2){
+      if(right===6)right=5;
+      for(let vert=0;vert<n;vert++)for(let j=0;j<2;j++){
+        const x=right-j,upward=((right+1)&2)===0,y=upward?n-1-vert:vert;
+        if(!fn[y][x]&&k<data.length*8){m[y][x]=(data[k>>3]>>(7-(k&7)))&1;k++}
+      }
+    }
+    return {n,m,fn};
+  }
+  function withMask(b,mk){
+    const {n,fn}=b,m=b.m.map(r=>Uint8Array.from(r));
+    for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(!fn[y][x]&&MASK[mk](x,y))m[y][x]^=1;
+    const d=(1<<3)|mk;let rem=d;for(let i=0;i<10;i++)rem=(rem<<1)^((rem>>9)*0x537);
+    const bits=((d<<10)|rem)^0x5412,bit=i=>(bits>>i)&1,S=(x,y,v)=>{m[y][x]=v};
+    for(let i=0;i<=5;i++)S(8,i,bit(i));
+    S(8,7,bit(6));S(8,8,bit(7));S(7,8,bit(8));
+    for(let i=9;i<15;i++)S(14-i,8,bit(i));
+    for(let i=0;i<8;i++)S(n-1-i,8,bit(i));
+    for(let i=8;i<15;i++)S(8,n-15+i,bit(i));
+    S(8,n-8,1);
+    return m;
+  }
+  function penalty(m,n){
+    let p=0;
+    for(let y=0;y<n;y++){let run=1;for(let x=1;x<=n;x++){if(x<n&&m[y][x]===m[y][x-1])run++;else{if(run>=5)p+=3+run-5;run=1}}}
+    for(let x=0;x<n;x++){let run=1;for(let y=1;y<=n;y++){if(y<n&&m[y][x]===m[y-1][x])run++;else{if(run>=5)p+=3+run-5;run=1}}}
+    for(let y=0;y<n-1;y++)for(let x=0;x<n-1;x++){const c=m[y][x];if(c===m[y][x+1]&&c===m[y+1][x]&&c===m[y+1][x+1])p+=3}
+    const pat=l=>{let c=0;for(let i=0;i+11<=l.length;i++){const w=l.substr(i,11);if(w==='10111010000'||w==='00001011101')c++}return c};
+    for(let y=0;y<n;y++){p+=40*pat(Array.from(m[y]).join(''))}
+    for(let x=0;x<n;x++){let l='';for(let y=0;y<n;y++)l+=m[y][x];p+=40*pat(l)}
+    let dark=0;for(let y=0;y<n;y++)for(let x=0;x<n;x++)dark+=m[y][x];
+    p+=(Math.ceil(Math.abs(dark*20-n*n*10)/(n*n))-1)*10;
+    return p;
+  }
+  function matrix(str){
+    const e=encode(str);if(!e)return null;
+    const b=build(e.v,e.out);let best=null,bp=1e9;
+    for(let mk=0;mk<8;mk++){const m=withMask(b,mk),p=penalty(m,b.n);if(p<bp){bp=p;best=m}}
+    return best;
+  }
+  function svg(str){
+    const m=matrix(str);if(!m)return null;
+    const n=m.length,q=4;let d='';
+    for(let y=0;y<n;y++){let x=0;while(x<n){if(m[y][x]){let l=1;while(x+l<n&&m[y][x+l])l++;d+=`M${x+q} ${y+q}h${l}v1h-${l}z`;x+=l}else x++}}
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n+2*q} ${n+2*q}" shape-rendering="crispEdges" role="img" aria-label="Cod QR"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }
+  return {matrix,svg};
+})();
+
+/* ---------- partajare timer / cod ---------- */
+function shareCfg(){
+  const T=CUR,d=defOf(T),diff={};
+  for(const k of Object.keys(CFG))if(JSON.stringify(CFG[k])!==JSON.stringify(d[k]))diff[k]=CFG[k];
+  const code=b64e(JSON.stringify({y:T.id,c:diff}));
+  const link=location.href.split('#')[0]+'#t='+code;
+  const q=QR.svg('CS:T'+code);
+  ask({title:'Partajează timerul',text:(q?'Scanează codul din aplicația CRONOSALA (Scanează cod) sau copiază linkul.':'Configurația e prea mare pentru un cod QR; copiază linkul.')+' Linkul funcționează doar dacă fișierul aplicației e găzduit; codul „CS:T…” merge oricum la Importă.',input:'CS:T'+code,ok:'Copiază codul',qr:q}).then(v=>{
+    if(typeof v==='string'){try{navigator.clipboard.writeText(v).then(()=>toast('Copiat'),()=>toast('Selectează și copiază manual'))}catch(e){toast('Selectează și copiază manual')}}
+  });
+  return link;
+}
+function parseShared(s){
+  try{
+    const o=JSON.parse(b64d(String(s)));
+    if(!o||typeof o!=='object'||typeof o.y!=='string')return null;
+    const T=TYPES.find(t=>t.id===o.y&&t.build);if(!T)return null;
+    const c=o.c&&typeof o.c==='object'&&!Array.isArray(o.c)?o.c:{};
+    return {T,c:sanitize(T,Object.assign(defOf(T),c))};
+  }catch(e){return null}
+}
+async function importShared(code){
+  const p=parseShared(code);if(!p){toast('Cod invalid');return false}
+  const ok=await ask({title:`Imporți „${p.T.name}”?`,text:'Configurația va înlocui setările curente ale acestui cronometru.',ok:'Importă'});
+  if(!ok)return false;
+  LS.set('cfg.'+p.T.id,p.c);openType(p.T.id);return true;
+}
+const CODE_E=/^(?:CS:)?E(\d{1,3})$/i,CODE_T=/(?:#t=|^CS:T)([A-Za-z0-9_-]+)$/;
+const codeOk=raw=>{raw=String(raw||'').trim();const m=CODE_E.exec(raw);if(m)return !!CAT[+m[1]];return CODE_T.test(raw)};
+async function showEx(i){
+  const x=CAT[i];if(!x)return;const l=lastFor(x[1]);
+  const r=await ask({title:x[1],text:`${x[0]} · ${x[2]} rep. · pauză ${x[3]} s`+(l?`\nUltima dată: ${l.kg} kg × ${l.reps}`:''),choices:['＋ Adaugă în Serii','＋ Adaugă în Circuit','ⓘ Ghid exercițiu'],no:'Închide'});
+  if(r===0)addRow('sets',{n:x[1],sets:3,r:x[2],rest:x[3]});
+  else if(r===1)addRow('circuit',{n:x[1],s:45});
+  else if(r===2)showGuide(i);
+}
+function handleCode(raw){
+  raw=String(raw||'').trim();
+  let m=CODE_E.exec(raw);
+  if(m){const i=+m[1];if(CAT[i]){showEx(i);return true}toast('Aparat necunoscut');return false}
+  m=CODE_T.exec(raw);
+  if(m){if(!parseShared(m[1])){toast('Cod invalid');return false}importShared(m[1]);return true}
+  toast('Cod necunoscut');return false;
+}
+
+/* ---------- scanner ---------- */
+let SCS=null;
+async function startScan(){
+  $('#scan').hidden=false;syncInert();$('#scMsg').textContent='';$('#scIn').value='';
+  if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&'BarcodeDetector' in window)){
+    $('#scMsg').textContent='Scanarea cu camera nu e disponibilă în acest browser. Introdu codul tipărit sub etichetă (ex. E12) sau lipește un cod/link.';
+    $('#scIn').focus();return;
+  }
+  try{
+    const det=new BarcodeDetector({formats:['qr_code']});
+    const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
+    if($('#scan').hidden){st.getTracks().forEach(t=>t.stop());return}
+    SCS={st,live:true};const v=$('#scVideo');v.srcObject=st;await v.play();
+    const loop=async()=>{
+      if(!SCS||!SCS.live)return;
+      try{const r=await det.detect(v);if(r.length&&SCS&&SCS.live&&codeOk(r[0].rawValue)){const raw=r[0].rawValue;stopScan();handleCode(raw);return}}catch(e){}
+      setTimeout(loop,250);
+    };
+    loop();
+  }catch(e){$('#scMsg').textContent='Camera nu poate fi folosită ('+((e&&e.name)||'eroare')+'). Introdu codul manual.'}
+}
+function stopScan(){
+  if(SCS){SCS.live=false;try{SCS.st.getTracks().forEach(t=>t.stop())}catch(e){}SCS=null}
+  try{$('#scVideo').srcObject=null}catch(e){}
+  $('#scan').hidden=true;syncInert();
+}
+$('#scX').onclick=stopScan;
+$('#scGo').onclick=()=>{const v=$('#scIn').value.trim();if(codeOk(v)){stopScan();handleCode(v)}else $('#scMsg').textContent='Cod necunoscut.'};
+$('#scIn').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#scGo').click()}});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#scan').hidden&&$('#dlg').hidden)stopScan()});
+
+/* ---------- etichete QR ---------- */
+let LBL=false;
+function renderLabels(){
+  if(LBL)return;LBL=true;
+  $('#labelsPrint').innerHTML=CAT.map((x,i)=>`<div class="lab">${QR.svg('CS:E'+i)}<b>${esc(x[1])}</b><small>${esc(x[0])} · cod E${i}</small></div>`).join('');
+}
+$('#lblPrint').onclick=()=>{try{window.print()}catch(e){}};
+$('#lblScan').onclick=startScan;
+
+/* ---------- program lunar ---------- */
+const PROG_DEF=['r','p1','c10','p5','r','p6','c2'];
+const itemOk=k=>typeof k==='string'&&(k==='r'||(/^p\d+$/.test(k)&&!!PLANS[+k.slice(1)])||(/^c\d+$/.test(k)&&!!CARDIO[+k.slice(1)]));
+function progGet(){
+  const v=LS.get('prog',null),days=(v&&Array.isArray(v.days)&&v.days.length===7&&v.days.every(itemOk))?v.days.slice():PROG_DEF.slice();
+  const st=v&&Number.isFinite(+v.start)&&+v.start>0?+v.start:null;
+  return {start:st,days};
+}
+const progSave=PG=>LS.set('prog',{start:PG.start,days:PG.days});
+const itemLabel=k=>{if(k==='r')return 'Liber · mobilitate / plimbare';if(k[0]==='p')return PLANS[+k.slice(1)].n;const c=CARDIO[+k.slice(1)].n;return /^cardio/i.test(c)?c:'Cardio · '+c};
+function weekOf(PG,d){
+  if(!PG.start)return null;
+  const diff=Math.round((dayStart(d)-dayStart(PG.start))/864e5),w=Math.floor(diff/7),cy=((w%4)+4)%4;
+  return {w,cy,deload:cy===3};
+}
+function doneKeys(){const s=new Set();LSarr('hist').forEach(h=>{if(h&&h.plan&&h.done)s.add(dayKey(h.t)+'|'+h.plan)});return s}
+async function startItem(k,deload){
+  NEXTPLAN=null;if(!itemOk(k)||k==='r')return;
+  NEXTPLAN=k;
+  try{
+    if(k[0]==='p')await loadPlan(PLANS[+k.slice(1)],{deload:!!deload,warm:true,cool:true,go:true});
+    else loadInt(CARDIO[+k.slice(1)],true);
+  }finally{NEXTPLAN=null}
+}
+function renderTodayPlan(){
+  const box=$('#todayPlan');if(!box)return;
+  const PG=progGet();if(!PG.start){box.hidden=true;return}
+  const now=new Date(),k=PG.days[now.getDay()],wk=weekOf(PG,now);
+  if(k==='r'){box.hidden=true;return}
+  const done=doneKeys().has(dayKey(now)+'|'+k);
+  box.hidden=false;
+  box.innerHTML=`<div><b>Azi: ${esc(itemLabel(k))}</b><small>Săptămâna ${wk.cy+1}/4${wk.deload?' · descărcare (2 serii, ~90% din greutate)':''}${done?' · ✓ făcut':''}</small></div><button type="button" class="btn big" style="flex:none;min-height:46px;font-size:1rem" data-pgo="${k}" data-dl="${wk.deload?1:0}">${done?'↻ Din nou':'▶ Start'}</button>`;
+}
+$('#todayPlan').addEventListener('click',e=>{const b=e.target.closest('[data-pgo]');if(b)startItem(b.dataset.pgo,b.dataset.dl==='1')});
+function renderProg(){
+  const PG=progGet(),now=new Date();let h='';
+  if(!PG.start){
+    h+=`<p class="today">Program în ciclu de 4 săptămâni: 3 zile de forță + 2 de cardio pe săptămână, iar a patra săptămână e de descărcare (2 serii pe exercițiu, ~90% din greutate). Pornește-l ca să apară „Azi” pe ecranul principal.</p><div class="actions"><button type="button" class="btn big" id="progStart">▶ Pornește programul</button></div>`;
+  }else{
+    const wk=weekOf(PG,now);
+    h+=`<div class="fields clubbox"><b>Săptămâna ${wk.cy+1} din 4</b>${wk.deload?' · <b>DESCĂRCARE</b>':''}<br><small style="color:var(--mut)">${wk.deload?'Acum faci 2 serii pe exercițiu și ~90% din greutatea obișnuită, ca să te recuperezi.':'Progresează încet: dacă atingi limita de repetări 3 antrenamente la rând, aplicația îți sugerează +2,5 kg.'}</small></div>`;
+    const base=dayStart(PG.start);base.setDate(base.getDate()+7*(wk.w-wk.cy));
+    const dn=doneKeys();
+    for(let w=0;w<4;w++){
+      h+=`<div class="lbl">Săptămâna ${w+1}${w===3?' · descărcare':''}</div><div class="pweek">`;
+      for(let d=0;d<7;d++){
+        const dt=new Date(base);dt.setDate(base.getDate()+w*7+d);
+        const k=PG.days[dt.getDay()],today=dayKey(dt)===dayKey(now),done=dn.has(dayKey(dt)+'|'+k);
+        h+=`<div class="crow"${today?' style="border:2px solid var(--acc)"':''}><div><b>${DOWN[dt.getDay()]} ${dt.getDate()}.${pad(dt.getMonth()+1)}${today?' · azi':''}</b><small>${esc(itemLabel(k))}${done?' · ✓ făcut':''}</small></div>${today&&k!=='r'?`<div class="cbtns"><button type="button" class="sm" data-pgo="${k}" data-dl="${w===3?1:0}">▶ Start</button></div>`:''}</div>`;
+      }
+      h+='</div>';
+    }
+    const opts=sel=>`<option value="r"${sel==='r'?' selected':''}>Liber</option><optgroup label="Forță">${PLANS.map((p,i)=>`<option value="p${i}"${sel==='p'+i?' selected':''}>${esc(p.n)}</option>`).join('')}</optgroup><optgroup label="Cardio">${CARDIO.map((c,i)=>`<option value="c${i}"${sel==='c'+i?' selected':''}>${esc(c.n)}</option>`).join('')}</optgroup>`;
+    h+=`<details class="fields" style="padding:10px 14px;margin-top:12px"><summary>Editează programul pe zile</summary>${[1,2,3,4,5,6,0].map(d=>`<div class="field"><label for="pd${d}">${DOWN[d]}</label><select id="pd${d}" data-pd="${d}" style="max-width:62%">${opts(PG.days[d])}</select></div>`).join('')}</details>`;
+    h+=`<div class="actions"><button type="button" class="btn ghost" id="progReset">↺ Repornește ciclul de azi</button><button type="button" class="btn ghost danger" id="progOff">Oprește programul</button></div>`;
+  }
+  $('#progBody').innerHTML=h;
+}
+$('#program').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const PG=progGet();
+  if(b.id==='progStart'){const m=dayStart(new Date());m.setDate(m.getDate()-((m.getDay()+6)%7));PG.start=m.getTime();progSave(PG);renderProg();return}
+  if(b.id==='progReset'){PG.start=dayStart(new Date()).getTime();progSave(PG);renderProg();return}
+  if(b.id==='progOff'){PG.start=null;progSave(PG);renderProg();return}
+  if(b.dataset.pgo)startItem(b.dataset.pgo,b.dataset.dl==='1');
+});
+$('#program').addEventListener('change',e=>{
+  const s=e.target;if(s.dataset.pd==null)return;
+  const PG=progGet();if(itemOk(s.value)){PG.days[+s.dataset.pd]=s.value;progSave(PG);renderProg()}
+});
+
+/* ---------- statistici ---------- */
+const groupOf=n=>{const x=CAT.find(c=>c[1]===n);return x?x[0]:(CARDIO.some(c=>c.n===n)?'Cardio':'Altele')};
+function renderStats(){
+  const w=WLOG(),h=LSarr('hist').filter(x=>x&&typeof x==='object');
+  const days=new Set([...h.map(x=>dayKey(x.t)),...w.map(x=>dayKey(x.t))]);
+  let streak=0;const d=dayStart(new Date());if(!days.has(dayKey(d)))d.setDate(d.getDate()-1);
+  while(days.has(dayKey(d))&&streak<3650){streak++;d.setDate(d.getDate()-1)}
+  const w0=dayStart(new Date()).getTime()-6*864e5,grp={};let tSets=0,tVol=0;
+  w.filter(x=>x.t>=w0).forEach(x=>{const g=groupOf(x.ex),o=grp[g]||(grp[g]={s:0,v:0});o.s++;o.v+=x.kg*x.reps;tSets++;tVol+=x.kg*x.reps});
+  const gs=Object.entries(grp).sort((a,b)=>b[1].s-a[1].s),mx=gs.length?gs[0][1].s:1;
+  const pr={};w.forEach(x=>{const o=pr[x.ex];if(!o||x.kg>o.kg||(x.kg===o.kg&&x.reps>o.reps))pr[x.ex]={kg:x.kg,reps:x.reps}});
+  const prs=Object.entries(pr).filter(e=>e[1].kg>0).sort((a,b)=>b[1].kg-a[1].kg).slice(0,8);
+  const best={};h.forEach(x=>{if(x.cnt!=null&&(+x.cnt||0)>(best[x.type]||0))best[x.type]=+x.cnt});
+  const longest=h.reduce((m,x)=>Math.max(m,+x.sec||0),0);
+  let o=`<div class="stats"><div class="stat"><b>${streak}</b><small>${streak===1?'zi la rând':'zile la rând'}</small></div><div class="stat"><b>${tSets}</b><small>serii în 7 zile · ${Math.round(tVol)} kg volum</small></div></div>`;
+  if(gs.length)o+=`<div class="lbl">Serii pe grupă (7 zile)</div>`+gs.map(([g,v])=>`<div class="vbar"><span>${esc(g)}</span><div><i style="width:${Math.max(4,Math.round(v.s/mx*100))}%"></i></div><b>${v.s}</b></div>`).join('');
+  if(prs.length)o+=`<div class="lbl">Recorduri personale</div>`+prs.map(([n,v])=>`<div class="hrow"><div>${esc(n)}</div><div style="text-align:right"><b>${v.kg} kg</b> × ${v.reps}</div></div>`).join('');
+  const bs=Object.entries(best);
+  if(bs.length||longest)o+=`<div class="lbl">Recorduri cronometre</div>`+bs.map(([t,c])=>`<div class="hrow"><div>${esc(t)}</div><div style="text-align:right"><b>${c}</b> runde</div></div>`).join('')+(longest?`<div class="hrow"><div>Cea mai lungă sesiune</div><div style="text-align:right"><b>${fmt(longest)}</b></div></div>`:'');
+  o+='<div class="lbl">Istoric sesiuni</div>';
+  $('#hStats').innerHTML=o;
+}
+$('#hCsvW').onclick=()=>{
+  const r=['data,exercitiu,kg,repetari,serie',...WLOG().map(x=>[new Date(x.t).toISOString(),x.ex,x.kg,x.reps,x.set].map(csvEsc).join(','))];
+  download('cronosala-greutati.csv',r.join('\n'),'text/csv');
+};
+$('#hCsvS').onclick=()=>{
+  const r=['data,tip,secunde,terminat,runde,program',...LSarr('hist').filter(x=>x&&typeof x==='object').map(x=>[new Date(+x.t||0).toISOString(),x.type,x.sec,x.done?1:0,x.cnt==null?'':x.cnt,x.plan||''].map(csvEsc).join(','))];
+  download('cronosala-sesiuni.csv',r.join('\n'),'text/csv');
+};
+
+/* ---------- setări noi: export / import ---------- */
+$('#sSnd').onchange=e=>{
+  S.snd=e.target.value;
+  if(S.snd==='voce'){S.voice=true;S.count=true;unlockSpeech();say('Doar voce')}else if(S.snd!=='normal'){soundFor({t:'work'})()}else SND.go();
+  saveS();syncSettings();
+};
+$('#sOut').onchange=e=>{S.out=e.target.value;saveS();if(master)master.gain.value=outGain()};
+$('#sExp').onclick=()=>{
+  const d={};try{Object.keys(localStorage).filter(k=>k.startsWith('cronosala.')).forEach(k=>{d[k]=localStorage.getItem(k)})}catch(e){}
+  download('cronosala-backup.json',JSON.stringify({app:'cronosala',v:3,data:d}),'application/json');
+};
+$('#sImp').onclick=()=>$('#sFile').click();
+$('#sFile').onchange=async e=>{
+  const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+  try{
+    if(f.size>8e6)throw new Error('mare');
+    const o=JSON.parse(await f.text());
+    if(!o||o.app!=='cronosala'||!o.data||typeof o.data!=='object')throw new Error('format');
+    const ks=Object.keys(o.data);
+    if(ks.length>300||!ks.every(k=>k.startsWith('cronosala.')&&typeof o.data[k]==='string'&&o.data[k].length<4e6))throw new Error('conținut');
+    if(!(await ask({title:'Imporți datele?',text:`${ks.length} intrări vor înlocui datele curente de pe acest dispozitiv.`,ok:'Importă',danger:true})))return;
+    try{Object.keys(localStorage).filter(k=>k.startsWith('cronosala.')).forEach(k=>localStorage.removeItem(k));ks.forEach(k=>localStorage.setItem(k,o.data[k]))}catch(er){toast('Spațiu de stocare insuficient');return}
+    location.reload();
+  }catch(er){toast('Fișier invalid ('+er.message+')')}
+};
+$('#sCode').onclick=async()=>{
+  const v=await ask({title:'Importă timer / aparat',text:'Lipește un cod „CS:T…”, un link cu #t=… sau un cod de aparat (ex. E12).',input:'',ok:'Importă'});
+  if(typeof v==='string'&&v.trim())handleCode(v);
+};
+
+/* ---------- scurtături desktop ---------- */
+addEventListener('keydown',e=>{
+  if($('#run').hidden||!$('#dlg').hidden||!$('#scan').hidden)return;
+  if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==='+'||e.key==='='){e.preventDefault();adjust(15)}
+  else if(e.key==='-'||e.key==='_'){e.preventDefault();adjust(-15)}
+  else if(e.key==='Enter'&&e.target.tagName!=='BUTTON'){const p=cur();if(p&&p.dur==null&&!E.fin){e.preventDefault();logSet();next()}}
+});
+
+renderToday();renderResume();
+if(/^#t=/.test(BOOT))importShared(BOOT.slice(3));
+</script>
+</body>
+</html>

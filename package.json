@@ -1,0 +1,13 @@
+{
+  "name": "cronosala",
+  "version": "3.0.0",
+  "description": "CRONOSALA — cronometre și jurnal de antrenament pentru sală, într-un singur fișier HTML, offline, fără urmărire.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "node tests/test.js index.html && node tests/test2.js index.html && node tests/test3.js index.html && node tests/test4.js index.html"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^23.0.0"
+  }
+}
