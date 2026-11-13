@@ -18,7 +18,7 @@
     "cronosala."
   ],
   "sizeBytes": 273233,
-  "sha256": "9b2a68f091634aa84293f054abe09ecde97947ccfae668d24daa13f24547e2bc",
+  "sha256": "9c438d3138139fe46440f64c1b2a00f81ce8ce57d2147bfaa95243bccb3c0aba",
   "csp": {
     "present": true,
     "directives": {
@@ -53,7 +53,7 @@
     ]
   },
   "kit": {
-    "version": "1.4.0",
+    "version": "1.5.0",
     "modules": [
       "core",
       "store",
