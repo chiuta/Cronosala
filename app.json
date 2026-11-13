@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "slug": "cronosala",
+  "name": "CRONOSALA — cronometre pentru sală",
+  "version": "3.0.0",
+  "updated": "2026-11-06",
+  "description": "CRONOSALA — cronometre pentru sală: pauze, HIIT, Tabata, EMOM, AMRAP, circuit, tempo, metronom. Un singur fișier, offline, fără urmărire.",
+  "egress": [],
+  "permissions": [
+    "getUserMedia",
+    "Notification",
+    "speechSynthesis",
+    "clipboard",
+    "localStorage",
+    "Worker"
+  ],
+  "storageKeys": [
+    "cronosala."
+  ],
+  "sizeBytes": 273233,
+  "sha256": "9b2a68f091634aa84293f054abe09ecde97947ccfae668d24daa13f24547e2bc",
+  "csp": {
+    "present": true,
+    "directives": {
+      "default-src": "'none'",
+      "style-src": "'unsafe-inline'",
+      "script-src": "sha256×2",
+      "img-src": "data: blob:",
+      "media-src": "blob: data:",
+      "worker-src": "blob:",
+      "child-src": "blob:",
+      "connect-src": "'none'",
+      "base-uri": "'none'",
+      "form-action": "'none'"
+    },
+    "scriptInline": "hash",
+    "connect": "'none'"
+  },
+  "features": {
+    "export": true,
+    "import": true,
+    "i18n": [],
+    "pwa": {
+      "manifest": false,
+      "serviceWorker": false
+    },
+    "modules": [
+      "core",
+      "store",
+      "dialog",
+      "label",
+      "bundle"
+    ]
+  },
+  "kit": {
+    "version": "1.4.0",
+    "modules": [
+      "core",
+      "store",
+      "dialog",
+      "label",
+      "bundle"
+    ]
+  },
+  "selfSerializing": false
+}

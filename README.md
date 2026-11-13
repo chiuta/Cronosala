@@ -1,56 +1,37 @@
-# CRONOSALA ⏱️
+# CRONOSALA
 
-**Cronometre și jurnal de antrenament pentru sală — un singur fișier HTML, offline, fără conturi, fără urmărire.**
-*A single-file, offline, trade-free gym timer and training log (Romanian UI).*
+**English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-Deschide [`index.html`](index.html) în orice browser modern (sau pagina publicată cu GitHub Pages) și adaug-o pe ecranul principal. Nu are dependențe, nu face cereri de rețea (politica CSP le interzice) și își ține datele doar în `localStorage`.
+Timers and a workout log for the gym, in a single offline HTML file, without tracking.
 
-| Telefon | Telefon (în antrenament) | Tabletă |
-|---|---|---|
-| ![acasă](docs/telefon-acasa.png) | ![serii](docs/telefon-serii.png) | ![catalog](docs/tableta-catalog.png) |
+**[Open the app →](https://cronosala.chiuta.ro/)**
 
-![program lunar pe desktop](docs/desktop-program.png)
+_Version: 3.0.0 · Last updated: 2026-11-06_
 
-## Ce conține
+## Features
 
-**Cronometre:** pauză între seturi, cronometru cu ture, numărătoare inversă, Interval/HIIT, Tabata, Box/MMA, EMOM, AMRAP (cu contor), circuit pe stații, serii pe exerciții, tempo la repetări, izometric, piramidă, metronom (cu tap tempo) și **antrenament în doi**.
+- Set timers and rests with an adaptive pause that learns from your ±15 s adjustments.
+- kg × reps log for every set, with personal records, statistics and double progression.
+- Four-week monthly programme (week 4 = deload), “machine in use” alternatives, guided warm-up and cool-down.
+- Export and import of all data; nothing leaves the browser.
 
-**Sala World Class Expo Business Park (lângă metrou 1 Mai):** catalog cu 67 de exerciții (gama Technogym, TRX, zonă funcțională) și 11 variante de cardio, 10 antrenamente gata făcute, bifare a aparatelor care există efectiv în club. *Clubul nu publică lista exactă de aparate; catalogul e orientativ.*
+## Usage
 
-**Antrenament inteligent (fără cloud):**
-- **Jurnal kg × repetări** la fiecare serie, precompletat cu ultima dată, cu recorduri personale și statistici (zile la rând, serii pe grupă în 7 zile, volum).
-- **Pauză adaptivă:** +30 s după o serie sub limita de repetări și învață din ajustările tale de ±15 s, pe fiecare exercițiu.
-- **Progresie dublă:** după 3 sesiuni la limita de repetări sugerează +2,5 kg.
-- **Program lunar** în ciclu de 4 săptămâni (a patra = descărcare: 2 serii, ~90% din greutate), editabil pe zile, cu „Azi” pe ecranul principal.
-- **Aparat ocupat:** alternative echivalente din catalog sau mutarea exercițiului la sfârșit.
-- **Ghid pe aparat** (cum se face, greșeli frecvente), încălzire și răcire ghidate.
+Open the page online, or download `index.html` and open it in a recent browser. No installation, no build.
 
-**Cod QR, fără server:** etichete QR de printat pentru aparate, scanner cu camera (`BarcodeDetector`, Chrome Android; altfel cod manual), partajare de timere prin cod QR / link. Generatorul QR e inclus în fișier (nivel L, versiunile 1–10).
+## Limits
 
-**Sunet și voce:** bipuri programate pe ceasul audio, teme (clopoțel, fluier, blând, doar voce), voce în română („încă zece secunde”, numărătoare 3-2-1, nume de exerciții, numărarea repetărilor), vibrații, ecran aprins (Wake Lock), notificări la schimbarea fazei, reluare după reîncărcare.
+- The interface is in Romanian only for now.
+- Data lives per device and browser; use the export to move it. This is not medical advice or a training prescription.
 
-**Date:** export/import complet (JSON), CSV pentru greutăți și sesiuni, ștergere totală.
+## Privacy
 
-## Interfață
+Everything stays in your browser (localStorage / IndexedDB); no account, no tracking. No network requests.
 
-Optimizată pentru telefon (portret și landscape, inclusiv ecrane de 320×568 și 568×320), tabletă și desktop: configurare pe două coloane, calendar pe 7 coloane, catalog pe două coloane, scurtături de tastatură în antrenament (`Spațiu` pauză, `←` `→` faze, `Enter` „Gata”, `+` `−` ±15 s, `Esc` închide), teme întunecată/luminoasă și `prefers-reduced-motion`.
+## Support
 
-## Limite cunoscute
+If this is useful, you can [buy me a coffee](https://buymeacoffee.com/echo.of.the.strings).
 
-- Cu ecranul blocat, unele browsere (mai ales iOS) pot opri sunetul sau notificările; ceasul rulează într-un Web Worker și sunetul „playback” ajută, dar nu garantează. Ține ecranul aprins în antrenament (opțiune activă implicit).
-- Un widget pe ecranul blocat nu se poate face într-un singur fișier HTML.
-- Scanarea cu camera depinde de `BarcodeDetector` (Chrome/Android). Pe celelalte browsere folosește codul scris sub etichetă (ex. `E12`).
-- Vocea depinde de vocile instalate pe dispozitiv.
-- Linkurile de partajare funcționează doar dacă fișierul e găzduit; codul `CS:T…` merge oricum la „Importă timer”.
+## License
 
-## Dezvoltare
-
-Totul e în `index.html` (HTML + CSS + JS, fără build). Testele (167 de verificări în Chrome real) sunt în [`tests/`](tests/README.md):
-
-```bash
-npm install && npm test
-```
-
-## Licență
-
-[MIT](LICENSE) © 2026 Alexio. Aplicație în spiritul mișcării *trade-free*: fără reclame, fără urmărire, fără cont.
+MIT © Alexandru-Ionuț Chiuță (Alexio)

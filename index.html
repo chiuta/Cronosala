@@ -1,8 +1,1859 @@
 <!DOCTYPE html>
-<html lang="ro" data-theme="auto">
+<html lang="ro" data-theme="auto" data-fff-hash="9b2a68f091634aa84293f054abe09ecde97947ccfae668d24daa13f24547e2bc">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: blob:; media-src blob: data:; worker-src blob:; child-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<!--fff:kit:start v=1 modules=core,store,dialog,label,bundle-->
+<meta name="fff-app" content="cronosala">
+<meta name="fff-modules" content="core,store,dialog,label,bundle">
+<style id="fff-style">/* fff-kit · stil comun (prefix fff-). Nu modifică stilul aplicației gazdă. */
+[data-fff-label]{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+[data-fff-label]:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:3px}
+#app-version[data-fff-label]{box-sizing:border-box;min-height:24px;min-width:24px}
+#app-version[data-fff-label][data-fff-inl]{display:inline-flex;align-items:center;vertical-align:middle}
+#app-version[data-fff-label][data-fff-fs],#app-version[data-fff-label] [data-fff-fs]{font-size:12px!important}
+.fff-dlg{--_bg:var(--fff-bg,#fff);--_fg:var(--fff-fg,#1b1b1f);--_mut:var(--fff-muted,#4a4d57);--_line:var(--fff-line,#c4c7d0);--_btn:var(--fff-btn,#eef0f4);--_pri:var(--fff-accent,#0b57d0);--_prif:var(--fff-accent-fg,#fff);--_bad:var(--fff-bad,#b3261e);--_ok:var(--fff-ok,#146c2e);--_note:#fff1c9;--_notef:#3d2e00;
+  box-sizing:border-box;width:min(42rem,calc(100vw - 2rem));max-width:calc(100vw - 2rem);max-height:calc(100vh - 2rem);max-height:calc(100dvh - 2rem);margin:auto;padding:0;overflow:auto;
+  border:1px solid var(--_line);border-radius:12px;background:var(--_bg);color:var(--_fg);font:14px/1.5 var(--fff-font,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);text-align:left;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.fff-dlg.fff-dark{--_bg:var(--fff-bg,#1e1f24);--_fg:var(--fff-fg,#ececf1);--_mut:var(--fff-muted,#b7bbc7);--_line:var(--fff-line,#4a4d57);--_btn:var(--fff-btn,#2c2e36);--_pri:var(--fff-accent,#a8c7fa);--_prif:var(--fff-accent-fg,#062e6f);--_bad:var(--fff-bad,#f2b8b5);--_ok:var(--fff-ok,#8fd9a0);--_note:#3b3118;--_notef:#f6e3a6;color-scheme:dark}
+@media (prefers-color-scheme:dark){.fff-dlg:not(.fff-light){--_bg:var(--fff-bg,#1e1f24);--_fg:var(--fff-fg,#ececf1);--_mut:var(--fff-muted,#b7bbc7);--_line:var(--fff-line,#4a4d57);--_btn:var(--fff-btn,#2c2e36);--_pri:var(--fff-accent,#a8c7fa);--_prif:var(--fff-accent-fg,#062e6f);--_bad:var(--fff-bad,#f2b8b5);--_ok:var(--fff-ok,#8fd9a0);--_note:#3b3118;--_notef:#f6e3a6;color-scheme:dark}}
+.fff-dlg::backdrop{background:rgba(0,0,0,.55)}
+.fff-dlg-sm{width:min(26rem,calc(100vw - 2rem))}
+.fff-dlg *,.fff-dlg *::before,.fff-dlg *::after{box-sizing:border-box}
+.fff-dlg .fff-in{padding:16px 20px 20px}
+.fff-dlg .fff-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.fff-dlg h2{margin:0;font-family:inherit;font-size:1.25rem;font-weight:700;line-height:1.3;color:var(--_fg);letter-spacing:0;text-transform:none}
+.fff-dlg h3{margin:0 0 6px;font-family:inherit;font-size:1rem;font-weight:700;line-height:1.35;color:var(--_fg);letter-spacing:0;text-transform:none}
+.fff-dlg p{margin:0 0 8px;color:var(--_fg);font-size:inherit}
+.fff-dlg .fff-mut{color:var(--_mut)}
+.fff-dlg p.fff-mut{color:var(--_mut)}
+.fff-dlg .fff-sm{font-size:.85rem}
+.fff-dlg .fff-lead{font-size:1.05rem}
+.fff-dlg .fff-sec{border-top:1px solid var(--_line);padding-top:12px;margin-top:12px}
+.fff-dlg .fff-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;overflow-wrap:anywhere}
+.fff-dlg .fff-break{word-break:break-all}
+.fff-dlg code{background:none;border:0;padding:0;color:inherit}
+.fff-dlg .fff-list{margin:0 0 8px;padding-left:1.2rem;list-style:disc}
+.fff-dlg .fff-list li{margin:2px 0;color:var(--_fg)}
+.fff-dlg .fff-cols{columns:2 14rem}
+.fff-dlg .fff-tbl{width:100%;table-layout:fixed;border-collapse:collapse;margin:0 0 8px}
+.fff-dlg .fff-tbl th,.fff-dlg .fff-tbl td{padding:3px 6px;border-bottom:1px solid var(--_line);text-align:left;vertical-align:top;color:var(--_fg)}
+.fff-dlg .fff-tbl th.fff-num,.fff-dlg .fff-tbl td.fff-num{text-align:right;width:6.5rem;white-space:nowrap}
+.fff-dlg .fff-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.fff-dlg .fff-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.fff-dlg .fff-end{justify-content:flex-end}
+.fff-dlg .fff-btn{appearance:none;min-height:36px;min-width:36px;padding:6px 14px;border:1px solid var(--_line);border-radius:8px;background:var(--_btn);color:var(--_fg);font:inherit;font-weight:600;cursor:pointer;text-transform:none;letter-spacing:0;box-shadow:none}
+.fff-dlg .fff-btn:hover{border-color:var(--_fg)}
+.fff-dlg .fff-btn:focus-visible,.fff-dlg .fff-input:focus-visible,.fff-dlg summary:focus-visible,.fff-dlg .fff-pre:focus-visible{outline:2px solid var(--_fg);outline-offset:2px}
+.fff-dlg .fff-primary{background:var(--_pri);color:var(--_prif);border-color:transparent}
+.fff-dlg .fff-danger{background:var(--_bad);color:var(--_bg)}
+.fff-dlg .fff-danger-o{color:var(--_bad);border-color:var(--_bad)}
+.fff-dlg .fff-x{font-size:1.4rem;line-height:1;padding:2px 10px}
+.fff-dlg .fff-box{border:1px solid var(--_line);border-radius:8px;padding:10px;margin:0 0 8px}
+.fff-dlg [hidden]{display:none}
+.fff-dlg .fff-field{display:flex;flex-direction:column;gap:2px;margin:0 0 8px}
+.fff-dlg .fff-field label{font-weight:600}
+.fff-dlg .fff-input{width:100%;min-height:36px;padding:6px 10px;border:1px solid var(--_line);border-radius:6px;background:var(--_bg);color:var(--_fg);font:inherit}
+.fff-dlg .fff-note{background:var(--_note);color:var(--_notef);padding:8px 10px;border-radius:8px}
+.fff-dlg .fff-res{min-height:1.5em}
+.fff-dlg .fff-ok{color:var(--_ok);font-weight:600}
+.fff-dlg .fff-bad{color:var(--_bad);font-weight:600}
+.fff-dlg .fff-det{margin:0 0 8px}
+.fff-dlg .fff-det summary{cursor:pointer;font-weight:600;min-height:24px}
+.fff-dlg .fff-pre{margin:6px 0 0;padding:8px 10px;overflow:auto;white-space:pre-wrap;word-break:break-all;border:1px solid var(--_line);border-radius:6px;background:var(--_btn);color:var(--_fg)}
+.fff-dlg .fff-foot{border-top:1px solid var(--_line);margin-top:12px;padding-top:10px}
+.fff-dlg .fff-msg{font-size:1rem;margin-bottom:14px;white-space:pre-line;overflow-wrap:anywhere}
+.fff-chip{appearance:none;background:none;border:1px dotted currentColor;border-radius:6px;color:inherit;font:inherit;font-size:.85em;cursor:pointer;min-height:24px;min-width:24px;padding:0 8px}
+.fff-chip{font-size:max(12px,.85em)}
+.fff-chip:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@media (pointer:coarse){.fff-dlg .fff-btn,.fff-dlg .fff-input{min-height:44px}.fff-dlg .fff-btn{min-width:44px}.fff-dlg .fff-det summary{min-height:44px}}
+@media (prefers-reduced-motion:no-preference){.fff-dlg[open]{animation:fff-in .12s ease-out}@keyframes fff-in{from{transform:translateY(6px)}to{transform:none}}}
+@media (prefers-reduced-motion:reduce){.fff-dlg,.fff-dlg *{animation:none!important;transition:none!important}}
+.fff-dlg .fff-dt{margin:0 0 8px}
+.fff-dlg .fff-ta{resize:vertical;min-height:4.5em}
+.fff-dlg textarea.fff-input{font:inherit}
+.fff-toasts{--_tbg:var(--fff-toast-bg,#2b2d33);--_tfg:var(--fff-toast-fg,#f4f4f7);--_tac:var(--fff-toast-accent,#a8c7fa);
+  position:fixed;inset:auto 0 0 0;margin:0;padding:0 16px 16px;border:0;background:transparent;overflow:visible;z-index:2147483000;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:8px;font:14px/1.45 var(--fff-font,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);color:var(--_tfg);box-sizing:border-box}
+.fff-toasts *{box-sizing:border-box}
+.fff-toast-reg{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.fff-toast-reg:empty{display:none}
+.fff-toast{pointer-events:auto;display:flex;align-items:center;gap:10px;max-width:min(34rem,100%);padding:10px 12px 10px 14px;border-radius:10px;background:var(--_tbg);color:var(--_tfg);border:1px solid rgba(255,255,255,.18);border-left:6px solid #a8c7fa;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.fff-toast-success{border-left-color:#81c995}.fff-toast-warning{border-left-color:#fdd663}.fff-toast-error{border-left-color:#f28b82}
+.fff-toast-msg{flex:1 1 auto;min-width:0;overflow-wrap:anywhere;white-space:pre-line}
+.fff-toast .fff-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.fff-toast .fff-btn{appearance:none;min-height:32px;min-width:32px;padding:2px 10px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:transparent;color:var(--_tac);font:inherit;font-weight:600;cursor:pointer}
+.fff-toast .fff-toast-x{font-size:1.3rem;line-height:1;color:var(--_tfg);padding:0 8px}
+.fff-toast .fff-btn:focus-visible{outline:2px solid var(--_tfg);outline-offset:2px}
+@media (pointer:coarse){.fff-toast .fff-btn{min-height:44px;min-width:44px}}
+@media (prefers-reduced-motion:no-preference){.fff-toast{animation:fff-tin .16s ease-out}@keyframes fff-tin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}}
+@media (prefers-reduced-motion:reduce){.fff-toast{animation:none!important}}</style>
+<script id="fff-kit">/* fff-kit 1.4.0 */
+/* ---- fff-kit/core ---- */
+/* fff-kit · core · v1.2.0 — fără rețea, fără dependențe. Definește window.FFF. */
+(function () {
+  'use strict';
+  /* anti-clickjacking: GitHub Pages nu trimite X-Frame-Options; dacă pagina e încadrată de o origine străină (sau într-un iframe sandbox),
+     conținutul aplicației e ascuns și apare doar un mesaj minimal tradus cu un link către pagină într-o fereastră nouă. */
+  function frameGuard() {
+    var M = {
+      ro: ['Această pagină nu poate fi încadrată în alt site.', 'Deschide-o într-o fereastră nouă'],
+      en: ['This page cannot be embedded in another site.', 'Open it in a new window'],
+      fr: ['Cette page ne peut pas être intégrée dans un autre site.', 'Ouvrez-la dans une nouvelle fenêtre'],
+      it: ['Questa pagina non può essere incorporata in un altro sito.', 'Aprila in una nuova finestra'],
+      es: ['Esta página no se puede incrustar en otro sitio.', 'Ábrela en una ventana nueva'],
+      pt: ['Esta página não pode ser incorporada noutro site.', 'Abra-a numa nova janela'],
+      hu: ['Ez az oldal nem ágyazható be másik webhelyre.', 'Nyisd meg új ablakban'],
+      de: ['Diese Seite kann nicht in eine andere Website eingebettet werden.', 'In einem neuen Fenster öffnen']
+    };
+    var d = document, de = d.documentElement;
+    var l = (de.getAttribute('lang') || '').slice(0, 2).toLowerCase();
+    if (!M[l]) l = ((navigator.languages && navigator.languages[0]) || navigator.language || '').slice(0, 2).toLowerCase();
+    var m = M[l] || M.en, box = null;
+    function hideKids(b) {
+      for (var i = 0; i < b.children.length; i++) if (b.children[i] !== box) b.children[i].style.setProperty('display', 'none', 'important');
+    }
+    function build() {
+      var b = d.body;
+      if (!b || box) return;
+      box = d.createElement('div');
+      box.setAttribute('data-fff-frameguard', '');
+      box.setAttribute('role', 'alert');
+      box.style.cssText = 'display:block;box-sizing:border-box;margin:0;padding:24px 16px;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#1b1b1f;background:#fff;text-align:center';
+      var p = d.createElement('p'); p.textContent = m[0]; p.style.cssText = 'margin:0 0 12px';
+      var a = d.createElement('a');
+      a.href = window.self.location.href; a.target = '_blank'; a.rel = 'noopener'; a.textContent = m[1];
+      a.style.cssText = 'color:#0b57d0;text-decoration:underline;font-weight:600';
+      box.appendChild(p); box.appendChild(a);
+      hideKids(b);
+      b.appendChild(box);
+      b.style.setProperty('display', 'block', 'important');
+      de.style.display = '';
+      if (window.MutationObserver) new MutationObserver(function () { hideKids(b); if (box.parentNode !== b) b.appendChild(box); }).observe(b, {childList: true});
+    }
+    if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', build); else build();
+  }
+  try {
+    if (window.top !== window.self) {
+      var __cross = false;
+      try { void window.top.location.href; } catch (e) { __cross = true; }
+      if (__cross) {
+        document.documentElement.style.display = 'none';   // ascuns până când mesajul e gata (nimic din aplicație nu rămâne vizibil)
+        try { window.top.location = window.self.location.href; } catch (e2) {}
+        try { frameGuard(); } catch (e4) {}
+      }
+    }
+  } catch (e3) {}
+  var KIT_VERSION = '1.4.0';
+  var F = (window.FFF = window.FFF || {});
+  if (F.core && F.core.version) return; // idempotent la dublă încărcare
+  var SUP = ['ro', 'en', 'fr', 'it', 'es', 'pt', 'hu', 'de'];
+  var doc = document;
+
+  /* ---------- clipboard sigur: refuzul de permisiune nu mai produce o excepție neprinsă ----------
+   * navigator.clipboard.writeText respinge cu NotAllowedError când pagina nu are focus sau permisiunea e refuzată.
+   * Încercăm întâi API-ul, apoi execCommand('copy'); dacă nici acesta nu merge, respingerea rămâne (apelantul o poate prinde),
+   * dar dacă nimeni n-o prinde, o marcăm ca tratată, ca pagina să rămână stabilă. */
+  try {
+    var cb = navigator.clipboard;
+    if (cb && typeof cb.writeText === 'function' && !cb.__fffSafe) {
+      var rawWrite = cb.writeText.bind(cb);
+      var legacyCopy = function (t) {
+        var ta = doc.createElement('textarea');
+        ta.value = String(t); ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+        (doc.body || doc.documentElement).appendChild(ta); ta.select();
+        var ok = false; try { ok = doc.execCommand('copy'); } catch (e) { ok = false; }
+        ta.remove(); return ok;
+      };
+      cb.writeText = function (t) {
+        var p; try { p = rawWrite(t); } catch (e) { p = Promise.reject(e); }
+        return p.catch(function (err) { if (legacyCopy(t)) return; throw err; });
+      };
+      try { Object.defineProperty(cb, '__fffSafe', {value: true}); } catch (e) { cb.__fffSafe = true; }
+    }
+  } catch (e5) {}
+  window.addEventListener('unhandledrejection', function (ev) {
+    var r = ev && ev.reason;
+    if (r && (r.name === 'NotAllowedError' || r.name === 'SecurityError') && /clipboard|permission/i.test(String(r.message || ''))) ev.preventDefault();
+  });
+
+  /* ---------- meta / app ---------- */
+  function meta(name) {
+    var m = doc.querySelector('meta[name="' + name + '"]');
+    return m ? (m.getAttribute('content') || '') : '';
+  }
+  function guessSlug() {
+    var p = (location.pathname || '').split('/').filter(Boolean);
+    var s = p.length ? p[p.length - 1] : '';
+    if (/\.html?$/i.test(s)) s = p.length > 1 ? p[p.length - 2] : '';
+    s = s.toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
+    return s || 'app';
+  }
+  var SLUG = (meta('fff-app') || '').trim() || guessSlug();
+  var DISABLED = (meta('fff-disable') || '').trim() || '';
+  function computeApp() {
+    return {slug: SLUG, name: doc.title || SLUG, version: meta('application-version'), updated: meta('last-updated')};
+  }
+  var appCache = null;
+  Object.defineProperty(F, 'app', {
+    enumerable: true, configurable: true,
+    get: function () {
+      if (doc.readyState === 'loading') return computeApp();
+      return appCache || (appCache = computeApp());
+    }
+  });
+
+  /* ---------- bus ---------- */
+  var L = {};
+  var bus = {
+    on: function (ev, fn) { (L[ev] = L[ev] || []).push(fn); return function () { bus.off(ev, fn); }; },
+    off: function (ev, fn) { if (L[ev]) L[ev] = L[ev].filter(function (f) { return f !== fn; }); },
+    once: function (ev, fn) { var off = bus.on(ev, function (d) { off(); fn(d); }); return off; },
+    emit: function (ev, data) {
+      (L[ev] || []).slice().forEach(function (f) { try { f(data); } catch (e) { if (window.console) console.error('[fff] bus', ev, e); } });
+    }
+  };
+  F.bus = bus;
+
+  /* ---------- i18n ---------- */
+  var I18N = (F._i18n = F._i18n || {});
+  var i18nLoaded = false;
+  function mergeLang(mod, obj) {
+    var d = (I18N[mod] = I18N[mod] || {});
+    for (var l in obj) if (Object.prototype.hasOwnProperty.call(obj, l)) {
+      d[l] = Object.assign(d[l] || {}, obj[l]);
+    }
+  }
+  function loadI18nJson() {
+    var el = doc.getElementById('fff-i18n');
+    if (!el) return;
+    i18nLoaded = true;
+    try {
+      var j = JSON.parse(el.textContent || '{}');
+      for (var m in j) if (Object.prototype.hasOwnProperty.call(j, m)) mergeLang(m, j[m]);
+    } catch (e) { if (window.console) console.error('[fff] i18n', e); }
+  }
+  F.registerI18n = function (mod, obj) { mergeLang(mod, obj || {}); };
+  function lsGetRaw(k) { try { return LS ? origGet.call(LS, k) : null; } catch (e) { return null; } }
+
+  var LS = null;
+  try { LS = window.localStorage; } catch (e) { LS = null; }
+  var P = window.Storage ? window.Storage.prototype : null;
+  var origGet = P && P.getItem, origSet = P && P.setItem, origRem = P && P.removeItem, origClr = P && P.clear;
+
+  F.lang = function () {
+    var l = (doc.documentElement.getAttribute('lang') || '').slice(0, 2).toLowerCase();
+    if (SUP.indexOf(l) >= 0) return l;
+    var ks = ['lang', 'language', 'locale'];
+    for (var i = 0; i < ks.length; i++) {
+      var v = lsGetRaw(ks[i]);
+      if (v) { v = String(v).replace(/^"|"$/g, '').slice(0, 2).toLowerCase(); if (SUP.indexOf(v) >= 0) return v; }
+    }
+    var n = ((navigator.languages && navigator.languages[0]) || navigator.language || '').slice(0, 2).toLowerCase();
+    return SUP.indexOf(n) >= 0 ? n : 'en';
+  };
+  var langObs = null, langFns = [];
+  F.onLang = function (fn) {
+    langFns.push(fn);
+    if (!langObs && window.MutationObserver) {
+      var last = F.lang();
+      langObs = new MutationObserver(function () {
+        var now = F.lang();
+        if (now === last) return;
+        last = now;
+        langFns.slice().forEach(function (f) { try { f(now); } catch (e) { if (window.console) console.error(e); } });
+        bus.emit('lang', now);
+      });
+      langObs.observe(doc.documentElement, {attributes: true, attributeFilter: ['lang']});
+    }
+    return function () { langFns = langFns.filter(function (f) { return f !== fn; }); };
+  };
+  F.t = function (mod, key, vars) {
+    if (!i18nLoaded) loadI18nJson();
+    var d = I18N[mod] || {};
+    var s = (d[F.lang()] || {})[key];
+    if (s == null) s = (d.en || {})[key];
+    if (s == null) s = (d.ro || {})[key];
+    if (s == null) s = key;
+    if (vars) for (var k in vars) if (Object.prototype.hasOwnProperty.call(vars, k)) s = String(s).split('{' + k + '}').join(String(vars[k]));
+    return s;
+  };
+
+  /* ---------- observator de stocare ---------- */
+  var INDEX_KEY = 'fff.' + SLUG + '.__keys';
+  var PFX = 'fff.' + SLUG + '.';
+  var idx = null; // Set de chei ale aplicației (fără prefix fff.)
+  function loadIdx() {
+    if (idx) return idx;
+    idx = new Set();
+    try {
+      var raw = origGet && LS ? origGet.call(LS, INDEX_KEY) : null;
+      if (raw) JSON.parse(raw).forEach(function (k) { if (typeof k === 'string') idx.add(k); });
+    } catch (e) { /* index corupt: se reface */ }
+    return idx;
+  }
+  function saveIdx() {
+    try { if (LS && origSet) origSet.call(LS, INDEX_KEY, JSON.stringify(Array.from(idx).sort())); } catch (e) { /* plin: ignorat */ }
+  }
+  /* momentul ultimei scrieri pe cheie (folosit de FFF.sync): {cheie: ms}, în fff.<slug>.__mt (exclus din chei/export, ca __keys), scris cu amânare */
+  var MT_KEY = 'fff.' + SLUG + '.__mt', mt = null, mtTimer = 0;
+  function loadMt() {
+    if (mt) return mt;
+    mt = Object.create(null);
+    try {
+      var raw = origGet && LS ? origGet.call(LS, MT_KEY) : null;
+      if (raw) { var o = JSON.parse(raw); Object.keys(o).forEach(function (k) { if (typeof o[k] === 'number') mt[k] = o[k]; }); }
+    } catch (e) { /* corupt: se reface */ }
+    return mt;
+  }
+  function touch(k) {
+    k = String(k);
+    if (k.indexOf('fff.') === 0) return;
+    loadMt()[k] = Date.now();
+    if (mtTimer) return;
+    mtTimer = setTimeout(function () {
+      mtTimer = 0;
+      try { if (LS && origSet) origSet.call(LS, MT_KEY, JSON.stringify(mt)); } catch (e) { /* plin: ignorat */ }
+    }, 400);
+  }
+  F.mtime = function (k) { return loadMt()[String(k)] || 0; };
+  F.mtimeClear = function () { mt = Object.create(null); clearTimeout(mtTimer); mtTimer = 0; try { if (LS && origRem) origRem.call(LS, MT_KEY); } catch (e) { /* ignorat */ } };
+  function track(k) {
+    k = String(k);
+    if (k.indexOf('fff.') === 0) return;
+    var s = loadIdx();
+    if (!s.has(k)) { s.add(k); saveIdx(); }
+  }
+  function untrack(k) {
+    k = String(k);
+    var s = loadIdx();
+    if (s.delete(k)) saveIdx();
+  }
+  var observing = false;
+  if (!DISABLED && LS && P && origGet && origSet && origRem && origClr) {
+    try {
+      P.getItem = function getItem(k) {
+        var v = origGet.apply(this, arguments);
+        if (v !== null && this === LS) { try { track(k); } catch (e) { /* nu strica aplicația */ } }
+        return v;
+      };
+      P.setItem = function setItem(k, v) {
+        var r = origSet.apply(this, arguments);
+        if (this === LS) { try { track(k); touch(k); } catch (e) { /* idem */ } }
+        return r;
+      };
+      P.removeItem = function removeItem(k) {
+        var r = origRem.apply(this, arguments);
+        if (this === LS) { try { untrack(k); } catch (e) { /* idem */ } }
+        return r;
+      };
+      P.clear = function clear() {
+        var r = origClr.apply(this, arguments);
+        if (this === LS) { idx = new Set(); }
+        return r;
+      };
+      observing = true;
+    } catch (e) { observing = false; }
+  }
+
+  /* ---------- FFF.store ---------- */
+  var mem = Object.create(null), frozen = false;   // fără prototip: chei ca __proto__/constructor/toString sunt chei obișnuite
+  function lsOk() { return !!(LS && origGet); }
+  var store = {
+    get: function (k, d) {
+      if (lsOk()) {
+        try { var v = origGet.call(LS, PFX + k); if (v == null) return d; return JSON.parse(v); } catch (e) { /* cade în memorie */ }
+      }
+      return Object.prototype.hasOwnProperty.call(mem, k) ? mem[k] : d;
+    },
+    set: function (k, v) {
+      if (frozen) return false;
+      if (lsOk()) {
+        try { origSet.call(LS, PFX + k, JSON.stringify(v)); delete mem[k]; return true; } catch (e) { /* memorie */ }
+      }
+      mem[k] = v; return false;
+    },
+    remove: function (k) {
+      if (frozen) return;
+      if (lsOk()) { try { origRem.call(LS, PFX + k); } catch (e) { /* ignorat */ } }
+      delete mem[k];
+    },
+    keys: function () {
+      var out = [];
+      try {
+        if (LS) for (var i = 0; i < LS.length; i++) {
+          var n = LS.key(i);
+          if (n && n.indexOf(PFX) === 0 && n !== INDEX_KEY && n !== MT_KEY) out.push(n.slice(PFX.length));
+        }
+      } catch (e) { /* ignorat */ }
+      Object.keys(mem).forEach(function (k) { if (out.indexOf(k) < 0) out.push(k); });
+      return out.sort();
+    },
+    /** Cheile (nume complete din localStorage) care aparțin aplicației: indexate + ale kitului (fff.<slug>.*). */
+    indexKeys: function () {
+      var out = new Set();
+      var present = Object.create(null);
+      try { if (LS) for (var i = 0; i < LS.length; i++) present[LS.key(i)] = 1; } catch (e) { /* ignorat */ }
+      loadIdx().forEach(function (k) { if (present[k]) out.add(k); });
+      Object.keys(present).forEach(function (n) { if (n.indexOf(PFX) === 0 && n !== INDEX_KEY && n !== MT_KEY) out.add(n); });
+      return Array.from(out).sort();
+    },
+    /** Citire/scriere brută pentru modulele kitului (ocolește observatorul). */
+    raw: {
+      get: function (k) { return lsOk() ? origGet.call(LS, k) : null; },
+      set: function (k, v) { if (frozen) return; if (!lsOk()) throw new Error('no-storage'); origSet.call(LS, k, v); },
+      remove: function (k) { if (!frozen && lsOk()) origRem.call(LS, k); }
+    },
+    prefix: PFX,
+    indexKey: INDEX_KEY,
+    mtKey: MT_KEY,
+    /** Blochează orice scriere în stocare până la reîncărcare (restaurare/ștergere): handlerele pagehide/beforeunload ale aplicației
+     *  nu mai pot suprascrie datele tocmai scrise. Înlocuiește Storage.prototype.setItem/removeItem/clear cu no-op, oprește put/add/delete/clear
+     *  din IndexedDB și blochează scrierile FFF.store. NU poate opri atribuirea directă localStorage.cheie = valoare. Ireversibil (până la reload). */
+    freeze: function () {
+      if (frozen) return;
+      frozen = true;
+      var noop = function () {};
+      if (P) ['setItem', 'removeItem', 'clear'].forEach(function (n) {
+        try { Object.defineProperty(P, n, {value: noop, writable: true, configurable: true}); } catch (e) { try { P[n] = noop; } catch (e2) { /* ignorat */ } }
+      });
+      try {
+        var OS = window.IDBObjectStore && window.IDBObjectStore.prototype;
+        if (OS) {
+          var fake = function () {
+            return {readyState: 'pending', result: undefined, error: null, onsuccess: null, onerror: null,
+              addEventListener: noop, removeEventListener: noop, dispatchEvent: function () { return false; }};
+          };
+          ['put', 'add', 'delete', 'clear'].forEach(function (n) { try { Object.defineProperty(OS, n, {value: fake, writable: true, configurable: true}); } catch (e) { /* ignorat */ } });
+        }
+      } catch (e3) { /* ignorat */ }
+    },
+    frozen: function () { return frozen; },
+    forget: function (k) { if (observing) untrack(k); },
+    remember: function (k) { if (observing) track(k); },
+    available: function () { return lsOk(); },
+    observing: function () { return observing; }
+  };
+  F.store = store;
+
+  /* ---------- sha256 ---------- */
+  var K256 = null, H256 = null;
+  function frac(x) { return Math.floor((x - Math.floor(x)) * 4294967296) >>> 0; }
+  function initConsts() {
+    K256 = []; H256 = [];
+    for (var n = 2, c = 0; c < 64; n++) {
+      var p = true;
+      for (var d = 2; d * d <= n; d++) if (n % d === 0) { p = false; break; }
+      if (p) { if (c < 8) H256.push(frac(Math.sqrt(n))); K256.push(frac(Math.cbrt(n))); c++; }
+    }
+  }
+  function sha256js(bytes) {
+    if (!K256) initConsts();
+    var l = bytes.length, bl = l * 8;
+    var padded = new Uint8Array(((l + 9 + 63) >> 6) << 6);
+    padded.set(bytes); padded[l] = 0x80;
+    var dv = new DataView(padded.buffer);
+    dv.setUint32(padded.length - 8, Math.floor(bl / 4294967296)); dv.setUint32(padded.length - 4, bl >>> 0);
+    var h = H256.slice(), w = new Uint32Array(64);
+    function rr(x, n) { return (x >>> n) | (x << (32 - n)); }
+    for (var o = 0; o < padded.length; o += 64) {
+      for (var i = 0; i < 16; i++) w[i] = dv.getUint32(o + i * 4);
+      for (i = 16; i < 64; i++) {
+        var s0 = rr(w[i - 15], 7) ^ rr(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+        var s1 = rr(w[i - 2], 17) ^ rr(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+      }
+      var a = h[0], b = h[1], c = h[2], d2 = h[3], e = h[4], f = h[5], g = h[6], hh = h[7];
+      for (i = 0; i < 64; i++) {
+        var S1 = rr(e, 6) ^ rr(e, 11) ^ rr(e, 25), ch = (e & f) ^ (~e & g);
+        var t1 = (hh + S1 + ch + K256[i] + w[i]) | 0;
+        var S0 = rr(a, 2) ^ rr(a, 13) ^ rr(a, 22), mj = (a & b) ^ (a & c) ^ (b & c);
+        var t2 = (S0 + mj) | 0;
+        hh = g; g = f; f = e; e = (d2 + t1) | 0; d2 = c; c = b; b = a; a = (t1 + t2) | 0;
+      }
+      h[0] = (h[0] + a) | 0; h[1] = (h[1] + b) | 0; h[2] = (h[2] + c) | 0; h[3] = (h[3] + d2) | 0;
+      h[4] = (h[4] + e) | 0; h[5] = (h[5] + f) | 0; h[6] = (h[6] + g) | 0; h[7] = (h[7] + hh) | 0;
+    }
+    return h.map(function (v) { return ('00000000' + (v >>> 0).toString(16)).slice(-8); }).join('');
+  }
+  function toBytes(x) {
+    if (typeof x === 'string') return Promise.resolve(new TextEncoder().encode(x));
+    if (x instanceof Uint8Array) return Promise.resolve(x);
+    if (x instanceof ArrayBuffer) return Promise.resolve(new Uint8Array(x));
+    if (ArrayBuffer.isView(x)) return Promise.resolve(new Uint8Array(x.buffer, x.byteOffset, x.byteLength));
+    if (x && typeof x.arrayBuffer === 'function') return x.arrayBuffer().then(function (b) { return new Uint8Array(b); });
+    return Promise.reject(new TypeError('sha256: tip neacceptat'));
+  }
+  F.sha256 = function (x) {
+    return toBytes(x).then(function (b) {
+      var sub = window.crypto && window.crypto.subtle;
+      if (sub) {
+        return sub.digest('SHA-256', b).then(function (h) {
+          return Array.prototype.map.call(new Uint8Array(h), function (v) { return ('0' + v.toString(16)).slice(-2); }).join('');
+        });
+      }
+      return sha256js(b);
+    });
+  };
+
+  /* ---------- download / pickFile ---------- */
+  F.download = function (name, data, mime) {
+    var blob = data instanceof Blob ? data : new Blob([data], {type: mime || 'application/octet-stream'});
+    var url = URL.createObjectURL(blob);
+    var a = doc.createElement('a');
+    a.href = url; a.download = name; a.hidden = true;
+    (doc.body || doc.documentElement).appendChild(a);
+    a.click();
+    setTimeout(function () { a.remove(); URL.revokeObjectURL(url); }, 4000);
+    return blob.size;
+  };
+  /** Rezolvă cu File sau null dacă utilizatorul anulează. */
+  F.pickFile = function (accept) {
+    return new Promise(function (res) {
+      var i = doc.createElement('input');
+      i.type = 'file'; i.hidden = true;
+      if (accept) i.accept = accept;
+      var done = false;
+      function fin(v) { if (done) return; done = true; i.remove(); res(v); }
+      i.addEventListener('change', function () { fin(i.files && i.files[0] ? i.files[0] : null); });
+      i.addEventListener('cancel', function () { fin(null); });
+      (doc.body || doc.documentElement).appendChild(i);
+      i.click();
+    });
+  };
+
+  /* ---------- instalare PWA (doar reținem evenimentul, nu îl blocăm) ---------- */
+  var core = F.core = {
+    version: KIT_VERSION,
+    slug: SLUG,
+    disabled: DISABLED || false,
+    installEvent: null,
+    modules: function () { return (meta('fff-modules') || '').split(',').filter(Boolean); }
+  };
+  window.addEventListener('beforeinstallprompt', function (e) { core.installEvent = e; bus.emit('installable', e); });
+  window.addEventListener('appinstalled', function () { core.installEvent = null; bus.emit('installed'); });
+
+  F.version = KIT_VERSION;
+  F.ready = function (fn) {
+    if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { fn(); }, {once: true});
+    else fn();
+  };
+  F.fmtBytes = function (n) {
+    if (n < 1024) return n + ' B';
+    if (n < 1048576) return (n / 1024).toFixed(1) + ' KB';
+    return (n / 1048576).toFixed(2) + ' MB';
+  };
+})();
+/* ---- fff-kit/store ---- */
+/* fff-kit · store — stocare cu prefix de slug: <slug>.<cheie> (JSON sigur, cote/erori prinse, migrare idempotentă a cheilor vechi).
+   Extinde FFF.store din core: get/set/remove/keys lucrează acum pe `<slug>.`; datele kitului din `fff.<slug>.*` (srs, tts) rămân citibile (rezervă la citire). */
+(function () {
+  'use strict';
+  var F = window.FFF;
+  if (!F || !F.store || !F.core || F.store.migrate) return;
+  var S = F.store, SLUG = F.core.slug, PFX = SLUG + '.', LEG = S.prefix;   // LEG = 'fff.<slug>.' (spațiul kitului, din core)
+  var old = {get: S.get, set: S.set, remove: S.remove, keys: S.keys, indexKeys: S.indexKeys};
+  var mem = Object.create(null);
+
+  function lsOk() { return S.available(); }
+  function fail(op, key, e) {
+    var q = !!(e && (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED' || e.code === 22 || e.code === 1014));
+    S.lastError = {op: op, key: key, quota: q, message: String(e && e.message || e)};
+    try { F.bus.emit('store:error', S.lastError); } catch (x) { /* ignorat */ }
+    return S.lastError;
+  }
+  function okKey(k) { return k != null && String(k) !== ''; }
+  function parse(raw, d) {
+    if (raw == null) return d;
+    try { return JSON.parse(raw); } catch (e) { return raw; }   // valoare migrată fără JSON (ex. „dark”): se întoarce ca șir
+  }
+
+  S.appPrefix = PFX;
+  S.lastError = null;
+
+  /** get(cheie, implicit): citește `<slug>.<cheie>`, apoi (rezervă) `fff.<slug>.<cheie>`, apoi memoria (dacă stocarea a fost indisponibilă la scriere). */
+  S.get = function (k, d) {
+    if (!okKey(k)) return d;
+    k = String(k);
+    if (lsOk()) {
+      try {
+        var v = S.raw.get(PFX + k);
+        if (v == null) v = S.raw.get(LEG + k);
+        if (v != null) return parse(v, d);
+      } catch (e) { fail('get', k, e); }
+    }
+    return Object.prototype.hasOwnProperty.call(mem, k) ? mem[k] : d;
+  };
+  /** set(cheie, valoare) → true dacă a ajuns în localStorage; false dacă e înghețat, JSON invalid (circular, BigInt…), cotă depășită sau stocare indisponibilă (valoarea rămâne în memorie). `undefined` = remove. */
+  S.set = function (k, v) {
+    if (!okKey(k)) return false;
+    k = String(k);
+    if (S.frozen()) return false;
+    if (v === undefined) { S.remove(k); return true; }
+    var str;
+    try { str = JSON.stringify(v); } catch (e) { fail('set', k, e); return false; }
+    if (str === undefined) { fail('set', k, new Error('valoare neserializabilă')); return false; }
+    if (lsOk()) {
+      try { S.raw.set(PFX + k, str); delete mem[k]; return true; } catch (e) { fail('set', k, e); }
+    }
+    mem[k] = v;
+    return false;
+  };
+  S.remove = function (k) {
+    if (!okKey(k) || S.frozen()) return;
+    k = String(k);
+    if (lsOk()) { try { S.raw.remove(PFX + k); S.raw.remove(LEG + k); } catch (e) { fail('remove', k, e); } }
+    delete mem[k];
+  };
+  S.has = function (k) {
+    if (!okKey(k)) return false;
+    try { if (lsOk() && (S.raw.get(PFX + k) != null || S.raw.get(LEG + k) != null)) return true; } catch (e) { /* ignorat */ }
+    return Object.prototype.hasOwnProperty.call(mem, String(k));
+  };
+  S.keys = function () {
+    var out = Object.create(null);
+    try {
+      var ls = window.localStorage;
+      for (var i = 0; i < ls.length; i++) {
+        var n = ls.key(i);
+        if (n && n.indexOf(PFX) === 0 && n !== S.indexKey && n !== S.mtKey) out[n.slice(PFX.length)] = 1;
+      }
+    } catch (e) { /* ignorat */ }
+    old.keys.call(S).forEach(function (k) { if (k !== '__keys' && k !== '__mt') out[k] = 1; });
+    Object.keys(mem).forEach(function (k) { out[k] = 1; });
+    return Object.keys(out).sort();
+  };
+  /** Cheile cu nume complet ale aplicației: indexate, `<slug>.*` și `fff.<slug>.*`. */
+  S.indexKeys = function () {
+    var out = Object.create(null);
+    old.indexKeys.call(S).forEach(function (k) { out[k] = 1; });
+    try {
+      var ls = window.localStorage;
+      for (var i = 0; i < ls.length; i++) { var n = ls.key(i); if (n && n.indexOf(PFX) === 0 && n !== S.mtKey) out[n] = 1; }
+    } catch (e) { /* ignorat */ }
+    return Object.keys(out).sort();
+  };
+  /** Este `nume` (complet, din localStorage) o cheie a spațiului aplicației? */
+  S.owns = function (name) { name = String(name); return name.indexOf(PFX) === 0 || name.indexOf(LEG) === 0; };
+
+  /**
+   * migrate({'cheieVeche': 'cheieNouă', 'prefix_*': 'nou.*'}, {wrap, dryRun, dropOld}) → {moved, same, conflicts, missing, errors, frozen}.
+   *  - cheia veche = numele brut din localStorage; cheia nouă = relativă la prefix (FFF.store.get('cheieNouă')); dacă începe deja cu `<slug>.` e luată ca atare.
+   *  - copiază valoarea EXACTĂ (șirul brut), verifică citirea înapoi, abia apoi șterge cheia veche. Nu suprascrie niciodată o valoare nouă existentă:
+   *    dacă ambele există și sunt identice → doar șterge cheia veche; dacă diferă → conflict (rămân ambele; `dropOld:true` șterge totuși cheia veche).
+   *  - idempotentă: a doua rulare nu mai găsește nimic de mutat. Un șablon cu `*` (la sfârșit, în ambele chei) mută toate cheile cu acel prefix.
+   *  - wrap: 'keep' (implicit; valoarea brută e copiată, iar get() întoarce JSON-ul parsat sau șirul brut) | 'string' (valoarea veche este împachetată ca șir JSON: get() întoarce exact șirul vechi).
+   *  - nu face nimic cât timp stocarea e înghețată (restaurare în curs). Emite `store:migrated` pe FFF.bus dacă a mutat ceva. */
+  S.migrate = function (map, opt) {
+    opt = opt || {};
+    var rep = {moved: [], same: [], conflicts: [], missing: [], errors: [], frozen: false};
+    if (S.frozen()) { rep.frozen = true; return rep; }
+    if (!lsOk() || !map || typeof map !== 'object') { if (map && typeof map === 'object') rep.errors.push({key: '*', message: 'stocare indisponibilă'}); return rep; }
+    var ls = window.localStorage, names = [];
+    try { for (var i = 0; i < ls.length; i++) names.push(ls.key(i)); } catch (e) { /* ignorat */ }
+    var pairs = [];
+    Object.keys(map).forEach(function (from) {
+      var to = String(map[from]);
+      if (from.charAt(from.length - 1) === '*') {
+        var fp = from.slice(0, -1), tp = to.charAt(to.length - 1) === '*' ? to.slice(0, -1) : to;
+        names.forEach(function (n) { if (n.indexOf(fp) === 0 && n.indexOf('fff.') !== 0) pairs.push([n, tp + n.slice(fp.length)]); });
+      } else pairs.push([from, to]);
+    });
+    pairs.forEach(function (p) {
+      var from = p[0], full = p[1].indexOf(PFX) === 0 ? p[1] : PFX + p[1];
+      if (!from || from === full || from.indexOf('fff.') === 0 || full === PFX) return;
+      try {
+        var oldV = S.raw.get(from);
+        if (oldV == null) { rep.missing.push(from); return; }
+        var cur = S.raw.get(full), val = opt.wrap === 'string' ? JSON.stringify(oldV) : oldV;
+        if (cur != null) {
+          if (cur === val || cur === oldV) { if (!opt.dryRun) { S.raw.remove(from); S.forget(from); } rep.same.push(from); }
+          else if (opt.dropOld) { if (!opt.dryRun) { S.raw.remove(from); S.forget(from); } rep.conflicts.push({key: from, to: full, dropped: true}); }
+          else rep.conflicts.push({key: from, to: full});
+          return;
+        }
+        if (opt.dryRun) { rep.moved.push(from); return; }
+        S.raw.set(full, val);
+        if (S.raw.get(full) !== val) throw new Error('verificarea citirii înapoi a eșuat');
+        S.raw.remove(from); S.forget(from);
+        rep.moved.push(from);
+      } catch (e) { rep.errors.push({key: from, message: fail('migrate', from, e).message, quota: S.lastError.quota}); }
+    });
+    if (rep.moved.length && !opt.dryRun) { try { F.bus.emit('store:migrated', rep); } catch (e) { /* ignorat */ } }
+    return rep;
+  };
+})();
+/* ---- fff-kit/dialog ---- */
+/* fff-kit · dialog — un singur sistem de dialoguri: confirm/alert/prompt (promisiuni), toast/notify (aria-live), <dialog> modal accesibil. */
+(function () {
+  'use strict';
+  var F = window.FFF;
+  if (!F || F.dialog) return;
+  var doc = document;
+  function T(k, v) { return F.t('dialog', k, v); }
+
+  var uid = 0;
+  var stack = [];   // dialogurile deschise (ultimul = cel de sus)
+
+  /* ---------- DOM mic ---------- */
+  function el(tag, cls, text) {
+    var e = doc.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function btn(label, cls) {
+    var b = el('button', 'fff-btn' + (cls ? ' ' + cls : ''), label);
+    b.type = 'button';
+    return b;
+  }
+
+  /* ---------- tema gazdei (la fel ca în label) ---------- */
+  function hostDark() {
+    function rgba(e) {
+      var m = /rgba?\(([^)]+)\)/.exec(getComputedStyle(e).backgroundColor || '');
+      if (!m) return null;
+      var p = m[1].split(/[ ,\/]+/).map(parseFloat);
+      if (p.length > 3 && p[3] === 0) return null;
+      return p;
+    }
+    var p = (doc.body && rgba(doc.body)) || rgba(doc.documentElement);
+    if (!p) return null;
+    function lin(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return (0.2126 * lin(p[0]) + 0.7152 * lin(p[1]) + 0.0722 * lin(p[2])) < 0.18;
+  }
+
+  /* ---------- focus ---------- */
+  var FOCUSABLE = 'button:not([disabled]),input:not([disabled]):not([type=hidden]),textarea:not([disabled]),select:not([disabled]),a[href],summary,[tabindex]:not([tabindex="-1"])';
+  function focusables(root) {
+    return Array.prototype.filter.call(root.querySelectorAll(FOCUSABLE), function (n) {
+      return !n.hidden && !n.closest('[hidden]') && (n.offsetWidth || n.offsetHeight || n.getClientRects().length);
+    });
+  }
+
+  /**
+   * Nucleul: construiește și afișează un dialog.
+   * spec: {kind, title (șir|false), message, body(ctx) → {nodes, focus, value, validate}, buttons: [{label, value|fn, primary, danger}], cancel (valoarea la Esc/închidere),
+   *        focus: indexul butonului focalizat implicit (dacă body nu dă un câmp), small}
+   */
+  function open(spec) {
+    return new Promise(function (resolve) {
+      var id = ++uid, prev = doc.activeElement, settled = false;
+      var d = el('dialog', 'fff-dlg fff-dialog' + (spec.wide ? '' : ' fff-dlg-sm'));
+      d.setAttribute('role', 'dialog');
+      d.setAttribute('aria-modal', 'true');
+      d.setAttribute('data-fff-dialog', spec.kind || 'custom');
+      var inner = el('div', 'fff-in');
+      var titleId = 'fff-dt-' + id, msgId = 'fff-dm-' + id;
+      var hasTitle = spec.title !== false && spec.title !== '' && spec.title != null;
+      if (hasTitle) { var h = el('h2', 'fff-dt', String(spec.title)); h.id = titleId; inner.appendChild(h); }
+      var msg = null;
+      if (spec.message != null && spec.message !== '') {
+        msg = el('p', 'fff-msg', String(spec.message)); msg.id = msgId; inner.appendChild(msg);
+      }
+      if (hasTitle) {
+        d.setAttribute('aria-labelledby', titleId);
+        if (msg) d.setAttribute('aria-describedby', msgId);
+      } else if (msg) d.setAttribute('aria-labelledby', msgId);
+      else d.setAttribute('aria-label', T('title_alert'));
+      var ctx = {id: id, msgId: msg ? msgId : titleId, finish: null};
+      var body = spec.body ? spec.body(ctx) : null;
+      if (body && body.nodes) body.nodes.forEach(function (n) { inner.appendChild(n); });
+      var row = el('div', 'fff-row fff-end');
+      var btns = [];
+      function finish(v) {
+        if (settled) return;
+        settled = true;
+        stack = stack.filter(function (x) { return x !== d; });
+        try { if (d.open) d.close(); } catch (e) { /* ignorat */ }
+        d.remove();
+        try { doc.removeEventListener('focusin', trap, true); } catch (e) { /* ignorat */ }
+        if (prev && prev !== doc.body && prev.focus && doc.contains(prev)) { try { prev.focus(); } catch (e) { /* ignorat */ } }
+        resolve(v);
+      }
+      ctx.finish = finish;
+      (spec.buttons || []).forEach(function (b) {
+        var e = btn(b.label, (b.primary ? 'fff-primary' : '') + (b.danger ? ' fff-danger' : ''));
+        e.addEventListener('click', function () {
+          if (b.check) { var r = b.check(); if (r === false) return; }
+          finish(typeof b.value === 'function' ? b.value() : b.value);
+        });
+        row.appendChild(e); btns.push(e);
+      });
+      inner.appendChild(row);
+      d.appendChild(inner);
+      ctx.buttons = btns;
+      /* Esc (nativ: evenimentul cancel; rezervă fără showModal: keydown) + capcana de focus (Tab/Shift+Tab ciclează în dialog) */
+      d.addEventListener('cancel', function (e) { e.preventDefault(); finish(spec.cancel); });
+      d.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); finish(spec.cancel); return; }
+        if (e.key !== 'Tab') return;
+        var f = focusables(d);
+        if (!f.length) { e.preventDefault(); d.focus(); return; }
+        var first = f[0], last = f[f.length - 1], a = doc.activeElement;
+        if (e.shiftKey && (a === first || !d.contains(a))) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && (a === last || !d.contains(a))) { e.preventDefault(); first.focus(); }
+      });
+      function trap(e) {
+        if (stack[stack.length - 1] !== d || d.contains(e.target)) return;
+        var f = focusables(d); if (f.length) f[0].focus();
+      }
+      d.setAttribute('tabindex', '-1');
+      var dark = hostDark();
+      if (dark === true) d.classList.add('fff-dark'); else if (dark === false) d.classList.add('fff-light');
+      (doc.body || doc.documentElement).appendChild(d);
+      stack.push(d);
+      if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+      doc.addEventListener('focusin', trap, true);
+      raiseToasts();
+      var target = (body && body.focus) || (btns[spec.focus == null ? btns.length - 1 : spec.focus]) || d;
+      try { target.focus(); if (body && body.select && target.select) target.select(); } catch (e) { /* ignorat */ }
+      d._fffClose = function () { finish(spec.cancel); };
+    });
+  }
+
+  function opts(o) { return o && typeof o === 'object' ? o : {}; }
+  function title(o, key) { return o.title === false ? false : (o.title != null ? o.title : T(key)); }
+
+  /* ---------- confirm / alert / prompt / show / choice ---------- */
+  /** confirm(mesaj, {title, yes, no, danger, focus:'yes'|'no'}) → Promise<boolean>. Esc / Anulează → false. Focusul implicit: „Anulează” (acțiunea sigură). */
+  function confirm(message, o) {
+    o = opts(o);
+    return open({
+      kind: 'confirm', title: title(o, 'title_confirm'), message: message, cancel: false,
+      buttons: [{label: o.no || T('cancel'), value: false}, {label: o.yes || T('yes'), value: true, primary: true, danger: !!o.danger}],
+      focus: o.focus === 'yes' ? 1 : 0
+    });
+  }
+  /** alert(mesaj, {title, ok}) → Promise<void>. */
+  function alertDlg(message, o) {
+    o = opts(o);
+    return open({kind: 'alert', title: title(o, 'title_alert'), message: message, cancel: undefined, buttons: [{label: o.ok || T('ok'), value: undefined, primary: true}], focus: 0});
+  }
+  /** prompt(mesaj, valoareImplicită, {title, yes, no, type, multiline, placeholder, maxlength, inputmode, autocomplete, required, validate(v) → șir de eroare|falsy}) → Promise<string|null>. */
+  function prompt(message, def, o) {
+    if (def && typeof def === 'object') { o = def; def = o.value; }
+    o = opts(o);
+    var input, err, ok;
+    return open({
+      kind: 'prompt', title: title(o, 'title_prompt'), message: message, cancel: null,
+      body: function (ctx) {
+        input = o.multiline ? el('textarea', 'fff-input') : el('input', 'fff-input');
+        if (!o.multiline) input.type = o.type || 'text'; else input.rows = o.rows || 4;
+        input.value = def == null ? '' : String(def);
+        input.setAttribute('aria-labelledby', ctx.msgId);
+        if (o.placeholder) input.placeholder = o.placeholder;
+        if (o.maxlength) input.maxLength = o.maxlength;
+        if (o.inputmode) input.setAttribute('inputmode', o.inputmode);
+        input.autocomplete = o.autocomplete || 'off';
+        if (o.required) input.required = true;
+        err = el('p', 'fff-res fff-sm fff-bad');
+        err.id = 'fff-de-' + ctx.id; err.setAttribute('role', 'alert');
+        input.setAttribute('aria-describedby', err.id);
+        input.addEventListener('input', function () { err.textContent = ''; input.removeAttribute('aria-invalid'); });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' && !e.shiftKey && !o.multiline) { e.preventDefault(); if (ok.check() !== false) ctx.finish(input.value); }
+          else if (e.key === 'Enter' && o.multiline && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (ok.check() !== false) ctx.finish(input.value); }
+        });
+        var wrap = el('div', 'fff-field'); wrap.appendChild(input); wrap.appendChild(err);
+        return {nodes: [wrap], focus: input, select: true};
+      },
+      buttons: [{label: o.no || T('cancel'), value: null}, ok = {
+        label: o.yes || T('ok'), primary: true, value: function () { return input.value; },
+        check: function () {
+          var bad = null;
+          if (o.required && !String(input.value).trim()) bad = T('err_required');
+          else if (typeof o.validate === 'function') { try { bad = o.validate(input.value) || null; } catch (e) { bad = String(e && e.message || e); } }
+          if (bad) { err.textContent = String(bad); input.setAttribute('aria-invalid', 'true'); input.focus(); return false; }
+          return true;
+        }
+      }]
+    });
+  }
+  /** show(mesaj, text, {title, ok}) → Promise<void>: text în citire, selectat (pentru copiere). */
+  function showText(message, text, o) {
+    o = opts(o);
+    return open({
+      kind: 'show', title: title(o, 'title_show'), message: message, cancel: undefined,
+      body: function (ctx) {
+        var ta = el('textarea', 'fff-input fff-ta');
+        ta.readOnly = true; ta.rows = o.rows || 3; ta.value = String(text == null ? '' : text);
+        ta.setAttribute('aria-labelledby', ctx.msgId);
+        return {nodes: [ta], focus: ta, select: true};
+      },
+      buttons: [{label: o.ok || T('ok'), value: undefined, primary: true}]
+    });
+  }
+  /** choice(mesaj, [{label, value, primary, danger}], {title}) → Promise<valoare|null>. Primul buton primește focusul. */
+  function choice(message, buttons, o) {
+    o = opts(o);
+    return open({
+      kind: 'choice', title: title(o, 'title_confirm'), message: message, cancel: null,
+      buttons: (buttons || []).map(function (b) { return {label: b.label, value: b.value, primary: !!b.primary, danger: !!b.danger}; }), focus: 0
+    });
+  }
+
+  /* ---------- toast / notify (regiuni aria-live) ---------- */
+  var regions = null, regTimer = 0, toasts = [], pend = [];
+  function ensureRegions(cb) {
+    if (regions) return cb();
+    F.ready(function () {
+      if (regions) return cb();
+      var wrap = el('div', 'fff-toasts');
+      wrap.setAttribute('data-fff-toasts', '');
+      var pol = el('div', 'fff-toast-reg'); pol.setAttribute('role', 'status'); pol.setAttribute('aria-live', 'polite'); pol.setAttribute('aria-relevant', 'additions');
+      var ass = el('div', 'fff-toast-reg'); ass.setAttribute('role', 'alert'); ass.setAttribute('aria-live', 'assertive'); ass.setAttribute('aria-relevant', 'additions');
+      wrap.appendChild(pol); wrap.appendChild(ass);
+      if (typeof wrap.showPopover === 'function') wrap.setAttribute('popover', 'manual');   // strat superior: vizibil și deasupra unui <dialog> modal
+      (doc.body || doc.documentElement).appendChild(wrap);
+      if (typeof wrap.showPopover === 'function') { try { wrap.showPopover(); } catch (e) { /* ignorat */ } }
+      regions = {wrap: wrap, polite: pol, assertive: ass};
+      setTimeout(cb, 80);   // regiunea trebuie să existe în arborele de accesibilitate înainte de a primi text
+    });
+  }
+  function raiseToasts() {
+    if (!regions || !toasts.length || typeof regions.wrap.showPopover !== 'function') return;
+    try { regions.wrap.hidePopover(); regions.wrap.showPopover(); } catch (e) { /* ignorat */ }
+  }
+  function dropRegionsLater() {
+    clearTimeout(regTimer);
+    regTimer = setTimeout(function () {
+      if (toasts.length || !regions) return;
+      regions.wrap.remove(); regions = null;   // nu rămâne în outerHTML-ul aplicațiilor care își serializează pagina
+    }, 1500);
+  }
+  var TYPES = {info: 1, success: 1, warning: 1, error: 1};
+  /**
+   * toast(mesaj, {type:'info'|'success'|'warning'|'error', timeout (ms; 0 = rămâne până îl închizi), action:{label, onClick}}) → {close(), el}.
+   * error/warning: regiune assertive (role=alert); restul: polite (role=status). Timpul se oprește la hover/focus.
+   */
+  function toast(message, o) {
+    o = opts(o);
+    var type = TYPES[o.type] ? o.type : 'info';
+    var timeout = o.timeout != null ? o.timeout : (type === 'error' ? 8000 : 4500);
+    var handle = {el: null, close: function () { handle._closed = true; if (handle._close) handle._close(); }};
+    pend.push(handle);
+    ensureRegions(function () {
+      pend = pend.filter(function (x) { return x !== handle; });
+      if (handle._closed) { dropRegionsLater(); return; }
+      var t = el('div', 'fff-toast fff-toast-' + type);
+      t.setAttribute('data-type', type);
+      var sr = el('span', 'fff-sr', T('sr_' + type) + ': ');
+      var tx = el('span', 'fff-toast-msg', String(message));
+      t.appendChild(sr); t.appendChild(tx);
+      if (o.action && o.action.label) {
+        var ab = btn(String(o.action.label), 'fff-toast-act');
+        ab.addEventListener('click', function () { try { if (o.action.onClick) o.action.onClick(); } finally { close(); } });
+        t.appendChild(ab);
+      }
+      var xb = btn('×', 'fff-toast-x');
+      xb.setAttribute('aria-label', T('dismiss'));
+      xb.addEventListener('click', function () { close(); });
+      t.appendChild(xb);
+      var reg = (type === 'error' || type === 'warning') ? regions.assertive : regions.polite;
+      while (toasts.length >= 4) toasts[0].close();
+      reg.appendChild(t);
+      var rec = {close: close}, timer = 0, paused = false, left = timeout;
+      toasts.push(rec); handle.el = t;
+      function arm() { clearTimeout(timer); if (timeout > 0 && !paused) { var s = Date.now(); timer = setTimeout(close, left); rec._s = s; } }
+      function pause() { if (paused) return; paused = true; clearTimeout(timer); if (rec._s) left = Math.max(1000, left - (Date.now() - rec._s)); }
+      function resume() { paused = false; arm(); }
+      t.addEventListener('mouseenter', pause); t.addEventListener('mouseleave', resume);
+      t.addEventListener('focusin', pause); t.addEventListener('focusout', resume);
+      function close() {
+        clearTimeout(timer);
+        if (!t.parentNode) return;
+        t.remove();
+        toasts = toasts.filter(function (x) { return x !== rec; });
+        if (!toasts.length) dropRegionsLater();
+      }
+      handle._close = close;
+      arm();
+      raiseToasts();
+    });
+    return handle;
+  }
+  function closeAll() {
+    stack.slice().forEach(function (d) { if (d._fffClose) d._fffClose(); });
+    toasts.slice().forEach(function (t) { t.close(); });
+    pend.slice().forEach(function (h) { h.close(); });
+  }
+
+  F.dialog = {
+    confirm: confirm, alert: alertDlg, prompt: prompt, show: showText, choice: choice,
+    toast: toast, notify: toast, closeAll: closeAll,
+    isOpen: function () { return stack.length > 0; },
+    open: open
+  };
+
+  /* ---------- alias-uri (compatibilitate cu implementările proprii din aplicații: ffAsk/ffShow/ffPrompt) ---------- */
+  function noTitle(o) { o = opts(o); return Object.assign({title: false}, o); }
+  if (!window.ffAsk) window.ffAsk = function (msg, o) { return confirm(String(msg), noTitle(o)); };
+  if (!window.ffShow) window.ffShow = function (msg, text, o) { return showText(String(msg), text, noTitle(o)); };
+  if (!window.ffPrompt) window.ffPrompt = function (msg, def, o) { return prompt(String(msg), def, noTitle(o)); };
+})();
+/* ---- fff-kit/label ---- */
+/* fff-kit · label — dialogul „Transparență”: rețea, stocare, permisiuni, fișier + hash, copie de siguranță. */
+(function () {
+  'use strict';
+  var F = window.FFF;
+  if (!F || F.label) return;
+  var doc = document;
+  var DISABLED = F.core && F.core.disabled;
+  function T(k, v) { return F.t('label', k, v); }
+
+  var PERM = {
+    getUserMedia: 'cam', geolocation: 'geo', RTCPeerConnection: 'rtc', 'navigator.share': 'share', Notification: 'notif',
+    speechSynthesis: 'tts', SpeechRecognition: 'stt', clipboard: 'clip', serviceWorker: 'sw', indexedDB: 'idb',
+    localStorage: 'ls', 'Web Crypto': 'crypto', WebGL: 'webgl', WebGPU: 'webgpu', Worker: 'worker', BroadcastChannel: 'bc'
+  };
+  var SHELL = "LC_ALL=C sed -E 's/data-fff-hash=\"[0-9a-f]*\"/data-fff-hash=\"\"/g; s/\"sha256\":\"[0-9a-f]*\"/\"sha256\":\"\"/g' index.html | sha256sum";
+
+  /* ---------- info ---------- */
+  var infoCache;
+  function info() {
+    if (infoCache) return infoCache;
+    var el = doc.getElementById('fff-info'), o = null;
+    if (el) { try { o = JSON.parse(el.textContent || '{}'); } catch (e) { o = null; } }
+    infoCache = o || {};
+    infoCache._present = !!o;
+    return infoCache;
+  }
+
+  /* ---------- DOM mic ---------- */
+  function h(tag, attrs) {
+    var e = doc.createElement(tag);
+    if (attrs) for (var k in attrs) if (Object.prototype.hasOwnProperty.call(attrs, k) && attrs[k] != null) {
+      if (k === 'text') e.textContent = attrs[k]; else if (k === 'class') e.className = attrs[k]; else e.setAttribute(k, attrs[k]);
+    }
+    for (var i = 2; i < arguments.length; i++) {
+      var c = arguments[i];
+      if (c == null || c === false) continue;
+      e.appendChild(typeof c === 'string' ? doc.createTextNode(c) : c);
+    }
+    return e;
+  }
+  function btn(text, cls, fn) {
+    var b = h('button', {type: 'button', class: 'fff-btn' + (cls ? ' ' + cls : ''), text: text});
+    if (fn) b.addEventListener('click', fn);
+    return b;
+  }
+  var uid = 0;
+  function field(label, type, ac) {
+    var id = 'fff-f' + (++uid);
+    var i = h('input', {id: id, type: type, class: 'fff-input', autocomplete: ac || 'off'});
+    return {wrap: h('div', {class: 'fff-field'}, h('label', {for: id, text: label}), i), input: i};
+  }
+
+  /* ---------- tema gazdei ---------- */
+  function hostDark() {
+    function rgba(el) {
+      var m = /rgba?\(([^)]+)\)/.exec(getComputedStyle(el).backgroundColor || '');
+      if (!m) return null;
+      var p = m[1].split(/[ ,\/]+/).map(parseFloat);
+      if (p.length > 3 && p[3] === 0) return null;
+      return p;
+    }
+    var p = (doc.body && rgba(doc.body)) || rgba(doc.documentElement);
+    if (!p) return null;
+    function lin(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return (0.2126 * lin(p[0]) + 0.7152 * lin(p[1]) + 0.0722 * lin(p[2])) < 0.18;
+  }
+
+  /* ---------- hash canonic ---------- */
+  function canonBytes(buf) {
+    var u = new Uint8Array(buf), s = '';
+    for (var i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000));
+    s = s.replace(/data-fff-hash="[0-9a-f]*"/g, 'data-fff-hash=' + '"' + '"').replace(/"sha256":"[0-9a-f]*"/g, '"sha256":' + '"' + '"');
+    var out = new Uint8Array(s.length);
+    for (var j = 0; j < s.length; j++) out[j] = s.charCodeAt(j);
+    return out;
+  }
+  function declaredHash() {
+    var a = doc.documentElement.getAttribute('data-fff-hash');
+    return /^[0-9a-f]{64}$/.test(a || '') ? a : (/^[0-9a-f]{64}$/.test(info().sha256 || '') ? info().sha256 : '');
+  }
+
+  /* ---------- dialog ---------- */
+  var dlg = null, timer = 0, lastFocus = null;
+
+  function section(id, title) {
+    var hid = 'fff-h-' + id;
+    var sec = h('section', {class: 'fff-sec', 'aria-labelledby': hid}, h('h3', {id: hid, text: title}));
+    return sec;
+  }
+
+  function storageRows(tbody, sum) {
+    var keys = F.store.indexKeys(), rows = [], total = 0;
+    var enc = new TextEncoder();
+    keys.forEach(function (k) {
+      var v = F.store.raw.get(k) || '';
+      var n = enc.encode(k).length + enc.encode(v).length;
+      total += n; rows.push([k, n]);
+    });
+    rows.sort(function (a, b) { return b[1] - a[1]; });
+    var sig = rows.length + ':' + total;
+    if (tbody._sig === sig) return;
+    tbody._sig = sig;
+    tbody.textContent = '';
+    rows.slice(0, 25).forEach(function (r) {
+      tbody.appendChild(h('tr', null, h('td', {class: 'fff-mono', text: r[0]}), h('td', {class: 'fff-num', text: F.fmtBytes(r[1])})));
+    });
+    if (rows.length > 25) tbody.appendChild(h('tr', null, h('td', {colspan: '2', text: T('store_more', {n: rows.length - 25})})));
+    sum.textContent = rows.length ? T('store_sum', {n: rows.length, size: F.fmtBytes(total)}) : T('store_none');
+    tbody.parentNode.hidden = !rows.length;
+  }
+
+  function build() {
+    var I = info(), a = F.app;
+    var name = I.name || a.name, ver = I.version || a.version, upd = I.updated || a.updated;
+    var d = h('dialog', {class: 'fff-dlg', 'aria-labelledby': 'fff-lbl-title', lang: F.lang()});
+    var dark = hostDark();
+    if (dark === true) d.classList.add('fff-dark'); else if (dark === false) d.classList.add('fff-light');
+    var inner = h('div', {class: 'fff-in'});
+    var closeB = btn('×', 'fff-x', function () { api.close(); });
+    closeB.setAttribute('aria-label', T('close'));
+    inner.appendChild(h('div', {class: 'fff-hd'}, h('h2', {id: 'fff-lbl-title', text: T('title')}), closeB));
+    inner.appendChild(h('p', {class: 'fff-lead'}, h('strong', {text: name}), ' ', h('span', {class: 'fff-mut', text: 'v ' + (ver || '?') + (upd ? ' · ' + upd : '')})));
+    if (I.description) inner.appendChild(h('p', {class: 'fff-mut', text: I.description}));
+    if (DISABLED) inner.appendChild(h('p', {class: 'fff-note', role: 'note', text: T('disabled', {reason: DISABLED})}));
+    if (I.selfModifying) inner.appendChild(h('p', {class: 'fff-note', role: 'note', text: T('self_mod')}));
+
+    /* Rețea */
+    var net = section('net', T('net_h'));
+    if (!I._present) net.appendChild(h('p', {class: 'fff-mut', text: T('net_unknown')}));
+    else {
+      var eg = I.egress || [];
+      if (!eg.length) net.appendChild(h('p', null, h('strong', {text: T('net_none')})));
+      else {
+        net.appendChild(h('p', {text: T('net_list')}));
+        var ul = h('ul', {class: 'fff-list'});
+        eg.forEach(function (e) {
+          var host = typeof e === 'string' ? e : e.host, via = typeof e === 'string' ? '' : (e.via || []).join(', ');
+          ul.appendChild(h('li', null, h('span', {class: 'fff-mono', text: host}), via ? h('span', {class: 'fff-mut', text: ' — ' + via}) : null));
+        });
+        net.appendChild(ul);
+      }
+      if (I.egressNote) net.appendChild(h('p', {class: 'fff-mut', text: I.egressNote}));
+      net.appendChild(h('p', {class: 'fff-mut fff-sm', text: T('net_note')}));
+    }
+    inner.appendChild(net);
+
+    /* Stocare */
+    var st = section('store', T('store_h'));
+    var sum = h('p', {role: 'status'});
+    var tb = h('tbody');
+    var tbl = h('table', {class: 'fff-tbl'}, h('caption', {class: 'fff-sr', text: T('store_h')}),
+      h('thead', null, h('tr', null, h('th', {scope: 'col', text: T('store_key')}), h('th', {scope: 'col', class: 'fff-num', text: T('store_size')}))), tb);
+    st.appendChild(sum); st.appendChild(tbl);
+    if ((I.permissions || []).indexOf('indexedDB') >= 0) st.appendChild(h('p', {class: 'fff-mut fff-sm', text: T('store_idb')}));
+    st.appendChild(h('p', {class: 'fff-mut fff-sm', text: T('store_note')}));
+    inner.appendChild(st);
+    storageRows(tb, sum);
+    d._tick = function () { storageRows(tb, sum); };
+
+    /* Permisiuni */
+    var pm = section('perm', T('perm_h'));
+    if (!I._present) pm.appendChild(h('p', {class: 'fff-mut', text: T('net_unknown')}));
+    else {
+      var ps = I.permissions || [];
+      if (!ps.length) pm.appendChild(h('p', {text: T('perm_none')}));
+      else {
+        var pl = h('ul', {class: 'fff-list fff-cols'});
+        ps.forEach(function (p) { pl.appendChild(h('li', {text: PERM[p] ? T('perm_' + PERM[p]) : p})); });
+        pm.appendChild(pl);
+      }
+      pm.appendChild(h('p', {class: 'fff-mut fff-sm', text: T('perm_note')}));
+    }
+    inner.appendChild(pm);
+
+    /* Fișier */
+    var fl = section('file', T('file_h'));
+    var dh = declaredHash();
+    if (I.sizeBytes) fl.appendChild(h('p', {text: T('file_size', {size: F.fmtBytes(I.sizeBytes)})}));
+    if (dh) {
+      fl.appendChild(h('p', {class: 'fff-sm'}, T('file_hash') + ' ', h('code', {class: 'fff-mono fff-break', text: dh})));
+      var res = h('p', {role: 'status', class: 'fff-res'});
+      var vb = btn(T('verify_btn'), '', function () {
+        res.className = 'fff-res'; res.textContent = '';
+        F.pickFile('.html,.htm,text/html').then(function (f) {
+          if (!f) return null;
+          return f.arrayBuffer().then(function (buf) { return F.sha256(canonBytes(buf)); }).then(function (got) {
+            if (got === dh) { res.className = 'fff-res fff-ok'; res.textContent = '✔ ' + T('verify_ok'); }
+            else { res.className = 'fff-res fff-bad'; res.textContent = '✖ ' + T('verify_bad', {got: got}); }
+          });
+        }).catch(function () { res.className = 'fff-res fff-bad'; res.textContent = T('verify_err'); });
+      });
+      fl.appendChild(h('p', null, vb));
+      fl.appendChild(res);
+      fl.appendChild(h('details', {class: 'fff-det'}, h('summary', {text: T('file_how_h')}),
+        h('p', {class: 'fff-sm', text: T('file_how')}), h('pre', {class: 'fff-pre fff-mono', tabindex: '0', 'aria-label': T('verify_cmd'), text: SHELL})));
+    } else fl.appendChild(h('p', {class: 'fff-mut', text: T('file_nohash')}));
+    inner.appendChild(fl);
+
+    /* Copie de siguranță */
+    if (F.bundle && !DISABLED) inner.appendChild(backup());
+
+    /* Kit + instalare */
+    var foot = h('div', {class: 'fff-foot'});
+    var mods = (I.kit && I.kit.modules) || F.core.modules();
+    foot.appendChild(h('p', {class: 'fff-mut fff-sm', text: T('kit_line', {v: F.version, mods: mods.join(', ') || 'core'})}));
+    if (F.core.installEvent) {
+      var ib = btn(T('install'), 'fff-primary', function () {
+        var ev = F.core.installEvent;
+        if (!ev) return;
+        ev.prompt(); F.core.installEvent = null; ib.hidden = true;
+      });
+      foot.appendChild(ib);
+    }
+    inner.appendChild(foot);
+
+    d.appendChild(inner);
+    d.addEventListener('click', function (e) { if (e.target === d) api.close(); });
+    d.addEventListener('keydown', function (e) { if (e.key !== 'Escape') e.stopPropagation(); });
+    d.addEventListener('keyup', function (e) { e.stopPropagation(); });
+    d.addEventListener('keypress', function (e) { e.stopPropagation(); });
+    d.addEventListener('close', function () { if (dlg === d) cleanup(); });
+    return d;
+  }
+
+  /** Număr cu separator de mii după limbă (aceeași formă ca în textele traduse). */
+  function fmtNum(n) {
+    var sep = {en: ',', it: '.', de: '.'}[F.lang()] || ' ';
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+  }
+
+  function backup() {
+    var bk = section('bk', T('bk_h'));
+    var status = h('p', {role: 'status', class: 'fff-res'});
+    function say(msg, kind) { status.className = 'fff-res' + (kind ? ' fff-' + kind : ''); status.textContent = msg; }
+    function fail(e) { say((e && e.message) || String(e), 'bad'); }
+    bk.appendChild(h('p', {class: 'fff-mut fff-sm', text: T('bk_hint', {iter: fmtNum(F.bundle.iterations)})}));
+
+    /* export criptat */
+    var encRow = h('div', {class: 'fff-box', hidden: ''});
+    var pw1 = field(T('bk_pw', {n: F.bundle.minPassword}), 'password', 'new-password'), pw2 = field(T('bk_pw2'), 'password', 'new-password');
+    var goEnc = btn(T('bk_go'), 'fff-primary', function () {
+      if (pw1.input.value !== pw2.input.value) return say(T('pw_mismatch'), 'bad');
+      F.bundle.export({encrypt: true, password: pw1.input.value}).then(function (r) {
+        pwStrength.textContent = '';
+        say(T('ok_export_enc', {file: r.filename, n: r.keys}), 'ok'); pw1.input.value = pw2.input.value = ''; encRow.hidden = true; encBtn.setAttribute('aria-expanded', 'false');
+      }).catch(fail);
+    });
+    var pwStrength = h('p', {role: 'status', class: 'fff-mut fff-sm fff-res'});
+    pw1.input.addEventListener('input', function () { pwStrength.textContent = pw1.input.value ? F.t('bundle', ['pw_weak', 'pw_fair', 'pw_strong'][F.bundle.passwordStrength(pw1.input.value)]) : ''; });
+    encRow.appendChild(pw1.wrap); encRow.appendChild(pwStrength); encRow.appendChild(pw2.wrap); encRow.appendChild(h('div', {class: 'fff-row'}, goEnc));
+
+    /* import */
+    var impRow = h('div', {class: 'fff-box', hidden: ''});
+    var impPw = field(T('bk_pw_file'), 'password', 'current-password');
+    var pending = null;
+    var impGo = btn(T('bk_import_go'), 'fff-primary', function () { doImport(pending, impPw.input.value); });
+    impRow.appendChild(impPw.wrap); impRow.appendChild(h('div', {class: 'fff-row'}, impGo));
+    function doImport(file, pw) {
+      F.bundle.import(file, {password: pw, reload: true}).then(function (r) {
+        if (r.cancelled) return say(T('cancelled'));
+        impRow.hidden = true; impPw.input.value = '';
+        say(T('ok_import', {n: r.keys}), 'ok');
+      }).catch(function (e) {
+        if (e && e.code === 'bad_password') { impRow.hidden = false; impPw.input.focus(); }
+        fail(e);
+      });
+    }
+
+    var expB = btn(T('bk_export'), '', function () {
+      F.bundle.export().then(function (r) { if (r.cancelled) return say(T('cancelled')); say(T('ok_export', {file: r.filename, n: r.keys}), 'ok'); }).catch(fail);
+    });
+    var encBtn = btn(T('bk_export_enc'), '', function () {
+      var open = encRow.hidden;
+      encRow.hidden = !open; encBtn.setAttribute('aria-expanded', String(open));
+      if (open) pw1.input.focus();
+    });
+    encBtn.setAttribute('aria-expanded', 'false');
+    var impBtn = btn(T('bk_import'), '', function () {
+      F.pickFile('.json,application/json').then(function (f) {
+        if (!f) return;
+        pending = f; impRow.hidden = true;
+        return F.bundle.inspect(f).then(function (m) {
+          if (m.encrypted) { impRow.hidden = false; impPw.input.focus(); say(T('enter_pw', {file: f.name})); }
+          else doImport(f);
+        });
+      }).catch(fail);
+    });
+    var wipeB = btn(T('bk_wipe'), 'fff-danger-o', function () {
+      F.bundle.wipe({reload: true}).then(function (r) {
+        if (r.cancelled) return say(T('cancelled'));
+        say(r.keys ? T('ok_wipe', {n: r.keys}) : T('nothing_to_wipe'), 'ok');
+      }).catch(fail);
+    });
+    var syncB = null;
+    if (F.sync && F.sync.supported()) {
+      syncB = btn(T('bk_sync'), '', function () {
+        F.sync.dialog({reload: true}).then(function (r) {
+          say(F.t('sync', 'result', {adopted: r.adopted, same: r.same, conflicts: r.conflicts}), 'ok');
+        }).catch(fail);
+      });
+    }
+    bk.appendChild(h('div', {class: 'fff-row'}, expB, encBtn, impBtn, wipeB));
+    var histB = null;
+    if (F.history && F.history.supported()) {
+      histB = btn(T('bk_history'), '', function () { F.history.dialog({reload: true}).catch(fail); });
+    }
+    if (syncB || histB) bk.appendChild(h('div', {class: 'fff-row'}, syncB, histB));
+    bk.appendChild(encRow); bk.appendChild(impRow); bk.appendChild(status);
+    return bk;
+  }
+
+  function cleanup() {
+    clearInterval(timer); timer = 0;
+    if (dlg) { dlg.remove(); dlg = null; }
+    if (lastFocus && lastFocus.isConnected && lastFocus.focus) { try { lastFocus.focus(); } catch (e) { /* ignorat */ } }
+    lastFocus = null;
+  }
+
+  var api = F.label = {
+    state: 'init',
+    open: function () {
+      if (dlg) return dlg;
+      infoCache = null;
+      lastFocus = doc.activeElement;
+      dlg = build();
+      (doc.body || doc.documentElement).appendChild(dlg);
+      if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+      timer = setInterval(function () { if (dlg && dlg._tick) dlg._tick(); }, 1500);
+      F.bus.emit('label:open');
+      return dlg;
+    },
+    close: function () {
+      if (!dlg) return;
+      var d = dlg;
+      try { d.close(); } catch (e) { /* ignorat */ }
+      if (dlg === d) cleanup();
+    },
+    isOpen: function () { return !!dlg; },
+    canon: canonBytes,
+    shellCommand: SHELL
+  };
+
+  /* ---------- transformarea #app-version în buton ---------- */
+  var fallback = null;
+  function rgba(str) {
+    var m = /rgba?\(([^)]+)\)/.exec(str || '');
+    if (!m) return null;
+    var p = m[1].split(/[ ,\/]+/).map(parseFloat);
+    return [p[0], p[1], p[2], p.length > 3 ? p[3] : 1];
+  }
+  function lum(c) {
+    function f(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]);
+  }
+  function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  /** Fundalul efectiv (amestecă straturile semitransparente peste primul fundal opac; implicit alb). */
+  function effBg(el) {
+    var layers = [], n = el;
+    while (n && n.nodeType === 1) {
+      var c = rgba(getComputedStyle(n).backgroundColor);
+      if (c && c[3] > 0) { layers.push(c); if (c[3] >= 1) break; }
+      n = n.parentElement;
+    }
+    var base = layers.length && layers[layers.length - 1][3] >= 1 ? layers.pop() : [255, 255, 255, 1];
+    while (layers.length) {
+      var t = layers.pop();
+      base = [t[0] * t[3] + base[0] * (1 - t[3]), t[1] * t[3] + base[1] * (1 - t[3]), t[2] * t[3] + base[2] * (1 - t[3]), 1];
+    }
+    return base;
+  }
+  /** Butonul de rezervă din footer moștenește culoarea gazdei; dacă nu atinge 4,5:1, alege negru/alb. */
+  function fitContrast(el) {
+    try {
+      var fg = rgba(getComputedStyle(el).color), bg = effBg(el);
+      if (!fg || ratio(fg, bg) >= 4.6) return;
+      el.style.color = ratio([0, 0, 0], bg) >= ratio([255, 255, 255], bg) ? '#000' : '#fff';
+    } catch (e) { /* ignorat */ }
+  }
+  function visibleFooter() {
+    var fs = doc.querySelectorAll('footer');
+    for (var i = 0; i < fs.length; i++) if (fs[i].getClientRects().length && getComputedStyle(fs[i]).visibility !== 'hidden') return fs[i];
+    return null;
+  }
+  /* Dimensiuni minime (WCAG 2.2 · 2.5.8 țintă ≥ 24 px; text ≥ 12 px) fără a atinge layoutul aplicației:
+     inline → inline-flex doar dacă elementul e într-adevăr inline; fontul se ridică la 12 px doar acolo unde e mai mic. */
+  function fit(el) {
+    try {
+      var all = [el].concat([].slice.call(el.querySelectorAll('*'))), i, n;
+      for (i = 0; i < all.length; i++) { all[i].removeAttribute('data-fff-fs'); }
+      el.removeAttribute('data-fff-inl');
+      if (getComputedStyle(el).display === 'inline') el.setAttribute('data-fff-inl', '1');
+      for (i = 0; i < all.length; i++) {
+        n = all[i];
+        var has = false, c;
+        for (c = n.firstChild; c; c = c.nextSibling) if (c.nodeType === 3 && c.nodeValue.trim()) { has = true; break; }
+        if (has && parseFloat(getComputedStyle(n).fontSize) < 12) n.setAttribute('data-fff-fs', '1');
+      }
+    } catch (e) {}
+  }
+  var fitT = 0, fitEl = null;
+  function fitSoon() { if (fitT) return; fitT = setTimeout(function () { fitT = 0; var e = doc.querySelector('#app-version[data-fff-label]'); if (e) fit(e); }, 150); }
+  function decorate() {
+    var el = doc.getElementById('app-version');
+    if (el) {
+      if (fallback) { fallback.remove(); fallback = null; }
+      if (el.getAttribute('data-fff-label')) { if (fitEl !== el) { fitEl = el; fit(el); } api.state = 'button'; return; }
+      if (el.closest('a,button,[role="button"],[role="link"],summary,label,input,select,textarea')) { api.state = 'nested'; return; }
+      el.setAttribute('data-fff-label', '1');
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-haspopup', 'dialog');
+      el.setAttribute('title', T('open_hint'));
+      fitEl = el; fit(el);
+      api.state = 'button';
+      return;
+    }
+    if (!fallback && doc.readyState === 'complete') {
+      var ft = visibleFooter();
+      if (ft) {
+        fallback = h('button', {type: 'button', class: 'fff-chip', 'data-fff-chip': '1', 'aria-haspopup': 'dialog', title: T('open_hint'), text: T('title')});
+        fallback.addEventListener('click', function () { api.open(); });
+        ft.appendChild(fallback);
+        fitContrast(fallback);
+        api.state = 'footer';
+      } else api.state = 'none';
+    }
+  }
+  function onClick(e) {
+    var t = e.target && e.target.closest && e.target.closest('#app-version[data-fff-label]');
+    if (t) { e.preventDefault(); api.open(); }
+  }
+  function onKey(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var t = e.target && e.target.closest && e.target.closest('#app-version[data-fff-label]');
+    if (t) { e.preventDefault(); api.open(); }
+  }
+  function init() {
+    // resturi dintr-o copie salvată de aplicație (outerHTML): le curățăm înainte de a le recrea
+    [].slice.call(doc.querySelectorAll('dialog.fff-dlg, [data-fff-chip]')).forEach(function (n) { n.remove(); });
+    if (DISABLED) { api.state = 'disabled'; return; }
+    decorate();
+    doc.addEventListener('click', onClick);
+    doc.addEventListener('keydown', onKey);
+    if (window.MutationObserver) {
+      var pend = false;
+      new MutationObserver(function () {
+        if (pend) return;
+        pend = true;
+        setTimeout(function () { pend = false; decorate(); }, 200);
+      }).observe(doc.body || doc.documentElement, {childList: true, subtree: true});
+    }
+    window.addEventListener('load', function () { setTimeout(decorate, 800); setTimeout(fitSoon, 900); });
+    window.addEventListener('resize', fitSoon);
+    F.onLang(function () {
+      var el = doc.querySelector('#app-version[data-fff-label]');
+      if (el) el.setAttribute('title', T('open_hint'));
+      if (dlg) { api.close(); api.open(); }
+    });
+  }
+  F.ready(init);
+})();
+/* ---- fff-kit/bundle ---- */
+/* fff-kit · bundle — export/import/ștergere .fff.json, criptare AES-GCM. Totul local. */
+(function () {
+  'use strict';
+  var F = window.FFF;
+  if (!F || F.bundle) return;
+  var doc = document;
+  var SCHEMA = 1, ITER = 600000, ITER_MIN = 100000, ITER_MAX = 5000000, PW_MIN = 12, MAX_BYTES = 64 * 1048576, MAX_KEYS = 20000;
+  var SENSITIVE_RE = /api[-_]?key|token|secret|password|passwd|totp/i;
+  function T(k, v) { return F.t('bundle', k, v); }
+
+  function BErr(code, vars) {
+    var e = new Error(T('err_' + code, vars));
+    e.name = 'FffBundleError'; e.code = code;
+    return e;
+  }
+
+  /* ---------- utilitare ---------- */
+  function b64(bytes) {
+    var s = '';
+    for (var i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    return btoa(s);
+  }
+  function unb64(s) {
+    var bin = atob(s), out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function stamp() { return new Date().toISOString().replace(/[-:]/g, '').replace(/\..*$/, '').replace('T', '-'); }
+  function subtle() {
+    var s = window.crypto && window.crypto.subtle;
+    if (!s) throw BErr('nocrypto');
+    return s;
+  }
+  function aad(app) { return new TextEncoder().encode('fff-bundle-enc|' + SCHEMA + '|' + app); }
+  function deriveKey(password, salt, iter) {
+    var s = subtle();
+    return s.importKey('raw', new TextEncoder().encode(String(password).normalize('NFC')), 'PBKDF2', false, ['deriveKey'])
+      .then(function (base) {
+        return s.deriveKey({name: 'PBKDF2', hash: 'SHA-256', salt: salt, iterations: iter}, base, {name: 'AES-GCM', length: 256}, false, ['encrypt', 'decrypt']);
+      });
+  }
+
+  /* ---------- confirmare (dialog propriu, nu window.confirm) ---------- */
+  function confirmDlg(message, opt) {
+    opt = opt || {};
+    /* kit ≥ 1.2.0: dacă modulul „dialog” e prezent, confirmarea trece prin FFF.dialog (un singur sistem de dialoguri) */
+    if (F.dialog && F.dialog.confirm) return F.dialog.confirm(message, {title: false, yes: opt.yes, no: opt.no, danger: !!opt.danger});
+    return new Promise(function (res) {
+      var d = doc.createElement('dialog');
+      d.className = 'fff-dlg fff-dlg-sm';
+      d.setAttribute('aria-labelledby', 'fff-cf-msg');
+      var inner = doc.createElement('div'); inner.className = 'fff-in';
+      var p = doc.createElement('p'); p.id = 'fff-cf-msg'; p.className = 'fff-msg'; p.textContent = message;
+      var row = doc.createElement('div'); row.className = 'fff-row fff-end';
+      var no = doc.createElement('button'); no.type = 'button'; no.className = 'fff-btn'; no.textContent = opt.no || T('no');
+      var yes = doc.createElement('button'); yes.type = 'button'; yes.className = 'fff-btn fff-primary' + (opt.danger ? ' fff-danger' : ''); yes.textContent = opt.yes || T('yes');
+      row.appendChild(no); row.appendChild(yes); inner.appendChild(p); inner.appendChild(row); d.appendChild(inner);
+      var val = false;
+      function fin() { try { d.close(); } catch (e) { /* ignorat */ } }
+      yes.addEventListener('click', function () { val = true; fin(); });
+      no.addEventListener('click', fin);
+      d.addEventListener('cancel', function () { val = false; });
+      d.addEventListener('close', function () { d.remove(); res(val); });
+      (doc.body || doc.documentElement).appendChild(d);
+      if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+      no.focus();
+    });
+  }
+  /** Dialog cu mai multe butoane: [{label, value, primary, danger}] → valoarea aleasă sau null (anulare). Ultimul buton = implicit evidențiat. */
+  function choiceDlg(message, buttons) {
+    if (F.dialog && F.dialog.choice) return F.dialog.choice(message, buttons, {title: false});
+    return new Promise(function (res) {
+      var d = doc.createElement('dialog');
+      d.className = 'fff-dlg fff-dlg-sm';
+      d.setAttribute('aria-labelledby', 'fff-cf-msg');
+      var inner = doc.createElement('div'); inner.className = 'fff-in';
+      var p = doc.createElement('p'); p.id = 'fff-cf-msg'; p.className = 'fff-msg'; p.textContent = message;
+      var row = doc.createElement('div'); row.className = 'fff-row fff-end';
+      var val = null, first = null;
+      function fin() { try { d.close(); } catch (e) { /* ignorat */ } }
+      buttons.forEach(function (b) {
+        var el = doc.createElement('button'); el.type = 'button'; el.className = 'fff-btn' + (b.primary ? ' fff-primary' : ''); el.textContent = b.label;
+        el.addEventListener('click', function () { val = b.value; fin(); });
+        row.appendChild(el); if (!first) first = el;
+      });
+      inner.appendChild(p); inner.appendChild(row); d.appendChild(inner);
+      d.addEventListener('cancel', function () { val = null; });
+      d.addEventListener('close', function () { d.remove(); res(val); });
+      (doc.body || doc.documentElement).appendChild(d);
+      if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+      if (first) first.focus();
+    });
+  }
+  /** 0 = slabă (< PW_MIN caractere sau foarte puține caractere distincte), 1 = acceptabilă, 2 = bună. */
+  function strength(pw) {
+    pw = String(pw == null ? '' : pw);
+    if (pw.length < PW_MIN) return 0;
+    var uniq = {}, u = 0, i;
+    for (i = 0; i < pw.length; i++) if (!uniq[pw.charAt(i)]) { uniq[pw.charAt(i)] = 1; u++; }
+    if (u < 5) return 0;
+    var cls = (/[a-z]/.test(pw) ? 1 : 0) + (/[A-Z]/.test(pw) ? 1 : 0) + (/[0-9]/.test(pw) ? 1 : 0) + (/[^A-Za-z0-9]/.test(pw) ? 1 : 0);
+    return (pw.length >= 16 || (cls >= 3 && pw.length >= 14)) ? 2 : 1;
+  }
+  function strengthLabel(pw) { return T(['pw_weak', 'pw_fair', 'pw_strong'][strength(pw)]); }
+  /** Cere o parolă nouă (2 câmpuri, min. PW_MIN caractere, indicator de tărie). Rezolvă cu parola sau null. */
+  function passwordDlg() {
+    return new Promise(function (res) {
+      var d = doc.createElement('dialog');
+      d.className = 'fff-dlg fff-dlg-sm';
+      d.setAttribute('aria-labelledby', 'fff-pw-h');
+      var inner = doc.createElement('div'); inner.className = 'fff-in';
+      var hd = doc.createElement('p'); hd.id = 'fff-pw-h'; hd.className = 'fff-msg'; hd.textContent = T('pw_prompt', {n: PW_MIN});
+      function fld(id, label) {
+        var w = doc.createElement('div'); w.className = 'fff-field';
+        var l = doc.createElement('label'); l.setAttribute('for', id); l.textContent = label;
+        var i = doc.createElement('input'); i.id = id; i.type = 'password'; i.className = 'fff-input'; i.autocomplete = 'new-password';
+        w.appendChild(l); w.appendChild(i); return {w: w, i: i};
+      }
+      var a = fld('fff-pw-1', T('pw_label', {n: PW_MIN})), b = fld('fff-pw-2', T('pw_label2'));
+      var st = doc.createElement('p'); st.setAttribute('role', 'status'); st.className = 'fff-res fff-sm';
+      var row = doc.createElement('div'); row.className = 'fff-row fff-end';
+      var no = doc.createElement('button'); no.type = 'button'; no.className = 'fff-btn'; no.textContent = T('no');
+      var go = doc.createElement('button'); go.type = 'button'; go.className = 'fff-btn fff-primary'; go.textContent = T('pw_go');
+      row.appendChild(no); row.appendChild(go);
+      inner.appendChild(hd); inner.appendChild(a.w); inner.appendChild(b.w); inner.appendChild(st); inner.appendChild(row); d.appendChild(inner);
+      var val = null;
+      function fin() { try { d.close(); } catch (e) { /* ignorat */ } }
+      a.i.addEventListener('input', function () { st.className = 'fff-res fff-sm'; st.textContent = a.i.value ? strengthLabel(a.i.value) : ''; });
+      go.addEventListener('click', function () {
+        if (a.i.value.length < PW_MIN) { st.className = 'fff-res fff-sm fff-bad'; st.textContent = T('err_pw_short', {n: PW_MIN}); return; }
+        if (a.i.value !== b.i.value) { st.className = 'fff-res fff-sm fff-bad'; st.textContent = T('pw_mismatch'); return; }
+        val = a.i.value; fin();
+      });
+      no.addEventListener('click', fin);
+      d.addEventListener('cancel', function () { val = null; });
+      d.addEventListener('close', function () { d.remove(); res(val); });
+      (doc.body || doc.documentElement).appendChild(d);
+      if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+      a.i.focus();
+    });
+  }
+  function ask(msg, c, o) {
+    if (c === false) return Promise.resolve(true);
+    if (typeof c === 'function') return Promise.resolve(c(msg));
+    return confirmDlg(msg, o);
+  }
+
+  /* ---------- construire ---------- */
+  var redactors = [];
+  function plain(redact) {
+    var keys = F.store.indexKeys(), data = Object.create(null);   // fără prototip: chei ca __proto__/constructor/toString sunt chei obișnuite
+    keys.forEach(function (k) {
+      if (k === F.store.indexKey) return;
+      var v = F.store.raw.get(k);
+      if (typeof v !== 'string') return;
+      if (redact) redactors.forEach(function (f) { try { var r = f(k, v); if (typeof r === 'string') v = r; else v = ''; } catch (e) { /* un redactor defect nu oprește exportul, dar nici nu lasă valoarea originală: */ v = ''; } });
+      data[k] = v;
+    });
+    var a = F.app;
+    return {format: 'fff-bundle', schema: SCHEMA, app: a.slug, version: a.version || '', updated: a.updated || '', exported: new Date().toISOString(), data: data};
+  }
+
+  function encrypt(obj, password) {
+    var s = subtle();
+    var salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+    return deriveKey(password, salt, ITER).then(function (key) {
+      return s.encrypt({name: 'AES-GCM', iv: iv, additionalData: aad(obj.app)}, key, new TextEncoder().encode(JSON.stringify(obj)));
+    }).then(function (ct) {
+      return {format: 'fff-bundle-enc', schema: SCHEMA, app: obj.app, kdf: 'PBKDF2-SHA256', iter: ITER, salt: b64(salt), iv: b64(iv), ct: b64(new Uint8Array(ct))};
+    });
+  }
+
+  function decrypt(env, password) {
+    var s = subtle();
+    var iter = env.iter;
+    if (typeof iter !== 'number' || !isFinite(iter) || Math.floor(iter) !== iter) throw BErr('iter', {min: ITER_MIN, max: ITER_MAX});
+    if (iter < ITER_MIN || iter > ITER_MAX) throw BErr('iter', {min: ITER_MIN, max: ITER_MAX});
+    var salt, iv, ct;
+    try { salt = unb64(env.salt); iv = unb64(env.iv); ct = unb64(env.ct); } catch (e) { throw BErr('format'); }
+    if (iv.length !== 12 || salt.length < 8) throw BErr('format');
+    return deriveKey(password, salt, iter).then(function (key) {
+      return s.decrypt({name: 'AES-GCM', iv: iv, additionalData: aad(env.app)}, key, ct);
+    }).then(function (pt) {
+      try { return JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(pt)); } catch (e) { throw BErr('format'); }
+    }, function () { throw BErr('bad_password'); });
+  }
+
+  function readText(file) {
+    if (typeof file === 'string') return Promise.resolve(file);
+    if (!file || typeof file.size !== 'number') return Promise.reject(BErr('read'));
+    if (file.size > MAX_BYTES) return Promise.reject(BErr('too_big'));
+    return (file.text ? file.text() : Promise.reject(new Error('x'))).catch(function () { throw BErr('read'); });
+  }
+  function parseEnvelope(text) {
+    var o;
+    try { o = JSON.parse(text); } catch (e) { throw BErr('format'); }
+    if (!o || typeof o !== 'object' || Array.isArray(o)) throw BErr('format');
+    if (o.format !== 'fff-bundle' && o.format !== 'fff-bundle-enc') throw BErr('format');
+    if (o.schema !== SCHEMA) throw BErr('schema', {v: String(o.schema)});
+    if (typeof o.app !== 'string' || !o.app) throw BErr('format');
+    return o;
+  }
+  function validatePlain(o, slug) {
+    if (!o || o.format !== 'fff-bundle' || o.schema !== SCHEMA) throw BErr('format');
+    if (o.app !== slug) throw BErr('app', {got: String(o.app), want: slug});
+    if (!o.data || typeof o.data !== 'object' || Array.isArray(o.data)) throw BErr('format');
+    var keys = Object.keys(o.data);
+    if (keys.length > MAX_KEYS) throw BErr('too_big');
+    var pfx = F.store.prefix;
+    keys.forEach(function (k) {
+      if (typeof o.data[k] !== 'string' || !k || k.length > 2000) throw BErr('format');
+      if (k === F.store.indexKey) throw BErr('key', {k: k});
+      if (k.indexOf('fff.') === 0 && k.indexOf(pfx) !== 0) throw BErr('key', {k: k});
+    });
+    return keys;
+  }
+
+  /* ---------- chei permise la import ---------- */
+  var allowed = [];
+  function declaredKeys() {
+    var out = allowed.slice();
+    try {
+      var el = doc.getElementById('fff-info');
+      if (el) {
+        var j = JSON.parse(el.textContent || '{}');
+        [j.storageKeys, j.bundleKeys].forEach(function (a) { if (Array.isArray(a)) a.forEach(function (x) { if (typeof x === 'string' && x) out.push(x); }); });
+      }
+    } catch (e) { /* fff-info absent sau invalid */ }
+    return out;
+  }
+  /** Chei cunoscute: fff.<slug>.*, cheile deja indexate în acest browser, cele declarate (fff-info storageKeys/bundleKeys, bundle.allow);
+   *  o declarație care se termină în „*”, „_”, „.”, „:” sau „-” e prefix. Restul sunt „necunoscute” (avertisment la import, nu refuz). */
+  function unknownKeys(keys) {
+    var decl = declaredKeys(), idx = Object.create(null);
+    F.store.indexKeys().forEach(function (k) { idx[k] = 1; });
+    var pfx = F.store.prefix;
+    return keys.filter(function (k) {
+      if (k.indexOf(pfx) === 0 || idx[k] === 1) return false;
+      if (F.store.appPrefix && k.indexOf(F.store.appPrefix) === 0) return false;   // modulul „store”: <slug>.*
+      return !decl.some(function (d) {
+        if (d.charAt(d.length - 1) === '*') return k.indexOf(d.slice(0, -1)) === 0;
+        if (/[_.:-]$/.test(d)) return k.indexOf(d) === 0;
+        return d === k;
+      });
+    });
+  }
+  function keyList(keys, max) {
+    max = max || 8;
+    var shown = keys.slice(0, max).map(function (k) { return k.length > 60 ? k.slice(0, 57) + '…' : k; }).join(', ');
+    return shown + (keys.length > max ? ' … (+' + (keys.length - max) + ')' : '');
+  }
+  function sensitiveKeys(obj) {
+    var full = plain(false).data;
+    return Object.keys(obj.data).filter(function (k) { return SENSITIVE_RE.test(k) && obj.data[k] !== '' && obj.data[k] === full[k]; });
+  }
+
+  /* ---------- API ---------- */
+  var bundle = F.bundle = {
+    schema: SCHEMA,
+    iterations: ITER,
+    minPassword: PW_MIN,
+    passwordStrength: strength,
+    sensitivePattern: SENSITIVE_RE,
+    /** Declară chei (sau prefixe: „prefix_*”) pe care importul le consideră ale aplicației. */
+    allow: function (list) { [].concat(list || []).forEach(function (x) { if (typeof x === 'string' && x) allowed.push(x); }); },
+    build: function () { return plain(false); },
+    /** Înregistrează fn(cheie, valoare) -> valoare curățată (șir); se aplică doar exportului necriptat. */
+    redact: function (fn) { if (typeof fn === 'function') redactors.push(fn); },
+    confirm: confirmDlg,
+
+    /** Descarcă un .fff.json. Cu {encrypt:true, password} produce varianta criptată. Exportul necriptat cu chei sensibile
+     *  (api key, token, secret, parolă…) cere confirmare și propune criptarea ({confirm:false} sau {sensitive:false} o omit). */
+    export: function (opt) {
+      opt = opt || {};
+      return Promise.resolve().then(function () {
+        var enc = !!opt.encrypt, pw = opt.password;
+        var obj = plain(!enc && !opt.secrets);   // exportul necriptat trece prin redactori (secrete scoase); cel criptat sau {secrets:true} e complet
+        var step = Promise.resolve();
+        if (!enc && opt.confirm !== false && opt.sensitive !== false) {
+          var sens = sensitiveKeys(obj);
+          if (sens.length) {
+            step = choiceDlg(T('sens_msg', {list: keyList(sens)}), [
+              {label: T('no'), value: null},
+              {label: T('sens_plain'), value: 'plain'},
+              {label: T('sens_enc'), value: 'enc', primary: true}
+            ]).then(function (c) {
+              if (c === null) return {cancelled: true};
+              if (c === 'plain') return null;
+              enc = true; obj = plain(false);
+              if (typeof pw === 'string' && pw.length >= PW_MIN) return null;
+              return passwordDlg().then(function (p) { if (p == null) return {cancelled: true}; pw = p; return null; });
+            });
+          }
+        }
+        return step.then(function (stop) {
+          if (stop && stop.cancelled) return {cancelled: true};
+          var n = Object.keys(obj.data).length;
+          if (enc) {
+            if (typeof pw !== 'string' || pw.length < PW_MIN) throw BErr('pw_short', {n: PW_MIN});
+            return encrypt(obj, pw).then(function (env) { return {payload: env, n: n, enc: true}; });
+          }
+          return {payload: obj, n: n, enc: false};
+        });
+      }).then(function (r) {
+        if (r.cancelled) return {filename: null, size: 0, keys: 0, encrypted: false, cancelled: true};
+        var name = opt.filename || (F.app.slug + '-' + stamp() + (r.enc ? '.enc' : '') + '.fff.json');
+        var text = JSON.stringify(r.payload, null, 1);
+        var size = F.download(name, text, 'application/json');
+        F.bus.emit('bundle:exported', {filename: name, keys: r.n, encrypted: r.enc});
+        return {filename: name, size: size, keys: r.n, encrypted: r.enc};
+      });
+    },
+
+    /** Citește antetul fără a scrie nimic: {encrypted, app, version, exported, keys?} */
+    inspect: function (file, opt) {
+      opt = opt || {};
+      return readText(file).then(function (t) {
+        var o = parseEnvelope(t);
+        if (o.format === 'fff-bundle-enc') {
+          if (opt.password == null) return {encrypted: true, app: o.app};
+          return decrypt(o, opt.password).then(function (p) {
+            if (p.app !== o.app) throw BErr('format');
+            return {encrypted: true, app: p.app, version: p.version, exported: p.exported, keys: p.data ? Object.keys(p.data).length : 0};
+          });
+        }
+        return {encrypted: false, app: o.app, version: o.version, exported: o.exported, keys: o.data ? Object.keys(o.data).length : 0};
+      });
+    },
+
+    /** Importă (îmbină) cheile din bundle. Cere confirmare; reîncarcă pagina dacă reload !== false și confirm !== false. */
+    import: function (file, opt) {
+      opt = opt || {};
+      var slug = F.app.slug;
+      var fname = (file && file.name) || '.fff.json';
+      return readText(file).then(function (t) {
+        var o = parseEnvelope(t);
+        if (o.app !== slug) throw BErr('app', {got: o.app, want: slug});
+        if (o.format === 'fff-bundle-enc') {
+          if (opt.password == null || opt.password === '') throw BErr('password_required', {file: fname});
+          return decrypt(o, opt.password).then(function (p) {
+            if (p.app !== o.app) throw BErr('format');
+            return p;
+          });
+        }
+        return o;
+      }).then(function (o) {
+        var keys = validatePlain(o, slug);
+        var unknown = unknownKeys(keys);
+        var msg = T('confirm_import', {n: keys.length, app: slug, ver: o.version || '?', date: (o.exported || '').slice(0, 10) || '?'}) +
+          '\n\n' + T('import_keys', {list: keyList(keys)}) +
+          (unknown.length ? '\n\n' + T('import_unknown', {n: unknown.length, list: keyList(unknown)}) : '');
+        return ask(msg, opt.confirm)
+          .then(function (ok) {
+            if (!ok) return {keys: 0, cancelled: true};
+            var undo = new Map();   // Map: numele cheilor din Object.prototype (constructor, toString, __proto__) nu mai sunt „deja prezente”
+            try {
+              keys.forEach(function (k) {
+                if (!undo.has(k)) undo.set(k, F.store.raw.get(k));
+                F.store.raw.set(k, o.data[k]);
+                if (k.indexOf('fff.') !== 0) F.store.remember(k);
+              });
+            } catch (e) {
+              undo.forEach(function (v, k) { try { if (v == null) F.store.raw.remove(k); else F.store.raw.set(k, v); } catch (e2) { /* ignorat */ } });
+              throw BErr('quota');
+            }
+            if (opt.reload === true) F.store.freeze();   // înainte de reload: handlerele pagehide/beforeunload ale aplicației nu mai pot suprascrie importul
+            F.bus.emit('bundle:imported', {keys: keys.length, file: fname, unknown: unknown});
+            if (opt.reload === true) setTimeout(function () { location.reload(); }, opt.delay == null ? 900 : opt.delay);
+            return {keys: keys.length, cancelled: false, unknown: unknown};
+          });
+      });
+    },
+
+    /** Șterge DOAR cheile indexate ale aplicației (și cele fff.<slug>.*). */
+    wipe: function (opt) {
+      opt = opt || {};
+      var keys = F.store.indexKeys();
+      if (!keys.length) return Promise.resolve({keys: 0, cancelled: false});
+      return ask(T('confirm_wipe', {n: keys.length}), opt.confirm, {danger: true, yes: T('wipe_yes')}).then(function (ok) {
+        if (!ok) return {keys: 0, cancelled: true};
+        keys.forEach(function (k) { try { F.store.raw.remove(k); } catch (e) { /* ignorat */ } F.store.forget(k); });
+        try { F.store.raw.remove(F.store.indexKey); } catch (e) { /* ignorat */ }
+        try { if (F.mtimeClear) F.mtimeClear(); } catch (e) { /* ignorat */ }
+        if (opt.reload === true) F.store.freeze();
+        F.bus.emit('bundle:wiped', {keys: keys.length});
+        if (opt.reload === true) setTimeout(function () { location.reload(); }, opt.delay == null ? 900 : opt.delay);
+        return {keys: keys.length, cancelled: false};
+      });
+    }
+  };
+})();
+</script>
+<script type="application/json" id="fff-i18n">{"dialog":{"ro":{"yes":"Da","cancel":"Anulează","ok":"OK","close":"Închide","dismiss":"Închide notificarea","title_confirm":"Confirmare","title_alert":"Atenție","title_prompt":"Introdu o valoare","title_show":"Text","err_required":"Completează acest câmp.","sr_info":"Informație","sr_success":"Reușit","sr_warning":"Avertisment","sr_error":"Eroare"},"en":{"yes":"Yes","cancel":"Cancel","ok":"OK","close":"Close","dismiss":"Dismiss notification","title_confirm":"Confirm","title_alert":"Notice","title_prompt":"Enter a value","title_show":"Text","err_required":"Please fill in this field.","sr_info":"Information","sr_success":"Success","sr_warning":"Warning","sr_error":"Error"},"fr":{"yes":"Oui","cancel":"Annuler","ok":"OK","close":"Fermer","dismiss":"Fermer la notification","title_confirm":"Confirmation","title_alert":"Attention","title_prompt":"Saisissez une valeur","title_show":"Texte","err_required":"Veuillez remplir ce champ.","sr_info":"Information","sr_success":"Réussite","sr_warning":"Avertissement","sr_error":"Erreur"},"it":{"yes":"Sì","cancel":"Annulla","ok":"OK","close":"Chiudi","dismiss":"Chiudi la notifica","title_confirm":"Conferma","title_alert":"Attenzione","title_prompt":"Inserisci un valore","title_show":"Testo","err_required":"Compila questo campo.","sr_info":"Informazione","sr_success":"Operazione riuscita","sr_warning":"Avviso","sr_error":"Errore"},"es":{"yes":"Sí","cancel":"Cancelar","ok":"OK","close":"Cerrar","dismiss":"Cerrar la notificación","title_confirm":"Confirmación","title_alert":"Atención","title_prompt":"Introduce un valor","title_show":"Texto","err_required":"Rellena este campo.","sr_info":"Información","sr_success":"Correcto","sr_warning":"Aviso","sr_error":"Error"},"pt":{"yes":"Sim","cancel":"Cancelar","ok":"OK","close":"Fechar","dismiss":"Fechar a notificação","title_confirm":"Confirmação","title_alert":"Atenção","title_prompt":"Introduza um valor","title_show":"Texto","err_required":"Preencha este campo.","sr_info":"Informação","sr_success":"Sucesso","sr_warning":"Aviso","sr_error":"Erro"},"hu":{"yes":"Igen","cancel":"Mégse","ok":"OK","close":"Bezárás","dismiss":"Értesítés bezárása","title_confirm":"Megerősítés","title_alert":"Figyelem","title_prompt":"Adj meg egy értéket","title_show":"Szöveg","err_required":"Töltsd ki ezt a mezőt.","sr_info":"Információ","sr_success":"Sikeres","sr_warning":"Figyelmeztetés","sr_error":"Hiba"},"de":{"yes":"Ja","cancel":"Abbrechen","ok":"OK","close":"Schließen","dismiss":"Benachrichtigung schließen","title_confirm":"Bestätigung","title_alert":"Hinweis","title_prompt":"Wert eingeben","title_show":"Text","err_required":"Bitte dieses Feld ausfüllen.","sr_info":"Information","sr_success":"Erfolg","sr_warning":"Warnung","sr_error":"Fehler"}},"label":{"ro":{"title":"Transparență","open_hint":"Deschide eticheta de transparență","close":"Închide","disabled":"Funcțiile kitului sunt dezactivate pentru această aplicație: {reason}","self_mod":"Atenție: aplicația își poate salva propria copie (împreună cu datele tale). Suma SHA-256 declarată se aplică doar fișierului distribuit inițial.","net_h":"Rețea","net_none":"0 cereri externe declarate","net_list":"Gazde externe declarate sau permise de politica de securitate (CSP):","net_note":"Declarat la construirea fișierului, prin analiza codului; poți verifica și în fila Rețea a instrumentelor browserului.","net_unknown":"Informații indisponibile: fișierul nu conține descriptorul de transparență.","store_h":"Stocare locală","store_none":"Nicio cheie în localStorage.","store_sum":"{n} chei · {size}","store_key":"Cheie","store_size":"Mărime","store_more":"…și încă {n} chei","store_idb":"Aplicația folosește și IndexedDB, care nu este inclus în copia de siguranță.","store_note":"Datele rămân în acest browser; nimic nu este trimis.","perm_h":"Permisiuni și API-uri folosite","perm_none":"Nu au fost detectate API-uri sensibile.","perm_note":"Detectate static în codul sursă; pentru cele sensibile, browserul îți cere acordul.","perm_cam":"Cameră / microfon","perm_geo":"Locație","perm_rtc":"Conexiuni directe între browsere (WebRTC)","perm_share":"Partajare (Web Share)","perm_notif":"Notificări","perm_tts":"Sinteză vocală","perm_stt":"Recunoaștere vocală","perm_clip":"Clipboard","perm_sw":"Service worker (instalare / offline)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Criptografie (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"Fișier","file_size":"Dimensiune: {size}","file_hash":"SHA-256 declarat:","file_nohash":"Suma de control nu este declarată în acest fișier.","file_how_h":"Cum verifici","file_how":"Alege fișierul descărcat: se calculează SHA-256 după golirea câmpurilor de hash (data-fff-hash și „sha256”) și se compară cu valoarea declarată. Același calcul în terminal:","verify_btn":"Verifică un fișier descărcat…","verify_ok":"Se potrivește: fișierul este identic cu cel declarat.","verify_bad":"Nu se potrivește. Calculat: {got}","verify_err":"Fișierul nu a putut fi citit.","verify_cmd":"Comandă de verificare","bk_h":"Copie de siguranță","bk_hint":"Fișier .fff.json cu datele din localStorage ale aplicației. Varianta criptată folosește AES-GCM 256 cu cheie derivată prin PBKDF2-SHA256 ({iter} de iterații); parola nu poate fi recuperată.","bk_export":"Exportă","bk_export_enc":"Exportă criptat…","bk_import":"Importă…","bk_wipe":"Șterge datele aplicației","bk_pw":"Parolă (min. {n} caractere)","bk_pw2":"Repetă parola","bk_go":"Exportă criptat","bk_pw_file":"Parola fișierului","bk_import_go":"Importă","pw_mismatch":"Parolele nu coincid.","ok_export":"Exportat: {file} ({n} chei).","ok_export_enc":"Exportat criptat: {file} ({n} chei).","ok_import":"Importate {n} chei. Se reîncarcă pagina…","ok_wipe":"Șterse {n} chei. Se reîncarcă pagina…","nothing_to_wipe":"Nu există date de șters.","enter_pw":"Fișierul {file} este criptat: introdu parola.","cancelled":"Anulat.","kit_line":"fff-kit v{v} · module: {mods}","install":"Instalează aplicația","bk_sync":"Sincronizează între dispozitive","bk_history":"Istoric (mașina timpului)"},"en":{"title":"Transparency","open_hint":"Open the transparency label","close":"Close","disabled":"Kit features are disabled for this app: {reason}","self_mod":"Note: this app can save its own copy (together with your data). The declared SHA-256 applies only to the originally distributed file.","net_h":"Network","net_none":"0 external requests declared","net_list":"External hosts declared or allowed by the security policy (CSP):","net_note":"Declared at build time by analysing the code; you can also check the Network tab of your browser tools.","net_unknown":"Information unavailable: the file has no transparency descriptor.","store_h":"Local storage","store_none":"No keys in localStorage.","store_sum":"{n} keys · {size}","store_key":"Key","store_size":"Size","store_more":"…and {n} more keys","store_idb":"The app also uses IndexedDB, which is not included in the backup.","store_note":"Data stays in this browser; nothing is sent.","perm_h":"Permissions and APIs used","perm_none":"No sensitive APIs detected.","perm_note":"Detected statically in the source code; for sensitive ones the browser asks for your consent.","perm_cam":"Camera / microphone","perm_geo":"Location","perm_rtc":"Direct browser-to-browser connections (WebRTC)","perm_share":"Sharing (Web Share)","perm_notif":"Notifications","perm_tts":"Speech synthesis","perm_stt":"Speech recognition","perm_clip":"Clipboard","perm_sw":"Service worker (install / offline)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Cryptography (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"File","file_size":"Size: {size}","file_hash":"Declared SHA-256:","file_nohash":"No checksum is declared in this file.","file_how_h":"How to verify","file_how":"Choose the downloaded file: its SHA-256 is computed after blanking the hash fields (data-fff-hash and \"sha256\") and compared with the declared value. The same computation in a terminal:","verify_btn":"Verify a downloaded file…","verify_ok":"Match: the file is identical to the declared one.","verify_bad":"No match. Computed: {got}","verify_err":"The file could not be read.","verify_cmd":"Verification command","bk_h":"Backup","bk_hint":"A .fff.json file with the app's localStorage data. The encrypted variant uses AES-GCM 256 with a key derived via PBKDF2-SHA256 ({iter} iterations); the password cannot be recovered.","bk_export":"Export","bk_export_enc":"Export encrypted…","bk_import":"Import…","bk_wipe":"Delete app data","bk_pw":"Password (min. {n} characters)","bk_pw2":"Repeat password","bk_go":"Export encrypted","bk_pw_file":"File password","bk_import_go":"Import","pw_mismatch":"Passwords do not match.","ok_export":"Exported: {file} ({n} keys).","ok_export_enc":"Exported encrypted: {file} ({n} keys).","ok_import":"Imported {n} keys. Reloading the page…","ok_wipe":"Deleted {n} keys. Reloading the page…","nothing_to_wipe":"There is no data to delete.","enter_pw":"The file {file} is encrypted: enter the password.","cancelled":"Cancelled.","kit_line":"fff-kit v{v} · modules: {mods}","install":"Install the app","bk_sync":"Sync between devices","bk_history":"History (time machine)"},"fr":{"title":"Transparence","open_hint":"Ouvrir l’étiquette de transparence","close":"Fermer","disabled":"Les fonctions du kit sont désactivées pour cette application : {reason}","self_mod":"Attention : cette application peut enregistrer sa propre copie (avec vos données). Le SHA-256 déclaré ne vaut que pour le fichier distribué à l’origine.","net_h":"Réseau","net_none":"0 requête externe déclarée","net_list":"Hôtes externes déclarés ou autorisés par la politique de sécurité (CSP) :","net_note":"Déclaré à la construction par analyse du code ; vous pouvez aussi vérifier dans l’onglet Réseau des outils du navigateur.","net_unknown":"Informations indisponibles : le fichier ne contient pas de descripteur de transparence.","store_h":"Stockage local","store_none":"Aucune clé dans localStorage.","store_sum":"{n} clés · {size}","store_key":"Clé","store_size":"Taille","store_more":"…et {n} clés de plus","store_idb":"L’application utilise aussi IndexedDB, non inclus dans la sauvegarde.","store_note":"Les données restent dans ce navigateur ; rien n’est envoyé.","perm_h":"Autorisations et API utilisées","perm_none":"Aucune API sensible détectée.","perm_note":"Détectées statiquement dans le code source ; pour les API sensibles, le navigateur demande votre accord.","perm_cam":"Caméra / microphone","perm_geo":"Localisation","perm_rtc":"Connexions directes entre navigateurs (WebRTC)","perm_share":"Partage (Web Share)","perm_notif":"Notifications","perm_tts":"Synthèse vocale","perm_stt":"Reconnaissance vocale","perm_clip":"Presse-papiers","perm_sw":"Service worker (installation / hors ligne)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Cryptographie (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"Fichier","file_size":"Taille : {size}","file_hash":"SHA-256 déclaré :","file_nohash":"Aucune somme de contrôle n’est déclarée dans ce fichier.","file_how_h":"Comment vérifier","file_how":"Choisissez le fichier téléchargé : son SHA-256 est calculé après avoir vidé les champs de hachage (data-fff-hash et « sha256 ») puis comparé à la valeur déclarée. Même calcul dans un terminal :","verify_btn":"Vérifier un fichier téléchargé…","verify_ok":"Concordance : le fichier est identique à celui déclaré.","verify_bad":"Pas de concordance. Calculé : {got}","verify_err":"Le fichier n’a pas pu être lu.","verify_cmd":"Commande de vérification","bk_h":"Sauvegarde","bk_hint":"Un fichier .fff.json avec les données localStorage de l’application. La variante chiffrée utilise AES-GCM 256 avec une clé dérivée par PBKDF2-SHA256 ({iter} itérations) ; le mot de passe est irrécupérable.","bk_export":"Exporter","bk_export_enc":"Exporter chiffré…","bk_import":"Importer…","bk_wipe":"Supprimer les données de l’application","bk_pw":"Mot de passe (min. {n} caractères)","bk_pw2":"Répéter le mot de passe","bk_go":"Exporter chiffré","bk_pw_file":"Mot de passe du fichier","bk_import_go":"Importer","pw_mismatch":"Les mots de passe ne correspondent pas.","ok_export":"Exporté : {file} ({n} clés).","ok_export_enc":"Exporté chiffré : {file} ({n} clés).","ok_import":"{n} clés importées. Rechargement de la page…","ok_wipe":"{n} clés supprimées. Rechargement de la page…","nothing_to_wipe":"Aucune donnée à supprimer.","enter_pw":"Le fichier {file} est chiffré : saisissez le mot de passe.","cancelled":"Annulé.","kit_line":"fff-kit v{v} · modules : {mods}","install":"Installer l’application","bk_sync":"Synchroniser entre appareils","bk_history":"Historique (machine à remonter le temps)"},"it":{"title":"Trasparenza","open_hint":"Apri l’etichetta di trasparenza","close":"Chiudi","disabled":"Le funzioni del kit sono disattivate per questa app: {reason}","self_mod":"Attenzione: questa app può salvare una propria copia (insieme ai tuoi dati). Lo SHA-256 dichiarato vale solo per il file distribuito in origine.","net_h":"Rete","net_none":"0 richieste esterne dichiarate","net_list":"Host esterni dichiarati o consentiti dalla politica di sicurezza (CSP):","net_note":"Dichiarato in fase di costruzione tramite analisi del codice; puoi controllare anche nella scheda Rete degli strumenti del browser.","net_unknown":"Informazioni non disponibili: il file non contiene il descrittore di trasparenza.","store_h":"Archiviazione locale","store_none":"Nessuna chiave in localStorage.","store_sum":"{n} chiavi · {size}","store_key":"Chiave","store_size":"Dimensione","store_more":"…e altre {n} chiavi","store_idb":"L’app usa anche IndexedDB, non incluso nel backup.","store_note":"I dati restano in questo browser; non viene inviato nulla.","perm_h":"Permessi e API usati","perm_none":"Nessuna API sensibile rilevata.","perm_note":"Rilevate in modo statico nel codice sorgente; per quelle sensibili il browser chiede il tuo consenso.","perm_cam":"Fotocamera / microfono","perm_geo":"Posizione","perm_rtc":"Connessioni dirette tra browser (WebRTC)","perm_share":"Condivisione (Web Share)","perm_notif":"Notifiche","perm_tts":"Sintesi vocale","perm_stt":"Riconoscimento vocale","perm_clip":"Appunti","perm_sw":"Service worker (installazione / offline)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Crittografia (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"File","file_size":"Dimensione: {size}","file_hash":"SHA-256 dichiarato:","file_nohash":"In questo file non è dichiarata alcuna somma di controllo.","file_how_h":"Come verificare","file_how":"Scegli il file scaricato: ne viene calcolato lo SHA-256 dopo aver svuotato i campi hash (data-fff-hash e «sha256») e confrontato con il valore dichiarato. Lo stesso calcolo da terminale:","verify_btn":"Verifica un file scaricato…","verify_ok":"Corrisponde: il file è identico a quello dichiarato.","verify_bad":"Non corrisponde. Calcolato: {got}","verify_err":"Impossibile leggere il file.","verify_cmd":"Comando di verifica","bk_h":"Copia di sicurezza","bk_hint":"Un file .fff.json con i dati localStorage dell’app. La variante cifrata usa AES-GCM 256 con chiave derivata tramite PBKDF2-SHA256 ({iter} iterazioni); la password non è recuperabile.","bk_export":"Esporta","bk_export_enc":"Esporta cifrato…","bk_import":"Importa…","bk_wipe":"Elimina i dati dell’app","bk_pw":"Password (min. {n} caratteri)","bk_pw2":"Ripeti la password","bk_go":"Esporta cifrato","bk_pw_file":"Password del file","bk_import_go":"Importa","pw_mismatch":"Le password non coincidono.","ok_export":"Esportato: {file} ({n} chiavi).","ok_export_enc":"Esportato cifrato: {file} ({n} chiavi).","ok_import":"Importate {n} chiavi. Ricarico la pagina…","ok_wipe":"Eliminate {n} chiavi. Ricarico la pagina…","nothing_to_wipe":"Non ci sono dati da eliminare.","enter_pw":"Il file {file} è cifrato: inserisci la password.","cancelled":"Annullato.","kit_line":"fff-kit v{v} · moduli: {mods}","install":"Installa l’app","bk_sync":"Sincronizza tra dispositivi","bk_history":"Cronologia (macchina del tempo)"},"es":{"title":"Transparencia","open_hint":"Abrir la etiqueta de transparencia","close":"Cerrar","disabled":"Las funciones del kit están desactivadas para esta aplicación: {reason}","self_mod":"Atención: esta aplicación puede guardar su propia copia (junto con tus datos). El SHA-256 declarado solo vale para el archivo distribuido originalmente.","net_h":"Red","net_none":"0 solicitudes externas declaradas","net_list":"Hosts externos declarados o permitidos por la política de seguridad (CSP):","net_note":"Declarado al construir el archivo mediante análisis del código; también puedes comprobarlo en la pestaña Red de las herramientas del navegador.","net_unknown":"Información no disponible: el archivo no contiene el descriptor de transparencia.","store_h":"Almacenamiento local","store_none":"Ninguna clave en localStorage.","store_sum":"{n} claves · {size}","store_key":"Clave","store_size":"Tamaño","store_more":"…y {n} claves más","store_idb":"La aplicación también usa IndexedDB, que no se incluye en la copia de seguridad.","store_note":"Los datos permanecen en este navegador; no se envía nada.","perm_h":"Permisos y API usadas","perm_none":"No se detectaron API sensibles.","perm_note":"Detectadas de forma estática en el código fuente; para las sensibles, el navegador pide tu consentimiento.","perm_cam":"Cámara / micrófono","perm_geo":"Ubicación","perm_rtc":"Conexiones directas entre navegadores (WebRTC)","perm_share":"Compartir (Web Share)","perm_notif":"Notificaciones","perm_tts":"Síntesis de voz","perm_stt":"Reconocimiento de voz","perm_clip":"Portapapeles","perm_sw":"Service worker (instalación / sin conexión)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Criptografía (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"Archivo","file_size":"Tamaño: {size}","file_hash":"SHA-256 declarado:","file_nohash":"Este archivo no declara ninguna suma de verificación.","file_how_h":"Cómo verificar","file_how":"Elige el archivo descargado: se calcula su SHA-256 tras vaciar los campos de hash (data-fff-hash y «sha256») y se compara con el valor declarado. El mismo cálculo en una terminal:","verify_btn":"Verificar un archivo descargado…","verify_ok":"Coincide: el archivo es idéntico al declarado.","verify_bad":"No coincide. Calculado: {got}","verify_err":"No se pudo leer el archivo.","verify_cmd":"Comando de verificación","bk_h":"Copia de seguridad","bk_hint":"Un archivo .fff.json con los datos de localStorage de la aplicación. La variante cifrada usa AES-GCM 256 con clave derivada mediante PBKDF2-SHA256 ({iter} iteraciones); la contraseña no se puede recuperar.","bk_export":"Exportar","bk_export_enc":"Exportar cifrado…","bk_import":"Importar…","bk_wipe":"Borrar los datos de la aplicación","bk_pw":"Contraseña (mín. {n} caracteres)","bk_pw2":"Repite la contraseña","bk_go":"Exportar cifrado","bk_pw_file":"Contraseña del archivo","bk_import_go":"Importar","pw_mismatch":"Las contraseñas no coinciden.","ok_export":"Exportado: {file} ({n} claves).","ok_export_enc":"Exportado cifrado: {file} ({n} claves).","ok_import":"{n} claves importadas. Recargando la página…","ok_wipe":"{n} claves borradas. Recargando la página…","nothing_to_wipe":"No hay datos que borrar.","enter_pw":"El archivo {file} está cifrado: introduce la contraseña.","cancelled":"Cancelado.","kit_line":"fff-kit v{v} · módulos: {mods}","install":"Instalar la aplicación","bk_sync":"Sincronizar entre dispositivos","bk_history":"Historial (máquina del tiempo)"},"pt":{"title":"Transparência","open_hint":"Abrir a etiqueta de transparência","close":"Fechar","disabled":"As funções do kit estão desativadas para esta aplicação: {reason}","self_mod":"Atenção: esta aplicação pode guardar a sua própria cópia (juntamente com os seus dados). O SHA-256 declarado aplica-se apenas ao ficheiro distribuído originalmente.","net_h":"Rede","net_none":"0 pedidos externos declarados","net_list":"Anfitriões externos declarados ou permitidos pela política de segurança (CSP):","net_note":"Declarado na construção do ficheiro, por análise do código; pode também verificar no separador Rede das ferramentas do navegador.","net_unknown":"Informação indisponível: o ficheiro não contém o descritor de transparência.","store_h":"Armazenamento local","store_none":"Nenhuma chave em localStorage.","store_sum":"{n} chaves · {size}","store_key":"Chave","store_size":"Tamanho","store_more":"…e mais {n} chaves","store_idb":"A aplicação usa também IndexedDB, que não está incluído na cópia de segurança.","store_note":"Os dados ficam neste navegador; nada é enviado.","perm_h":"Permissões e APIs usadas","perm_none":"Não foram detetadas APIs sensíveis.","perm_note":"Detetadas de forma estática no código-fonte; para as sensíveis, o navegador pede o seu consentimento.","perm_cam":"Câmara / microfone","perm_geo":"Localização","perm_rtc":"Ligações diretas entre navegadores (WebRTC)","perm_share":"Partilha (Web Share)","perm_notif":"Notificações","perm_tts":"Síntese de voz","perm_stt":"Reconhecimento de voz","perm_clip":"Área de transferência","perm_sw":"Service worker (instalação / offline)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Criptografia (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"Ficheiro","file_size":"Tamanho: {size}","file_hash":"SHA-256 declarado:","file_nohash":"Este ficheiro não declara nenhuma soma de verificação.","file_how_h":"Como verificar","file_how":"Escolha o ficheiro descarregado: o seu SHA-256 é calculado após esvaziar os campos de hash (data-fff-hash e «sha256») e comparado com o valor declarado. O mesmo cálculo num terminal:","verify_btn":"Verificar um ficheiro descarregado…","verify_ok":"Coincide: o ficheiro é idêntico ao declarado.","verify_bad":"Não coincide. Calculado: {got}","verify_err":"Não foi possível ler o ficheiro.","verify_cmd":"Comando de verificação","bk_h":"Cópia de segurança","bk_hint":"Um ficheiro .fff.json com os dados de localStorage da aplicação. A variante cifrada usa AES-GCM 256 com chave derivada por PBKDF2-SHA256 ({iter} iterações); a palavra-passe não pode ser recuperada.","bk_export":"Exportar","bk_export_enc":"Exportar cifrado…","bk_import":"Importar…","bk_wipe":"Apagar os dados da aplicação","bk_pw":"Palavra-passe (mín. {n} caracteres)","bk_pw2":"Repita a palavra-passe","bk_go":"Exportar cifrado","bk_pw_file":"Palavra-passe do ficheiro","bk_import_go":"Importar","pw_mismatch":"As palavras-passe não coincidem.","ok_export":"Exportado: {file} ({n} chaves).","ok_export_enc":"Exportado cifrado: {file} ({n} chaves).","ok_import":"{n} chaves importadas. A recarregar a página…","ok_wipe":"{n} chaves apagadas. A recarregar a página…","nothing_to_wipe":"Não há dados para apagar.","enter_pw":"O ficheiro {file} está cifrado: introduza a palavra-passe.","cancelled":"Cancelado.","kit_line":"fff-kit v{v} · módulos: {mods}","install":"Instalar a aplicação","bk_sync":"Sincronizar entre dispositivos","bk_history":"Histórico (máquina do tempo)"},"hu":{"title":"Átláthatóság","open_hint":"Az átláthatósági címke megnyitása","close":"Bezárás","disabled":"A kit funkciói ki vannak kapcsolva ennél az alkalmazásnál: {reason}","self_mod":"Figyelem: ez az alkalmazás képes saját másolatot menteni (az adataiddal együtt). A megadott SHA-256 csak az eredetileg terjesztett fájlra érvényes.","net_h":"Hálózat","net_none":"0 külső kérés megadva","net_list":"A biztonsági irányelv (CSP) által megadott vagy engedélyezett külső gazdák:","net_note":"Az összeállításkor a kód elemzésével megadva; a böngésző eszközeinek Hálózat lapján is ellenőrizheted.","net_unknown":"Az információ nem érhető el: a fájl nem tartalmaz átláthatósági leírót.","store_h":"Helyi tárolás","store_none":"Nincs kulcs a localStorage-ban.","store_sum":"{n} kulcs · {size}","store_key":"Kulcs","store_size":"Méret","store_more":"…és még {n} kulcs","store_idb":"Az alkalmazás IndexedDB-t is használ, amely nem része a biztonsági mentésnek.","store_note":"Az adatok ebben a böngészőben maradnak; semmi sem kerül elküldésre.","perm_h":"Használt engedélyek és API-k","perm_none":"Nem található érzékeny API.","perm_note":"Statikusan, a forráskódban észlelve; az érzékenyeknél a böngésző a hozzájárulásodat kéri.","perm_cam":"Kamera / mikrofon","perm_geo":"Helyadat","perm_rtc":"Közvetlen böngésző–böngésző kapcsolatok (WebRTC)","perm_share":"Megosztás (Web Share)","perm_notif":"Értesítések","perm_tts":"Beszédszintézis","perm_stt":"Beszédfelismerés","perm_clip":"Vágólap","perm_sw":"Service worker (telepítés / offline)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Kriptográfia (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"Fájl","file_size":"Méret: {size}","file_hash":"Megadott SHA-256:","file_nohash":"Ebben a fájlban nincs megadva ellenőrző összeg.","file_how_h":"Hogyan ellenőrizd","file_how":"Válaszd ki a letöltött fájlt: a program kiszámolja az SHA-256 értéket a hash mezők (data-fff-hash és „sha256”) kiürítése után, és összeveti a megadottal. Ugyanez terminálban:","verify_btn":"Letöltött fájl ellenőrzése…","verify_ok":"Egyezik: a fájl megegyezik a megadottal.","verify_bad":"Nem egyezik. Számított: {got}","verify_err":"A fájlt nem sikerült beolvasni.","verify_cmd":"Ellenőrző parancs","bk_h":"Biztonsági mentés","bk_hint":"Egy .fff.json fájl az alkalmazás localStorage-adataival. A titkosított változat AES-GCM 256-ot használ, PBKDF2-SHA256-tal ({iter} iteráció) származtatott kulccsal; a jelszó nem állítható vissza.","bk_export":"Exportálás","bk_export_enc":"Titkosított exportálás…","bk_import":"Importálás…","bk_wipe":"Az alkalmazás adatainak törlése","bk_pw":"Jelszó (legalább {n} karakter)","bk_pw2":"Jelszó újra","bk_go":"Titkosított exportálás","bk_pw_file":"A fájl jelszava","bk_import_go":"Importálás","pw_mismatch":"A jelszavak nem egyeznek.","ok_export":"Exportálva: {file} ({n} kulcs).","ok_export_enc":"Titkosítva exportálva: {file} ({n} kulcs).","ok_import":"{n} kulcs importálva. Az oldal újratöltése…","ok_wipe":"{n} kulcs törölve. Az oldal újratöltése…","nothing_to_wipe":"Nincs törölhető adat.","enter_pw":"A(z) {file} fájl titkosított: add meg a jelszót.","cancelled":"Megszakítva.","kit_line":"fff-kit v{v} · modulok: {mods}","install":"Alkalmazás telepítése","bk_sync":"Szinkronizálás eszközök között","bk_history":"Előzmények (időgép)"},"de":{"title":"Transparenz","open_hint":"Transparenz-Etikett öffnen","close":"Schließen","disabled":"Die Kit-Funktionen sind für diese App deaktiviert: {reason}","self_mod":"Hinweis: Diese App kann eine eigene Kopie speichern (samt deiner Daten). Der angegebene SHA-256 gilt nur für die ursprünglich verteilte Datei.","net_h":"Netzwerk","net_none":"0 externe Anfragen angegeben","net_list":"Externe Hosts, die angegeben oder von der Sicherheitsrichtlinie (CSP) erlaubt sind:","net_note":"Beim Erstellen per Code-Analyse angegeben; du kannst es auch im Netzwerk-Tab der Browser-Werkzeuge prüfen.","net_unknown":"Informationen nicht verfügbar: Die Datei enthält keinen Transparenz-Deskriptor.","store_h":"Lokaler Speicher","store_none":"Keine Schlüssel in localStorage.","store_sum":"{n} Schlüssel · {size}","store_key":"Schlüssel","store_size":"Größe","store_more":"…und {n} weitere Schlüssel","store_idb":"Die App nutzt auch IndexedDB, das nicht in der Sicherung enthalten ist.","store_note":"Die Daten bleiben in diesem Browser; nichts wird gesendet.","perm_h":"Verwendete Berechtigungen und APIs","perm_none":"Keine sensiblen APIs erkannt.","perm_note":"Statisch im Quelltext erkannt; bei sensiblen fragt der Browser nach deiner Zustimmung.","perm_cam":"Kamera / Mikrofon","perm_geo":"Standort","perm_rtc":"Direkte Browser-zu-Browser-Verbindungen (WebRTC)","perm_share":"Teilen (Web Share)","perm_notif":"Benachrichtigungen","perm_tts":"Sprachsynthese","perm_stt":"Spracherkennung","perm_clip":"Zwischenablage","perm_sw":"Service Worker (Installation / offline)","perm_idb":"IndexedDB","perm_ls":"localStorage","perm_crypto":"Kryptografie (Web Crypto)","perm_webgl":"WebGL","perm_webgpu":"WebGPU","perm_worker":"Web Worker","perm_bc":"BroadcastChannel","file_h":"Datei","file_size":"Größe: {size}","file_hash":"Angegebener SHA-256:","file_nohash":"In dieser Datei ist keine Prüfsumme angegeben.","file_how_h":"So prüfst du","file_how":"Wähle die heruntergeladene Datei: Ihr SHA-256 wird nach dem Leeren der Hash-Felder (data-fff-hash und „sha256“) berechnet und mit dem angegebenen Wert verglichen. Dieselbe Berechnung im Terminal:","verify_btn":"Heruntergeladene Datei prüfen…","verify_ok":"Übereinstimmung: Die Datei ist identisch mit der angegebenen.","verify_bad":"Keine Übereinstimmung. Berechnet: {got}","verify_err":"Die Datei konnte nicht gelesen werden.","verify_cmd":"Prüfbefehl","bk_h":"Sicherung","bk_hint":"Eine .fff.json-Datei mit den localStorage-Daten der App. Die verschlüsselte Variante nutzt AES-GCM 256 mit einem per PBKDF2-SHA256 ({iter} Iterationen) abgeleiteten Schlüssel; das Passwort ist nicht wiederherstellbar.","bk_export":"Exportieren","bk_export_enc":"Verschlüsselt exportieren…","bk_import":"Importieren…","bk_wipe":"App-Daten löschen","bk_pw":"Passwort (mind. {n} Zeichen)","bk_pw2":"Passwort wiederholen","bk_go":"Verschlüsselt exportieren","bk_pw_file":"Passwort der Datei","bk_import_go":"Importieren","pw_mismatch":"Die Passwörter stimmen nicht überein.","ok_export":"Exportiert: {file} ({n} Schlüssel).","ok_export_enc":"Verschlüsselt exportiert: {file} ({n} Schlüssel).","ok_import":"{n} Schlüssel importiert. Seite wird neu geladen…","ok_wipe":"{n} Schlüssel gelöscht. Seite wird neu geladen…","nothing_to_wipe":"Keine Daten zum Löschen vorhanden.","enter_pw":"Die Datei {file} ist verschlüsselt: Passwort eingeben.","cancelled":"Abgebrochen.","kit_line":"fff-kit v{v} · Module: {mods}","install":"App installieren","bk_sync":"Zwischen Geräten synchronisieren","bk_history":"Verlauf (Zeitmaschine)"}},"bundle":{"ro":{"err_format":"Fișierul nu este o copie de siguranță fff validă.","err_schema":"Schema {v} nu este acceptată (se așteaptă 1).","err_app":"Copia aparține aplicației „{got}”, nu „{want}”.","err_password_required":"Fișierul {file} este criptat: este necesară parola.","err_bad_password":"Parolă greșită sau fișier alterat.","err_pw_short":"Parola trebuie să aibă cel puțin {n} caractere.","err_nocrypto":"Browserul nu oferă Web Crypto (necesită https sau fișier local).","err_read":"Fișierul nu a putut fi citit.","err_too_big":"Fișierul este prea mare.","err_quota":"Spațiul de stocare este plin; nu s-a modificat nimic.","err_key":"Cheie nepermisă în fișier: {k}","yes":"Da","no":"Anulează","wipe_yes":"Șterge","confirm_import":"Imporți {n} chei în „{app}” (versiunea {ver}, exportat la {date})? Valorile existente cu aceleași chei vor fi înlocuite.","confirm_wipe":"Ștergi {n} chei ale acestei aplicații din acest browser? Acțiunea nu poate fi anulată.","err_iter":"Numărul de iterații din fișier este invalid (trebuie să fie un număr întreg între {min} și {max}).","import_keys":"Chei: {list}","import_unknown":"Atenție: {n} chei nu sunt declarate de această aplicație: {list}. Continuă doar dacă ai încredere în fișier.","sens_msg":"Exportul conține date sensibile necriptate (chei: {list}). Îl criptezi cu o parolă? (recomandat)","sens_enc":"Criptează (recomandat)","sens_plain":"Exportă necriptat","pw_prompt":"Alege o parolă pentru fișier (min. {n} caractere). Nu poate fi recuperată dacă o uiți.","pw_label":"Parolă (min. {n} caractere)","pw_label2":"Repetă parola","pw_go":"Exportă criptat","pw_mismatch":"Parolele nu coincid.","pw_weak":"Tărie: slabă","pw_fair":"Tărie: acceptabilă","pw_strong":"Tărie: bună"},"en":{"err_format":"The file is not a valid fff backup.","err_schema":"Schema {v} is not supported (expected 1).","err_app":"This backup belongs to the app \"{got}\", not \"{want}\".","err_password_required":"The file {file} is encrypted: a password is required.","err_bad_password":"Wrong password or altered file.","err_pw_short":"The password must have at least {n} characters.","err_nocrypto":"This browser does not offer Web Crypto (requires https or a local file).","err_read":"The file could not be read.","err_too_big":"The file is too large.","err_quota":"Storage is full; nothing was changed.","err_key":"Key not allowed in file: {k}","yes":"Yes","no":"Cancel","wipe_yes":"Delete","confirm_import":"Import {n} keys into \"{app}\" (version {ver}, exported {date})? Existing values with the same keys will be replaced.","confirm_wipe":"Delete {n} keys of this app from this browser? This cannot be undone.","err_iter":"The number of iterations in the file is invalid (it must be a whole number between {min} and {max}).","import_keys":"Keys: {list}","import_unknown":"Warning: {n} keys are not declared by this app: {list}. Continue only if you trust the file.","sens_msg":"The export contains unencrypted sensitive data (keys: {list}). Encrypt it with a password? (recommended)","sens_enc":"Encrypt (recommended)","sens_plain":"Export unencrypted","pw_prompt":"Choose a password for the file (min. {n} characters). It cannot be recovered if you forget it.","pw_label":"Password (min. {n} characters)","pw_label2":"Repeat password","pw_go":"Export encrypted","pw_mismatch":"Passwords do not match.","pw_weak":"Strength: weak","pw_fair":"Strength: fair","pw_strong":"Strength: good"},"fr":{"err_format":"Le fichier n’est pas une sauvegarde fff valide.","err_schema":"Le schéma {v} n’est pas pris en charge (attendu : 1).","err_app":"Cette sauvegarde appartient à l’application « {got} », pas à « {want} ».","err_password_required":"Le fichier {file} est chiffré : un mot de passe est requis.","err_bad_password":"Mot de passe erroné ou fichier altéré.","err_pw_short":"Le mot de passe doit comporter au moins {n} caractères.","err_nocrypto":"Ce navigateur n’offre pas Web Crypto (https ou fichier local requis).","err_read":"Le fichier n’a pas pu être lu.","err_too_big":"Le fichier est trop volumineux.","err_quota":"Le stockage est plein ; rien n’a été modifié.","err_key":"Clé non autorisée dans le fichier : {k}","yes":"Oui","no":"Annuler","wipe_yes":"Supprimer","confirm_import":"Importer {n} clés dans « {app} » (version {ver}, exporté le {date}) ? Les valeurs existantes ayant les mêmes clés seront remplacées.","confirm_wipe":"Supprimer {n} clés de cette application dans ce navigateur ? Cette action est irréversible.","err_iter":"Le nombre d’itérations du fichier est invalide (il doit être un entier compris entre {min} et {max}).","import_keys":"Clés : {list}","import_unknown":"Attention : {n} clés ne sont pas déclarées par cette application : {list}. Ne continuez que si vous faites confiance au fichier.","sens_msg":"L’export contient des données sensibles non chiffrées (clés : {list}). Le chiffrer avec un mot de passe ? (recommandé)","sens_enc":"Chiffrer (recommandé)","sens_plain":"Exporter sans chiffrement","pw_prompt":"Choisissez un mot de passe pour le fichier (min. {n} caractères). Il est irrécupérable si vous l’oubliez.","pw_label":"Mot de passe (min. {n} caractères)","pw_label2":"Répéter le mot de passe","pw_go":"Exporter chiffré","pw_mismatch":"Les mots de passe ne correspondent pas.","pw_weak":"Robustesse : faible","pw_fair":"Robustesse : correcte","pw_strong":"Robustesse : bonne"},"it":{"err_format":"Il file non è un backup fff valido.","err_schema":"Lo schema {v} non è supportato (atteso: 1).","err_app":"Questo backup appartiene all’app «{got}», non a «{want}».","err_password_required":"Il file {file} è cifrato: serve la password.","err_bad_password":"Password errata o file alterato.","err_pw_short":"La password deve avere almeno {n} caratteri.","err_nocrypto":"Questo browser non offre Web Crypto (serve https o un file locale).","err_read":"Impossibile leggere il file.","err_too_big":"Il file è troppo grande.","err_quota":"Archivio pieno; non è stato modificato nulla.","err_key":"Chiave non consentita nel file: {k}","yes":"Sì","no":"Annulla","wipe_yes":"Elimina","confirm_import":"Importare {n} chiavi in «{app}» (versione {ver}, esportato il {date})? I valori esistenti con le stesse chiavi verranno sostituiti.","confirm_wipe":"Eliminare {n} chiavi di questa app da questo browser? L’azione non è annullabile.","err_iter":"Il numero di iterazioni nel file non è valido (deve essere un intero compreso tra {min} e {max}).","import_keys":"Chiavi: {list}","import_unknown":"Attenzione: {n} chiavi non sono dichiarate da questa app: {list}. Continua solo se ti fidi del file.","sens_msg":"L’esportazione contiene dati sensibili non cifrati (chiavi: {list}). Cifrarla con una password? (consigliato)","sens_enc":"Cifra (consigliato)","sens_plain":"Esporta senza cifratura","pw_prompt":"Scegli una password per il file (min. {n} caratteri). Non è recuperabile se la dimentichi.","pw_label":"Password (min. {n} caratteri)","pw_label2":"Ripeti la password","pw_go":"Esporta cifrato","pw_mismatch":"Le password non coincidono.","pw_weak":"Robustezza: debole","pw_fair":"Robustezza: discreta","pw_strong":"Robustezza: buona"},"es":{"err_format":"El archivo no es una copia de seguridad fff válida.","err_schema":"El esquema {v} no es compatible (se espera 1).","err_app":"Esta copia pertenece a la aplicación «{got}», no a «{want}».","err_password_required":"El archivo {file} está cifrado: se necesita la contraseña.","err_bad_password":"Contraseña incorrecta o archivo alterado.","err_pw_short":"La contraseña debe tener al menos {n} caracteres.","err_nocrypto":"Este navegador no ofrece Web Crypto (requiere https o un archivo local).","err_read":"No se pudo leer el archivo.","err_too_big":"El archivo es demasiado grande.","err_quota":"El almacenamiento está lleno; no se modificó nada.","err_key":"Clave no permitida en el archivo: {k}","yes":"Sí","no":"Cancelar","wipe_yes":"Borrar","confirm_import":"¿Importar {n} claves en «{app}» (versión {ver}, exportado el {date})? Los valores existentes con las mismas claves se sustituirán.","confirm_wipe":"¿Borrar {n} claves de esta aplicación en este navegador? No se puede deshacer.","err_iter":"El número de iteraciones del archivo no es válido (debe ser un entero entre {min} y {max}).","import_keys":"Claves: {list}","import_unknown":"Atención: {n} claves no están declaradas por esta aplicación: {list}. Continúa solo si confías en el archivo.","sens_msg":"La exportación contiene datos sensibles sin cifrar (claves: {list}). ¿Cifrarla con una contraseña? (recomendado)","sens_enc":"Cifrar (recomendado)","sens_plain":"Exportar sin cifrar","pw_prompt":"Elige una contraseña para el archivo (mín. {n} caracteres). No se puede recuperar si la olvidas.","pw_label":"Contraseña (mín. {n} caracteres)","pw_label2":"Repite la contraseña","pw_go":"Exportar cifrado","pw_mismatch":"Las contraseñas no coinciden.","pw_weak":"Seguridad: débil","pw_fair":"Seguridad: aceptable","pw_strong":"Seguridad: buena"},"pt":{"err_format":"O ficheiro não é uma cópia de segurança fff válida.","err_schema":"O esquema {v} não é suportado (esperado: 1).","err_app":"Esta cópia pertence à aplicação «{got}», não a «{want}».","err_password_required":"O ficheiro {file} está cifrado: é necessária a palavra-passe.","err_bad_password":"Palavra-passe errada ou ficheiro alterado.","err_pw_short":"A palavra-passe deve ter pelo menos {n} caracteres.","err_nocrypto":"Este navegador não oferece Web Crypto (requer https ou ficheiro local).","err_read":"Não foi possível ler o ficheiro.","err_too_big":"O ficheiro é demasiado grande.","err_quota":"O armazenamento está cheio; nada foi alterado.","err_key":"Chave não permitida no ficheiro: {k}","yes":"Sim","no":"Cancelar","wipe_yes":"Apagar","confirm_import":"Importar {n} chaves para «{app}» (versão {ver}, exportado em {date})? Os valores existentes com as mesmas chaves serão substituídos.","confirm_wipe":"Apagar {n} chaves desta aplicação neste navegador? Não é possível anular.","err_iter":"O número de iterações do ficheiro é inválido (deve ser um inteiro entre {min} e {max}).","import_keys":"Chaves: {list}","import_unknown":"Atenção: {n} chaves não são declaradas por esta aplicação: {list}. Continue apenas se confiar no ficheiro.","sens_msg":"A exportação contém dados sensíveis não cifrados (chaves: {list}). Cifrá-la com uma palavra-passe? (recomendado)","sens_enc":"Cifrar (recomendado)","sens_plain":"Exportar sem cifrar","pw_prompt":"Escolha uma palavra-passe para o ficheiro (mín. {n} caracteres). Não é recuperável se a esquecer.","pw_label":"Palavra-passe (mín. {n} caracteres)","pw_label2":"Repita a palavra-passe","pw_go":"Exportar cifrado","pw_mismatch":"As palavras-passe não coincidem.","pw_weak":"Robustez: fraca","pw_fair":"Robustez: razoável","pw_strong":"Robustez: boa"},"hu":{"err_format":"A fájl nem érvényes fff biztonsági mentés.","err_schema":"A(z) {v} séma nem támogatott (várt: 1).","err_app":"Ez a mentés a(z) „{got}” alkalmazáshoz tartozik, nem a(z) „{want}” alkalmazáshoz.","err_password_required":"A(z) {file} fájl titkosított: jelszó szükséges.","err_bad_password":"Hibás jelszó vagy módosított fájl.","err_pw_short":"A jelszónak legalább {n} karakter hosszúnak kell lennie.","err_nocrypto":"Ez a böngésző nem kínál Web Crypto-t (https vagy helyi fájl szükséges).","err_read":"A fájlt nem sikerült beolvasni.","err_too_big":"A fájl túl nagy.","err_quota":"A tárhely megtelt; semmi sem változott.","err_key":"Nem engedélyezett kulcs a fájlban: {k}","yes":"Igen","no":"Mégse","wipe_yes":"Törlés","confirm_import":"Importálsz {n} kulcsot a(z) „{app}” alkalmazásba (verzió: {ver}, exportálva: {date})? Az azonos kulcsú meglévő értékek felülíródnak.","confirm_wipe":"Törlöd az alkalmazás {n} kulcsát ebből a böngészőből? Ez nem vonható vissza.","err_iter":"A fájlban szereplő iterációszám érvénytelen (egész számnak kell lennie {min} és {max} között).","import_keys":"Kulcsok: {list}","import_unknown":"Figyelem: {n} kulcsot nem deklarál ez az alkalmazás: {list}. Csak akkor folytasd, ha megbízol a fájlban.","sens_msg":"Az export titkosítatlan érzékeny adatokat tartalmaz (kulcsok: {list}). Titkosítod jelszóval? (ajánlott)","sens_enc":"Titkosítás (ajánlott)","sens_plain":"Exportálás titkosítás nélkül","pw_prompt":"Válassz jelszót a fájlhoz (legalább {n} karakter). Ha elfelejted, nem állítható vissza.","pw_label":"Jelszó (legalább {n} karakter)","pw_label2":"Jelszó ismét","pw_go":"Titkosított exportálás","pw_mismatch":"A jelszavak nem egyeznek.","pw_weak":"Erősség: gyenge","pw_fair":"Erősség: elfogadható","pw_strong":"Erősség: jó"},"de":{"err_format":"Die Datei ist keine gültige fff-Sicherung.","err_schema":"Schema {v} wird nicht unterstützt (erwartet: 1).","err_app":"Diese Sicherung gehört zur App „{got}“, nicht zu „{want}“.","err_password_required":"Die Datei {file} ist verschlüsselt: Passwort erforderlich.","err_bad_password":"Falsches Passwort oder veränderte Datei.","err_pw_short":"Das Passwort muss mindestens {n} Zeichen haben.","err_nocrypto":"Dieser Browser bietet kein Web Crypto (https oder lokale Datei erforderlich).","err_read":"Die Datei konnte nicht gelesen werden.","err_too_big":"Die Datei ist zu groß.","err_quota":"Speicher voll; es wurde nichts geändert.","err_key":"Schlüssel in der Datei nicht erlaubt: {k}","yes":"Ja","no":"Abbrechen","wipe_yes":"Löschen","confirm_import":"{n} Schlüssel in „{app}“ importieren (Version {ver}, exportiert am {date})? Vorhandene Werte mit denselben Schlüsseln werden ersetzt.","confirm_wipe":"{n} Schlüssel dieser App aus diesem Browser löschen? Das kann nicht rückgängig gemacht werden.","err_iter":"Die Anzahl der Iterationen in der Datei ist ungültig (muss eine ganze Zahl zwischen {min} und {max} sein).","import_keys":"Schlüssel: {list}","import_unknown":"Achtung: {n} Schlüssel werden von dieser App nicht deklariert: {list}. Fahre nur fort, wenn du der Datei vertraust.","sens_msg":"Der Export enthält unverschlüsselte sensible Daten (Schlüssel: {list}). Mit einem Passwort verschlüsseln? (empfohlen)","sens_enc":"Verschlüsseln (empfohlen)","sens_plain":"Unverschlüsselt exportieren","pw_prompt":"Wähle ein Passwort für die Datei (mind. {n} Zeichen). Es lässt sich nicht wiederherstellen, wenn du es vergisst.","pw_label":"Passwort (mind. {n} Zeichen)","pw_label2":"Passwort wiederholen","pw_go":"Verschlüsselt exportieren","pw_mismatch":"Die Passwörter stimmen nicht überein.","pw_weak":"Stärke: schwach","pw_fair":"Stärke: ausreichend","pw_strong":"Stärke: gut"}}}</script>
+<!--fff:kit:end-->
+<!--fff:info:start-->
+<script type="application/json" id="fff-info">{"schema":1,"slug":"cronosala","name":"CRONOSALA — cronometre pentru sală","version":"3.0.0","updated":"2026-11-06","description":"CRONOSALA — cronometre pentru sală: pauze, HIIT, Tabata, EMOM, AMRAP, circuit, tempo, metronom. Un singur fișier, offline, fără urmărire.","egress":[],"permissions":["getUserMedia","Notification","speechSynthesis","clipboard","localStorage","Worker"],"storageKeys":["cronosala."],"sizeBytes":273233,"sha256":"9b2a68f091634aa84293f054abe09ecde97947ccfae668d24daa13f24547e2bc","csp":{"present":true,"directives":{"default-src":"'none'","style-src":"'unsafe-inline'","script-src":"sha256×2","img-src":"data: blob:","media-src":"blob: data:","worker-src":"blob:","child-src":"blob:","connect-src":"'none'","base-uri":"'none'","form-action":"'none'"},"scriptInline":"hash","connect":"'none'"},"features":{"export":true,"import":true,"i18n":[],"pwa":{"manifest":false,"serviceWorker":false},"modules":["core","store","dialog","label","bundle"]},"kit":{"version":"1.4.0","modules":["core","store","dialog","label","bundle"]},"selfSerializing":false}</script>
+<!--fff:info:end-->
+<meta name="application-version" content="3.0.0">
+<meta name="last-updated" content="2026-11-06">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-o0eHhRYbRwzJ2PPk7L+DSKvvetoFDPMv0n5gIiYi0CU=' 'sha256-RC+QeLEhFiBkVsEpQMF+nA4yrnqf+GbkbBMrs0RIQFQ='; img-src data: blob:; media-src blob: data:; worker-src blob:; child-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <meta name="generator" content="CRONOSALA 3.0">
@@ -324,7 +2175,7 @@ html{scroll-padding-top:80px}
     <input type="file" id="sFile" accept=".json,application/json" hidden aria-label="Fișier de import">
     <details class="fields" style="margin-top:12px;padding:10px 14px"><summary>Instalare ca aplicație (ecran complet)</summary><p>Deschide fișierul în Chrome (Android) sau Safari (iPhone), apoi alege „Adaugă pe ecranul principal”. Notificările și sunetul cu ecranul blocat depind de browser; pentru siguranță ține ecranul aprins în timpul antrenamentului.</p></details>
     <div class="actions"><button class="btn" id="sTest">🔊 Testează sunetul</button><button class="btn danger" id="sWipe">🗑 Șterge toate datele</button></div>
-    <p class="foot">CRONOSALA v3.0 · <a href="https://github.com/chiuta/cronosala" target="_blank" rel="noopener noreferrer" style="color:inherit">cod sursă (MIT)</a></p>
+    <p class="foot">CRONOSALA v<span id="app-version">3.0.0</span> · <a href="https://github.com/chiuta/cronosala" target="_blank" rel="noopener noreferrer" style="color:inherit">cod sursă (MIT)</a></p>
   </section>
   <section class="screen" id="program"><div id="progBody"></div></section>
 
