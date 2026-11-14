@@ -5,12 +5,12 @@ const rec = (n, ok, d = '') => { ok ? pass++ : fail++; console.log((ok ? 'PASS '
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const VPS = [[320,568,1],[360,640,1],[390,844,1],[430,932,1],[568,320,1],[667,375,1],[844,390,1],[768,1024,1],[1024,768,1],[1180,820,1],[1366,768,0],[1440,900,0],[1920,1080,0],[2560,1440,0]];
 (async () => {
-  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 60000, args: ['--no-sandbox', '--disable-gpu'] });
+  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 60000, args: ['--lang=ro-RO', '--no-sandbox', '--disable-gpu'] });
   for (const [w, h, touch] of VPS) {
     const page = await browser.newPage(); const errs = [];
     page.on('pageerror', e => errs.push(e.message));
     await page.setViewport({ width: w, height: h, isMobile: !!touch, hasTouch: !!touch });
-    await page.evaluateOnNewDocument(() => { window.__T = new Date().getTime(); Date.now = () => window.__T; });
+    await page.evaluateOnNewDocument(() => { window.__T = new Date().getTime(); Date.now = () => window.__T; try { localStorage.getItem('cronosala.lang') || localStorage.setItem('cronosala.lang', '"ro"'); } catch (e) {} });
     await page.goto('file://' + FILE); await page.evaluate(() => { localStorage.clear();
       const m = new Date(); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); localStorage.setItem('cronosala.prog', JSON.stringify({ start: m.getTime(), days: ['r','p1','c10','p5','r','p6','c2'] }));
       localStorage.setItem('cronosala.cfg.circuit', JSON.stringify({ list: Array.from({ length: 12 }, (_, i) => ({ n: 'Exercițiu cu nume foarte lung numărul ' + i, s: 40 })) }));

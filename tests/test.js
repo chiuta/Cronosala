@@ -5,7 +5,7 @@ const results = [];
 const rec = (name, ok, detail = '') => { results.push({ name, ok, detail }); console.log((ok ? 'PASS ' : 'FAIL ') + name + (detail ? '  — ' + detail : '')); };
 
 (async () => {
-  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 60000, args: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--disable-gpu'] });
+  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 60000, args: ['--lang=ro-RO', '--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--disable-gpu'] });
   async function fresh(vp = { width: 412, height: 800, isMobile: true, hasTouch: true }) {
     const page = await browser.newPage();
     const errs = [];
@@ -13,7 +13,7 @@ const rec = (name, ok, detail = '') => { results.push({ name, ok, detail }); con
     page.on('console', m => { if (m.type() === 'error') errs.push('console.error: ' + m.text()); });
     page.on('dialog', d => d.accept('Test preset'));
     await page.setViewport(vp);
-    await page.evaluateOnNewDocument(() => { window.__T = 1700000000000; Date.now = () => window.__T; });
+    await page.evaluateOnNewDocument(() => { window.__T = 1700000000000; Date.now = () => window.__T; try { localStorage.getItem('cronosala.lang') || localStorage.setItem('cronosala.lang', '"ro"'); } catch (e) {} });
     await page.goto('file://' + FILE);
     await new Promise(r => setTimeout(r, 150));
     return { page, errs };
@@ -86,7 +86,7 @@ const rec = (name, ok, detail = '') => { results.push({ name, ok, detail }); con
     const hung = [];
     for (const id of ['hiit', 'tempo', 'circuit', 'pyr', 'emom', 'sets']) {
       const pg = await browser.newPage(); pg.on('dialog', d => d.accept());
-      await pg.evaluateOnNewDocument((id) => { window.__T = 1700000000000; Date.now = () => window.__T; localStorage.setItem('cronosala.cfg.' + id, JSON.stringify({ rounds: 1e9, sets: 1e9, reps: 1e9, n: 1e9, start: 1, step: 0, peak: 1e9, work: 1e9, list: [{ n: 'x', sets: 1e9, s: 1e9, rest: 5 }] })); }, id);
+      await pg.evaluateOnNewDocument((id) => { window.__T = 1700000000000; Date.now = () => window.__T; try { localStorage.getItem('cronosala.lang') || localStorage.setItem('cronosala.lang', '"ro"'); } catch (e) {} localStorage.setItem('cronosala.cfg.' + id, JSON.stringify({ rounds: 1e9, sets: 1e9, reps: 1e9, n: 1e9, start: 1, step: 0, peak: 1e9, work: 1e9, list: [{ n: 'x', sets: 1e9, s: 1e9, rest: 5 }] })); }, id);
       await pg.goto('file://' + FILE);
       const ok = await Promise.race([
         pg.evaluate((id) => { const t0 = performance.now(); openType(id); return performance.now() - t0; }, id).then(ms => ms < 3000 ? 'ok' : 'lent ' + Math.round(ms)),

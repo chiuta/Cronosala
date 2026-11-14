@@ -6,7 +6,7 @@ Des minuteurs et un journal d’entraînement pour la salle de sport, dans un se
 
 **[Ouvrir l’application →](https://cronosala.chiuta.ro/)**
 
-_Version : 3.0.0 · Dernière mise à jour : 2026-11-06_
+_Version : 3.1.0 · Dernière mise à jour : 2026-11-14_
 
 ## Fonctionnalités
 
@@ -21,7 +21,7 @@ Ouvrez la page en ligne, ou téléchargez `index.html` et ouvrez-le dans un navi
 
 ## Limites
 
-- L’interface n’est pour l’instant qu’en roumain.
+- L’interface existe en 8 langues (roumain, anglais, français, allemand, espagnol, italien, hongrois, portugais) ; le choix se trouve en bas de l’écran d’accueil. Les annonces vocales suivent la langue choisie si l’appareil dispose d’une voix correspondante.
 - Les données restent par appareil et navigateur ; utilisez l’export pour les déplacer. Ce n’est ni un avis médical ni une prescription d’entraînement.
 
 ## Confidentialité

@@ -2,10 +2,10 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-_Versiune: 3.0.0 · Ultima actualizare: 2026-11-06_
+_Versiune: 3.1.0 · Ultima actualizare: 2026-11-14_
 
 **Cronometre și jurnal de antrenament pentru sală — un singur fișier HTML, offline, fără conturi, fără urmărire.**
-*A single-file, offline, trade-free gym timer and training log (Romanian UI).*
+*A single-file, offline, trade-free gym timer and training log (UI in 8 languages).*
 
 Deschide [`index.html`](index.html) în orice browser modern (sau pagina publicată cu GitHub Pages) și adaug-o pe ecranul principal. Nu are dependențe, nu face cereri de rețea (politica CSP le interzice) și își ține datele doar în `localStorage`.
 
@@ -31,7 +31,7 @@ Deschide [`index.html`](index.html) în orice browser modern (sau pagina publica
 
 **Cod QR, fără server:** etichete QR de printat pentru aparate, scanner cu camera (`BarcodeDetector`, Chrome Android; altfel cod manual), partajare de timere prin cod QR / link. Generatorul QR e inclus în fișier (nivel L, versiunile 1–10).
 
-**Sunet și voce:** bipuri programate pe ceasul audio, teme (clopoțel, fluier, blând, doar voce), voce în română („încă zece secunde”, numărătoare 3-2-1, nume de exerciții, numărarea repetărilor), vibrații, ecran aprins (Wake Lock), notificări la schimbarea fazei, reluare după reîncărcare.
+**Sunet și voce:** bipuri programate pe ceasul audio, teme (clopoțel, fluier, blând, doar voce), voce în limba aleasă („încă zece secunde”, numărătoare 3-2-1, nume de exerciții, numărarea repetărilor), vibrații, ecran aprins (Wake Lock), notificări la schimbarea fazei, reluare după reîncărcare.
 
 **Date:** export/import complet (JSON), CSV pentru greutăți și sesiuni, ștergere totală.
 

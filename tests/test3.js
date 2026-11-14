@@ -9,14 +9,14 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 const race = (p, ms, label) => Promise.race([p, new Promise((_, rj) => setTimeout(() => rj(new Error('TIMEOUT ' + label)), ms))]);
 
 (async () => {
-  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 40000, args: ['--no-sandbox', '--disable-gpu'] });
+  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 40000, args: ['--lang=ro-RO', '--no-sandbox', '--disable-gpu'] });
   async function fresh(opts = {}) {
     const page = await browser.newPage(); const errs = [];
     page.on('pageerror', e => errs.push(e.message));
     page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
     page.on('dialog', d => { errs.push('DIALOG NATIV: ' + d.message()); d.dismiss(); });
     await page.setViewport(opts.vp || { width: 412, height: 800, isMobile: true, hasTouch: true });
-    await page.evaluateOnNewDocument(() => { window.__T = new Date().getTime(); Date.now = () => window.__T; });
+    await page.evaluateOnNewDocument(() => { window.__T = new Date().getTime(); Date.now = () => window.__T; try { localStorage.getItem('cronosala.lang') || localStorage.setItem('cronosala.lang', '"ro"'); } catch (e) {} });
     if (opts.pre) await page.evaluateOnNewDocument(opts.pre);
     await page.goto('file://' + FILE + (opts.hash || ''));
     if (opts.clear !== false) { await page.evaluate(() => localStorage.clear()); if (opts.seed) await page.evaluate(opts.seed); await page.reload(); }

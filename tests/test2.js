@@ -8,13 +8,13 @@ const rec = (n, ok, d = '') => { ok ? pass++ : fail++; console.log((ok ? 'PASS '
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
 (async () => {
-  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 60000, args: ['--no-sandbox', '--disable-gpu'] });
+  const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', headless: true, protocolTimeout: 60000, args: ['--lang=ro-RO', '--no-sandbox', '--disable-gpu'] });
   async function fresh(vp = { width: 412, height: 800, isMobile: true, hasTouch: true }, pre) {
     const page = await browser.newPage(); const errs = [];
     page.on('pageerror', e => errs.push(e.message));
     page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
     await page.setViewport(vp);
-    await page.evaluateOnNewDocument(() => { window.__T = new Date().getTime(); Date.now = () => window.__T; });
+    await page.evaluateOnNewDocument(() => { window.__T = new Date().getTime(); Date.now = () => window.__T; try { localStorage.getItem('cronosala.lang') || localStorage.setItem('cronosala.lang', '"ro"'); } catch (e) {} });
     if (pre) await page.evaluateOnNewDocument(pre);
     await page.goto('file://' + FILE); await page.evaluate(() => localStorage.clear()); await page.reload(); await wait(150);
     return { page, errs };

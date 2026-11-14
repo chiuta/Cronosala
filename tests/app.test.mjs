@@ -9,7 +9,7 @@ const require = createRequire(process.env.PW_ROOT || import.meta.url);
 const {chromium} = require("playwright");
 const DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const FILE = "file://" + path.join(DIR, "index.html");
-const SLUG = "cronosala", MIN_LANGS = 1;
+const SLUG = "cronosala", MIN_LANGS = 8;
 let ok = 0, bad = 0;
 const check = (n, c, x) => { if (c) { ok++; console.log("  ok   " + n); } else { bad++; console.log("  FAIL " + n + (x !== undefined ? "  -> " + JSON.stringify(x) : "")); } };
 const html = fs.readFileSync(path.join(DIR, "index.html"), "utf8");

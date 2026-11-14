@@ -6,7 +6,7 @@ Temporizadores y diario de entrenamiento para el gimnasio, en un solo archivo HT
 
 **[Abrir la aplicación →](https://cronosala.chiuta.ro/)**
 
-_Versión: 3.0.0 · Última actualización: 2026-11-06_
+_Versión: 3.1.0 · Última actualización: 2026-11-14_
 
 ## Funciones
 
@@ -21,7 +21,7 @@ Abre la página en línea, o descarga `index.html` y ábrelo en un navegador rec
 
 ## Límites
 
-- Por ahora la interfaz solo está en rumano.
+- La interfaz está disponible en 8 idiomas (rumano, inglés, francés, alemán, español, italiano, húngaro, portugués); la elección está al final de la pantalla de inicio. Los avisos de voz siguen el idioma elegido si el dispositivo tiene una voz para él.
 - Los datos se guardan por dispositivo y navegador; usa la exportación para moverlos. No es consejo médico ni una prescripción de entrenamiento.
 
 ## Privacidad

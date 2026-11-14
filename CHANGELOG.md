@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0 — 2026-11-14
+
+- Interface in 8 languages (ro, en, fr, de, es, it, hu, pt): selector at the bottom of the home screen, language remembered, falls back to the browser language.
+- Voice announcements, notifications and dates follow the chosen language.
+- New test `tests/i18n.test.mjs` (no Romanian text left in the 7 translated languages); the older suites are pinned to Romanian.
+
 ## 3.0.0 — 2026-11-06
 
 - Adopt the fff-kit, `#app-version`, metas, `app.json`.

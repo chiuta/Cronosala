@@ -6,7 +6,7 @@ Timer und Trainingstagebuch fürs Fitnessstudio, in einer einzigen Offline-HTML-
 
 **[App öffnen →](https://cronosala.chiuta.ro/)**
 
-_Version: 3.0.0 · Zuletzt aktualisiert: 2026-11-06_
+_Version: 3.1.0 · Zuletzt aktualisiert: 2026-11-14_
 
 ## Funktionen
 
@@ -21,7 +21,7 @@ Seite online öffnen oder `index.html` herunterladen und in einem aktuellen Brow
 
 ## Grenzen
 
-- Die Oberfläche gibt es vorerst nur auf Rumänisch.
+- Die Oberfläche gibt es in 8 Sprachen (Rumänisch, Englisch, Französisch, Deutsch, Spanisch, Italienisch, Ungarisch, Portugiesisch); die Auswahl steht unten auf dem Startbildschirm. Die Sprachansagen folgen der gewählten Sprache, sofern das Gerät eine passende Stimme hat.
 - Die Daten liegen pro Gerät und Browser; zum Umziehen den Export nutzen. Kein medizinischer Rat und keine Trainingsverordnung.
 
 ## Datenschutz

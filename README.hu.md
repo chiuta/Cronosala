@@ -6,7 +6,7 @@ Időzítők és edzésnapló az edzőterembe, egyetlen offline HTML-fájlban, k�
 
 **[Az alkalmazás megnyitása →](https://cronosala.chiuta.ro/)**
 
-_Verzió: 3.0.0 · Utolsó frissítés: 2026-11-06_
+_Verzió: 3.1.0 · Utolsó frissítés: 2026-11-14_
 
 ## Funkciók
 
@@ -21,7 +21,7 @@ Nyisd meg az oldalt online, vagy töltsd le az `index.html` fájlt, és nyisd me
 
 ## Korlátok
 
-- A felület egyelőre csak románul érhető el.
+- A felület 8 nyelven érhető el (román, angol, francia, német, spanyol, olasz, magyar, portugál); a választó a kezdőképernyő alján található. A hangbemondások a kiválasztott nyelvet követik, ha az eszközön van hozzá hang.
 - Az adatok eszközönként és böngészőnként tárolódnak; az exporttal vihetők át. Nem orvosi tanács és nem edzésterv-előírás.
 
 ## Adatvédelem

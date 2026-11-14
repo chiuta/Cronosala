@@ -6,7 +6,7 @@ Timers and a workout log for the gym, in a single offline HTML file, without tra
 
 **[Open the app →](https://cronosala.chiuta.ro/)**
 
-_Version: 3.0.0 · Last updated: 2026-11-06_
+_Version: 3.1.0 · Last updated: 2026-11-14_
 
 ## Features
 
@@ -21,7 +21,7 @@ Open the page online, or download `index.html` and open it in a recent browser. 
 
 ## Limits
 
-- The interface is in Romanian only for now.
+- The interface is available in 8 languages (Romanian, English, French, German, Spanish, Italian, Hungarian, Portuguese); pick one at the bottom of the home screen. Voice prompts follow the chosen language if the device has a voice for it.
 - Data lives per device and browser; use the export to move it. This is not medical advice or a training prescription.
 
 ## Privacy

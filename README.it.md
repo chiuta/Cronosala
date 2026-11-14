@@ -6,7 +6,7 @@ Timer e diario di allenamento per la palestra, in un solo file HTML offline, sen
 
 **[Apri l’app →](https://cronosala.chiuta.ro/)**
 
-_Versione: 3.0.0 · Ultimo aggiornamento: 2026-11-06_
+_Versione: 3.1.0 · Ultimo aggiornamento: 2026-11-14_
 
 ## Funzioni
 
@@ -21,7 +21,7 @@ Apri la pagina online, oppure scarica `index.html` e aprilo in un browser recent
 
 ## Limiti
 
-- Per ora l’interfaccia è solo in rumeno.
+- L’interfaccia è disponibile in 8 lingue (rumeno, inglese, francese, tedesco, spagnolo, italiano, ungherese, portoghese); la scelta si trova in fondo alla schermata iniziale. Gli annunci vocali seguono la lingua scelta se il dispositivo ha una voce adatta.
 - I dati restano per dispositivo e browser; usa l’esportazione per spostarli. Non è un parere medico né una prescrizione di allenamento.
 
 ## Privacy
