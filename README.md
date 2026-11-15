@@ -6,7 +6,7 @@ Timers and a workout log for the gym, in a single offline HTML file, without tra
 
 **[Open the app →](https://cronosala.chiuta.ro/)**
 
-_Version: 3.1.0 · Last updated: 2026-11-14_
+_Version: 3.1.1 · Last updated: 2026-11-15_
 
 ## Features
 

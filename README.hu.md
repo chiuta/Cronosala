@@ -6,7 +6,7 @@ Időzítők és edzésnapló az edzőterembe, egyetlen offline HTML-fájlban, k�
 
 **[Az alkalmazás megnyitása →](https://cronosala.chiuta.ro/)**
 
-_Verzió: 3.1.0 · Utolsó frissítés: 2026-11-14_
+_Verzió: 3.1.1 · Utolsó frissítés: 2026-11-15_
 
 ## Funkciók
 
