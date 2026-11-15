@@ -1,7 +1,7 @@
 // Audit adversarial v3: node test3.js <fisier.html>
 const puppeteer = require('puppeteer-core');
 const fs = require('fs'), path = require('path'), cp = require('child_process');
-const FILE = process.argv[2];
+const FILE = require('path').resolve(process.argv[2] || 'index.html');   // cale absolută: «file://» + cale relativă nu e un URL valid
 const OUT = path.join(__dirname, 'qr_out'); fs.mkdirSync(OUT, { recursive: true });
 let pass = 0, fail = 0;
 const rec = (n, ok, d = '') => { ok ? pass++ : fail++; console.log((ok ? 'PASS ' : 'FAIL ') + n + (d ? '  — ' + d : '')); };

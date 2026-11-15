@@ -1,6 +1,6 @@
 // Suită adversarială pentru CRONOSALA. Rulează: node test.js <fișier.html>
 const puppeteer = require('puppeteer-core');
-const FILE = process.argv[2];
+const FILE = require('path').resolve(process.argv[2] || 'index.html');   // cale absolută: «file://» + cale relativă nu e un URL valid
 const results = [];
 const rec = (name, ok, detail = '') => { results.push({ name, ok, detail }); console.log((ok ? 'PASS ' : 'FAIL ') + name + (detail ? '  — ' + detail : '')); };
 

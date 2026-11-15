@@ -1,6 +1,7 @@
 // Audit responsiv: node test4.js <fisier.html>
 const puppeteer = require('puppeteer-core');
-const FILE = process.argv[2]; let pass = 0, fail = 0;
+// cale absolută: «file://» + cale relativă nu e un URL valid
+const FILE = require('path').resolve(process.argv[2] || 'index.html'); let pass = 0, fail = 0;
 const rec = (n, ok, d = '') => { ok ? pass++ : fail++; console.log((ok ? 'PASS ' : 'FAIL ') + n + (d ? '  — ' + d : '')); };
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const VPS = [[320,568,1],[360,640,1],[390,844,1],[430,932,1],[568,320,1],[667,375,1],[844,390,1],[768,1024,1],[1024,768,1],[1180,820,1],[1366,768,0],[1440,900,0],[1920,1080,0],[2560,1440,0]];

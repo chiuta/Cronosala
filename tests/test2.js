@@ -1,7 +1,7 @@
 // Teste v3: node test2.js <fisier.html>
 const puppeteer = require('puppeteer-core');
 const fs = require('fs'), path = require('path'), cp = require('child_process');
-const FILE = process.argv[2];
+const FILE = require('path').resolve(process.argv[2] || 'index.html');   // cale absolută: «file://» + cale relativă nu e un URL valid
 const OUT = path.join(__dirname, 'qr_out'); fs.mkdirSync(OUT, { recursive: true });
 let pass = 0, fail = 0;
 const rec = (n, ok, d = '') => { ok ? pass++ : fail++; console.log((ok ? 'PASS ' : 'FAIL ') + n + (d ? '  — ' + d : '')); };
@@ -128,9 +128,9 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
       const dd = PROG_DEF.slice(); dd[new Date().getDay()] = 'p5'; progSave({ start: monday.getTime(), days: dd });
       const w0 = weekOf(progGet(), new Date());
       o.w0 = w0;
-      const d22 = new Date(Date.now() + 22 * 864e5);
+      const d22 = new Date(monday.getTime() + 22 * 864e5);   // față de lunea de start (nu de «azi»: duminica, azi+22 zile cade în săptămâna 5)
       o.w3 = weekOf(progGet(), d22);
-      o.w4 = weekOf(progGet(), new Date(Date.now() + 29 * 864e5));
+      o.w4 = weekOf(progGet(), new Date(monday.getTime() + 29 * 864e5));
       renderProg(); o.progHtml = document.getElementById('progBody').innerText.length;
       o.rows = document.querySelectorAll('#progBody .crow').length;
       // pornire automată dintr-o zi de forță, cu deload
