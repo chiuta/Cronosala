@@ -328,8 +328,12 @@ const rec = (name, ok, detail = '') => { results.push({ name, ok, detail }); con
     const { page } = await fresh();
     await page.evaluate(() => { openType('hiit'); document.getElementById('goBtn').click(); });
     await page.evaluate(() => { window.__T += 12000; tick(); });
-    await new Promise(r => setTimeout(r, 2300));
-    await page.evaluate(() => { window.__T += 100; tick(); });
+    // salvarea periodică e limitată la una la 2 s: așteptăm (până la ~8 s) să apară efectiv în localStorage, în loc de o pauză fixă care pe o mașină încărcată putea fi prea scurtă
+    for (let i = 0; i < 12; i++) {
+      await new Promise(r => setTimeout(r, i ? 700 : 2300));
+      await page.evaluate(() => { window.__T += 100; tick(); });
+      if (await page.evaluate(() => !!localStorage.getItem('cronosala.run'))) break;
+    }
     await page.reload(); await new Promise(r => setTimeout(r, 200));
     const r = await page.evaluate(() => ({ banner: !!document.getElementById('resume') && !document.getElementById('resume').hidden, ls: !!localStorage.getItem('cronosala.run') }));
     rec('T15 antrenamentul întrerupt poate fi reluat după reload', r.banner && r.ls, JSON.stringify(r));
