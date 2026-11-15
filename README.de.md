@@ -6,7 +6,7 @@ Timer und Trainingstagebuch fürs Fitnessstudio, in einer einzigen Offline-HTML-
 
 **[App öffnen →](https://cronosala.chiuta.ro/)**
 
-_Version: 3.1.1 · Zuletzt aktualisiert: 2026-11-15_
+_Version: 3.2.0 · Zuletzt aktualisiert: 2026-11-15_
 
 ## Funktionen
 

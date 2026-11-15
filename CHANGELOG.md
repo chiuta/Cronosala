@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0 — 2026-11-15
+
+- New: accessibility on every screen — the “Aa” button (text size, high contrast, no animations, readable text, underlined links, read aloud), a “Back to top” arrow and “Skip to content”; the window always fits the screen; the magnifier zoom and “fit screen” controls now sit on the left edge (fff-kit 1.6.0).
+
 ## 3.1.2 — 2026-11-15
 
 - Changed: shared interface kit refreshed — the button inside notifications gets a larger touch target (40 px). No change to the app's own logic or texts.
