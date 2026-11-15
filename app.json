@@ -2,7 +2,7 @@
   "schema": 1,
   "slug": "cronosala",
   "name": "CRONOSALA — cronometre pentru sală",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "updated": "2026-11-15",
   "description": "CRONOSALA — cronometre pentru sală: pauze, HIIT, Tabata, EMOM, AMRAP, circuit, tempo, metronom. Un singur fișier, offline, fără urmărire.",
   "egress": [],
@@ -19,8 +19,8 @@
     "cronosala.",
     "cronosala.lang"
   ],
-  "sizeBytes": 601580,
-  "sha256": "d90a7696a804fdc4e4b595c797e7394ef97ef4dec3d92a290e46df486b375ce6",
+  "sizeBytes": 645078,
+  "sha256": "35c913e1eb512d96f81b08378c988899d2d9605eb4058da3433e6f48d91cc7e2",
   "csp": {
     "present": true,
     "directives": {
@@ -59,18 +59,22 @@
       "core",
       "store",
       "dialog",
+      "view",
       "a11y",
+      "share",
       "label",
       "bundle"
     ]
   },
   "kit": {
-    "version": "1.6.0",
+    "version": "1.7.0",
     "modules": [
       "core",
       "store",
       "dialog",
+      "view",
       "a11y",
+      "share",
       "label",
       "bundle"
     ]
