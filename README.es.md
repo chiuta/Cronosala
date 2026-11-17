@@ -6,7 +6,7 @@ Temporizadores y diario de entrenamiento para el gimnasio, en un solo archivo HT
 
 **[Abrir la aplicación →](https://cronosala.chiuta.ro/)**
 
-_Versión: 3.2.1 · Última actualización: 2026-11-15_
+_Versión: 3.2.2 · Última actualización: 2026-11-17_
 
 ## Funciones
 
