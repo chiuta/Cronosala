@@ -6,7 +6,7 @@ Timer e diario di allenamento per la palestra, in un solo file HTML offline, sen
 
 **[Apri l’app →](https://cronosala.chiuta.ro/)**
 
-_Versione: 3.2.2 · Ultimo aggiornamento: 2026-11-17_
+_Versione: 3.2.3 · Ultimo aggiornamento: 2026-11-20_
 
 ## Funzioni
 

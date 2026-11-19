@@ -6,7 +6,7 @@ Des minuteurs et un journal d’entraînement pour la salle de sport, dans un se
 
 **[Ouvrir l’application →](https://cronosala.chiuta.ro/)**
 
-_Version : 3.2.2 · Dernière mise à jour : 2026-11-17_
+_Version : 3.2.3 · Dernière mise à jour : 2026-11-20_
 
 ## Fonctionnalités
 
