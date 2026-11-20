@@ -8,6 +8,6 @@
     "test": "node tests/test.js index.html && node tests/test2.js index.html && node tests/test3.js index.html && node tests/test4.js index.html"
   },
   "devDependencies": {
-    "puppeteer-core": "^23.0.0"
+    "puppeteer-core": "^25.18.1"
   }
 }
