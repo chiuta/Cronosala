@@ -4,12 +4,12 @@ on:
   pull_request:
 jobs:
   chrome:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 26
       - run: pip install opencv-python-headless zxing-cpp numpy
       - run: npm install
       - run: npm test
